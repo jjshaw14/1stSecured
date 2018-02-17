@@ -1,0 +1,32 @@
+h5,h6 {
+  font-weight: 400;
+}
+h1,h2,h3,h4,h5,h6 {
+  &.section-title {
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    margin-bottom: 30px;
+  }
+}
+.text-sm {
+  font-size: 0.95em !important;
+}
+.text-lg {
+  font-size: 1.3em !important;
+}
+.text-xs {
+  font-size: 0.95em !important;
+}
+.text-xl {
+  font-size: 1.5em !important;
+}
+.text-tall {
+  line-height: 2;
+}
+.text-xxl {
+  font-size: 2em;
+}
+a, .btn {
+  &:focus, &:active {
+    outline: none;
+  }
+}

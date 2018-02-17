@@ -1,0 +1,113 @@
+  <div class="row">
+    <div class="col-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">
+            <a href="/dealerships/{{ vm.dealership.id }}">{{ vm.dealership.name }}</a> > {{ vm.contract.id ? 'Edit' : 'New' }} quote
+          </h1>
+        </div>
+      </div>
+
+      <form ng-submit="vm.save()" novalidate>
+        <div class="card">
+          <div class="card-body">
+            <div class="py-3">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group row">
+                    <div class="col">
+                      <label class="control-label">Year</label>
+                      <div class="form-control-static">{{ vm.contract.year }}</div>
+                    </div>
+                    <div class="col">
+                      <label class="control-label">Make</label>
+                      <div class="form-control-static">{{ vm.contract.make || '&nbsp;' }}</div>
+                    </div>
+                    <div class="col">
+                      <label class="control-label">Model</label>
+                      <div class="form-control-static">{{ vm.contract.model || '&nbsp;' }}</div>
+                    </div>
+                  </div>
+
+                  <div ng-class="{ 'is-invalid': vm.contract.errors.vin }" class="form-group">
+                    <label class="control-label">VIN</label>
+                    <input class="form-control" ng-model="vm.contract.vin" ng-change="vm.checkVIN()" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Purchase Date</label>
+                    <input class="form-control" type="date" ng-model="vm.contract.purchased_on" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Miles</label>
+                    <input class="form-control" ng-model="vm.contract.odometer" />
+                  </div>
+
+                  <hr />
+
+                  <div class="form-group">
+                    <label>Name</label>
+                    <div class="row">
+                      <div class="col pr-1">
+                        <input class="form-control" ng-model="vm.contract.first_name" placeholder="First" />
+                      </div>
+                      <div class="col pl-1">
+                        <input class="form-control" ng-model="vm.contract.last_name" placeholder="Last" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input class="form-control mb-1" ng-model="vm.contract.address1" placeholder="Line 1" />
+                    <input class="form-control mb-1" ng-model="vm.contract.address2" placeholder="Line 2" />
+                    <input class="form-control mb-1" ng-model="vm.contract.address3" placeholder="Line 3" />
+                    <div class="row">
+                      <div class="col pr-1">
+                        <input class="form-control" ng-model="vm.contract.city" placeholder="City" />
+                      </div>
+                      <div class="col px-0">
+                        <input class="form-control" ng-model="vm.contract.state" placeholder="State" />
+                      </div>
+                      <div class="col pl-1">
+                        <input class="form-control" ng-model="vm.contract.zip" placeholder="Zip" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div ng-repeat="package in vm.contract.template.packages" class="package">
+                    <span class="float-left">{{ package.name }}</span>
+                    <div class="coverage-and-addons">
+                      <label ng-repeat="coverage in package.coverages">
+                        <input type="radio" name="coverage" ng-change="vm.uncheckAddons()" ng-model="vm.contract.coverage" ng-value="coverage" /> {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles
+                      </label>
+                      <br />
+                      <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) }">
+                        <input ng-disabled="!vm.packageSelected(package)" type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
+                      </label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <div class="form-group">
+                <div class="float-right">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="button" ng-click="vm.cancel()" class="btn btn-link">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>

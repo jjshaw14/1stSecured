@@ -1,0 +1,229 @@
+$nav-icon-size: 2.1rem;
+.list-nav {
+  display: block;
+  margin:0;
+  padding: 0;
+
+}
+.list-nav-group-title {
+  border-bottom: none;
+  padding: 1.25rem 1.5rem 1rem;
+  font-size: 0.95em;
+}
+.list-nav-item {
+  display: block;
+  margin: 0;
+  padding: 0;
+  .list-nav-child {
+    display: block;
+    margin:0;
+    padding: 0;
+    height:0;
+    overflow: hidden;
+  }
+  &.active {
+    >.list-nav-link {
+      font-weight: 500;
+    }
+    .list-nav-child {
+      height: auto;
+    }
+  }
+  &.list-nav-child-item {
+    border-bottom: none;
+  }
+}
+.list-nav >.list-nav-item {
+  >.list-nav-link {
+    transition: background-color 0.5s ease;
+  }
+}
+
+.list-nav-child {
+  .list-nav-item {
+    &.active {
+      .list-nav-link {
+        .list-nav-icon {
+          background: none;
+          font-weight: inherit;
+        }
+      }
+    }
+  }
+}
+
+.list-nav-link {
+  display: flex;
+  line-height: $nav-icon-size;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+
+    text-decoration: none;
+    color: inherit;
+  }
+  &:focus,&:active {
+    outline:none;
+  }
+
+
+}
+.list-nav-child-item {
+  .list-nav-link {
+    padding: 0.4rem 1rem;
+    font-size: 1em;
+  }
+  &.active {
+    .list-nav-link {
+      padding: 0.4rem 1rem;
+      font-size: 1em;
+    }
+  }
+}
+.list-nav-icon {
+  color: inherit;
+  transition: background-color 0.5s ease;
+  display: block;
+  width: $nav-icon-size;
+  height: $nav-icon-size;
+  min-width: $nav-icon-size;
+  line-height: $nav-icon-size;
+  text-align: center;
+  border-radius: 2px;
+  background-color: rgba(100, 120, 140, 0.1);
+  .material-icons {
+    font-size: 1.05em;
+  }
+}
+.list-nav-icon-sm {
+  background: none;
+  text-align: center;
+  .material-icons {
+    font-size: 1em;
+  }
+}
+.list-nav-expand {
+  height: $nav-icon-size;
+  color: inherit;
+  line-height: $nav-icon-size;
+  padding-right: 0.25rem;
+  font-size: 0.6em;
+
+}
+.list-nav-label {
+  display: block;
+  width: 100%;
+  padding-left: 1rem;
+}
+.list-nav-light {
+  @include nav-theme-generate(lighten($gray-700, 5%), $primary, $gray-100, $gray-600);
+  @each $color, $value in $theme-colors {
+    &.list-nav-light-#{$color} {
+      @include nav-theme-generate(lighten($gray-700, 5%), $value, $gray-100, $gray-600);
+    }
+  }
+}
+.list-nav-dark {
+
+  @include nav-theme-generate(darken($gray-400, 5%), $primary, darken($dark, 10%), $gray-400);
+  @each $color, $value in $theme-colors {
+    &.list-nav-dark-#{$color} {
+      @include nav-theme-generate(darken($gray-400, 5%), $value, darken($dark, 10%), $gray-400);
+    }
+  }
+}
+
+.nav-material {
+  border-bottom: 1px solid $gray-200;
+  padding-left: 0.25rem;
+  .nav-item {
+    margin-bottom: -1px;
+    .nav-link {
+      font-weight: 400;
+      padding: 0.75rem 1.5rem;
+      font-size: 1em;
+      border-radius: 0;
+      margin-right: 0;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background:none;
+      position: relative;
+      color: inherit;
+      top: 0px;
+      &:focus {
+        outline: 0;
+      }
+      &:hover {
+        background:none;
+        color: inherit;
+      }
+      &.disabled {
+        cursor: not-allowed;
+        color: $gray-500;
+      }
+      &.active {
+        border: 0;
+        position: relative;
+        font-weight: 500;
+        border-bottom: 2px solid $primary;
+      }
+    }
+  }
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      .nav-item {
+        .nav-link {
+          &.active {
+              border-bottom-color: $value;
+          }
+        }
+      }
+    }
+  }
+}
+.nav-pills {
+
+  .nav-item {
+    margin-bottom: -1px;
+    .nav-link {
+      font-weight: 400;
+      padding: 0.6rem 1rem;
+      font-size: 1em;
+      border-radius: 0;
+      margin-right: 0;
+      border: 0;
+      color: inherit;
+      background:none;
+      position: relative;
+      top: 0;
+      &:focus {
+        outline: 0;
+      }
+      &:hover {
+        background:none;
+        color: inherit;
+      }
+      &.disabled {
+        cursor: not-allowed;
+        color: $gray-500;
+      }
+      &.active {
+        background: $primary;
+        color: white;
+      }
+    }
+  }
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      .nav-item {
+        .nav-link {
+          &.active {
+                background: $value;
+          }
+        }
+      }
+    }
+  }
+}

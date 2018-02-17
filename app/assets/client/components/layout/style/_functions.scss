@@ -1,0 +1,3 @@
+@function breakpoint-infix-max($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-max($name, $breakpoints) == null, "", "-#{$name}");
+}

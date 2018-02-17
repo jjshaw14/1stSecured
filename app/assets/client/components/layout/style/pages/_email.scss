@@ -1,0 +1,44 @@
+.email-sidebar {
+  width:17rem;
+  min-width:17rem;
+  min-height:95vh;
+  border-right: 1px solid #eee;
+
+  @include media-breakpoint-down(md) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: white;
+    display: none;
+    &.expanded {
+      display: block;
+    }
+
+  }
+}
+.email-container {
+  position: relative;
+
+
+}
+.email-card {
+  overflow: auto;
+}
+.email-toggle {
+  display: none;
+}
+@include media-breakpoint-down(md) {
+  .email-toggle {
+    display: block;
+  }
+}
+.email-list {
+  min-width: 25rem;
+  overflow-x: auto;
+  table {
+    td:first-child {
+      white-space: nowrap;
+    }
+  }
+}

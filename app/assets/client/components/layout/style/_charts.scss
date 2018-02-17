@@ -1,0 +1,55 @@
+.chart-container {
+  position: relative;
+}
+/* Import Chart Styles */
+$ct-line-width: 2px;
+$ct-bar-width: 30px;
+$ct-grid-dasharray: 0px;
+$ct-grid-width: 0.2px;
+$ct-grid-color: rgba(50, 50, 50, 0.9);
+$ct-point-size: 6px;
+$ct-series-colors: (
+  rgba($primary,0.9),
+  rgba($teal,0.9),
+  rgba($success,0.9),
+  rgba($info,0.9),
+  rgba($warning,0.9),
+  rgba($danger,0.9),
+  rgba($cyan,0.9),
+  rgba($indigo,0.9),
+  rgba($yellow,0.9),
+  rgba($pink,0.9),
+  #dda458,
+  #eacf7d,
+  #86797d,
+  #b2c326,
+  #6188e2,
+  #a748ca
+) !default;
+@import 'chartist/dist/scss/chartist.scss';
+@import 'c3/src/scss/main.scss';
+.c3 path {
+  stroke: $gray-300;
+}
+.c3-axis-x .tick {
+  color: $gray-500;
+  line {
+    visibility: hidden;
+  }
+}
+.c3-axis-x-label {
+  stroke: red;
+}
+
+.c3-axis-y .tick {
+  color: $gray-500;
+  line {
+    visibility: hidden;
+  }
+}
+.ct-label {
+  fill: white;
+}
+.js-plotly-plot .plotly .modebar {
+  z-index: 8 !important;
+}

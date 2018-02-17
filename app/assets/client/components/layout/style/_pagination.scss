@@ -1,0 +1,10 @@
+@each $color, $value in $theme-colors {
+  .pagination-#{$color}, .pagination-#{$color} .pagination {
+    .page-item.active {
+      .page-link {
+        background: $value !important;
+        border-color: $value !important; 
+      }
+    }
+  }
+}

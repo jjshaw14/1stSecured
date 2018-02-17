@@ -1,0 +1,200 @@
+/**
+*
+*  Simplify Admin
+*  v1.0
+*  Created by geekman.site
+*
+*  Last Modified: 31 December 2017
+*  See Manual for Full Changelog
+*
+*/
+
+/*
+* Simplify Admin Modifies and extends Bootstrap.
+*/
+
+
+
+/****** Table Of Content *******
+*. Functions
+*. Variables
+*. Mixins
+*. Bootstrap Print Styles
+*. Bootstrap Reboot
+*. Images
+*. Code
+*. Grid
+*. Tables
+*. Forms and Custom Forms
+*. Input Group
+*. Buttons
+*. Button Group
+*. Transitions
+*. Dropdown
+*. Navigation and Tabs
+*. Navbar
+*. Card
+*. Breadcrumbs
+*. Pagination
+*. Badges
+*. Jumbotron
+*. Alert
+*. Progress
+*. Media
+*. List-group
+*. Close
+*. Modal
+*. Tooltip
+*. Popover
+*. Carousel
+*. Utilities
+
+/* Bootstrap Functions */
+@import "bootstrap/scss/functions";
+@import "functions";
+
+/* Variables */
+@import "variables";
+@import "bootstrap/scss/variables";
+
+
+/* Mixins */
+@import "bootstrap/scss/mixins";
+@import "mixins/mixins";
+
+/* Bootstrap Root Styling and Variables */
+@import "bootstrap/scss/root";
+@import "root";
+
+/* Bootstrap Print Styling */
+@import "bootstrap/scss/print";
+
+/* Bootstrap Reboot */
+@import "bootstrap/scss/reboot";
+
+/* Typography */
+@import "bootstrap/scss/type";
+@import "typography";
+
+/* Images */
+@import "bootstrap/scss/images";
+
+/* Code */
+@import "bootstrap/scss/code";
+
+/* Bootstrap Grid */
+@import "bootstrap/scss/grid";
+
+/* Tables */
+@import "bootstrap/scss/tables";
+@import "tables";
+
+/* Forms */
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/custom-forms";
+@import "forms";
+
+
+/* Input Group */
+@import "bootstrap/scss/input-group";
+
+/* Buttons */
+@import "bootstrap/scss/buttons";
+@import "buttons";
+
+/* Button Group */
+@import "bootstrap/scss/button-group";
+
+
+/* Transitions */
+@import "bootstrap/scss/transitions";
+
+/* Dropdown */
+@import "bootstrap/scss/dropdown";
+@import "dropdown";
+
+/* Navigation and Tabs */
+@import "bootstrap/scss/nav";
+@import "nav";
+
+/* Navbar */
+@import "bootstrap/scss/navbar";
+
+/* Cards */
+@import "bootstrap/scss/card";
+@import "cards";
+
+/* Breadcrumbs */
+@import "bootstrap/scss/breadcrumb";
+
+/* Pagination */
+@import "bootstrap/scss/pagination";
+@import "pagination";
+
+/* Badge */
+@import "bootstrap/scss/badge";
+
+/* Jumbotron */
+@import "bootstrap/scss/jumbotron";
+
+/* Alert */
+@import "bootstrap/scss/alert";
+
+/* Progress */
+@import "bootstrap/scss/progress";
+@import "progress";
+
+/* Media */
+@import "bootstrap/scss/media";
+@import "media";
+
+/* List Group */
+@import "bootstrap/scss/list-group";
+@import "lists";
+
+/* Close Button */
+@import "bootstrap/scss/close";
+
+/* Modal */
+@import "bootstrap/scss/modal";
+
+/* Tooltip */
+@import "bootstrap/scss/tooltip";
+.tooltip {
+  font-size: 0.85rem !important;
+}
+
+/* Popover */
+@import "bootstrap/scss/popover";
+
+/* Carousel */
+@import "bootstrap/scss/carousel";
+@import "carousel";
+
+/* Utilites */
+@import "bootstrap/scss/utilities";
+@import "utilities";
+
+/* Icons */
+@import "icons/icons";
+
+/* Layout */
+@import "layout";
+
+/* Sidebar */
+@import "sidebar";
+
+/* Topbar */
+@import "topbar";
+
+/* Charts */
+@import "charts";
+
+/* Calendar */
+@import "calendar";
+
+/* Email */
+@import "pages/email";
+@import "pages/website";
+
+@import 'override'

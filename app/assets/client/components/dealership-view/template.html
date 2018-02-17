@@ -1,0 +1,93 @@
+<form ng-submit="vm.save()" novalidate>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">
+            {{ vm.dealership.name }}
+          </h1>
+          <h5>{{ vm.dealership | address }}</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="py-3">
+                <h4 class="card-title">
+                  Templates
+                </h4>
+                <div ng-show="vm.dealership.templates.length === 0">
+                  No templates. <a href="/dealerships/{{ vm.dealership.id }}/templates/new">Add one.</a>
+                </div>
+                <ul class="mb-0 pl-6" ng-show="vm.dealership.templates.length > 0">
+                  <li ng-repeat="template in vm.dealership.templates">
+                    {{ template.name }} -
+                    <a href="/dealerships/{{ vm.dealership.id }}/templates/{{ template.id }}/edit">Edit</a>
+                  </li>
+                  <li>
+                    <a href="/dealerships/{{ vm.dealership.id }}/templates/new">New Template</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="py-3">
+                <h4 class="card-title">
+                  Users
+                </h4>
+                <div ng-show="vm.dealership.users.length === 0">
+                  No templates. <a href="/dealerships/{{ vm.dealership.id }}/users/new">Add one.</a>
+                </div>
+                <ul class="mb-0 pl-6" ng-show="vm.dealership.users.length > 0">
+                  <li ng-repeat="template in vm.dealership.templates">
+                    {{ template.name }} -
+                    <a href="/dealerships/{{ vm.dealership.id }}/templates/{{ template.id }}/edit">Edit</a>
+                  </li>
+                  <li>
+                    <a href="/dealerships/{{ vm.dealership.id }}/templates/new">New Template</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="card">
+            <div class="card-body">
+              <a class="btn btn-sm btn-primary pull-right" href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
+                New Quote
+              </a>
+
+              <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
+                <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                  New Quote <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <a href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
+                    {{ template.name }}
+                  </a>
+                </div>
+              </div>
+
+              <h4 class="card-title">
+                Contracts
+              </h4>
+
+              <div class="py-3">
+
+                <contract-table ng-if="vm.dealership" dealership="vm.dealership"></contract-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

@@ -1,0 +1,42 @@
+<div>
+  <div class="mb-5">
+    <form>
+      <input type="text" class="form-control" placeholder="Search by customer name, date, or VIN..." ng-model="vm.searchText" ng-change="vm.search()" autofocus />
+    </form>
+  </div>
+
+  <table class="table table-bordered table-condensed">
+    <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th ng-hide="vm.dealership">Dealership</th>
+        <th>Customer</th>
+        <th>Vehicle</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="contract in vm.contracts">
+        <td>{{ contract.created_at | date:'MM/dd/yyyy' }}</td>
+        <td ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
+        <td>
+          {{ contract.first_name }} {{ contract.last_name }} <br >
+          <!-- <small>
+            {{ contract.address1 }} <br >
+            <span ng-if="contract.address2">{{ contract.address2 }} <br ></span>
+            <span ng-if="contract.address3">{{ contract.address3 }} <br ></span>
+            {{ contract.city }}, {{ contract.state }} {{ contract.zip }} <br >
+          </small> -->
+        </td>
+        <td>
+          {{ contract.vin }} /
+          {{ contract.year }} {{ contract.make }} {{ contract.model }}
+        </td>
+        <td>
+          <a href="/dealerships/{{ contract.dealership.id }}/contracts/{{ contract.id }}/edit">Edit</a> |
+          <a target="_blank" href="/api/v1/dealerships/{{ contract.dealership.id }}/contracts/{{ contract.id }}.pdf">Print</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

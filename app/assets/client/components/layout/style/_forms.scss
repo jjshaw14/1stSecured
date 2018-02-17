@@ -1,0 +1,128 @@
+.form-control {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  &::placeholder {
+    color: $gray-500;
+  }
+  &:focus {
+    border-color: $info;
+  }
+}
+.form-control-clear{
+  border: 0;
+  &:focus {
+    box-shadow: none;
+  }
+}
+// @include form-validation-state-ng("invalid", $form-feedback-invalid-color);
+// @include form-validation-state-ng("valid", $form-feedback-valid-color);
+.custom-control {
+  padding-left: 2rem;
+}
+
+.custom-control-indicator.custom-control-material {
+  border: 1px solid $gray-400;
+  background-color: transparent;
+}
+.custom-control-input:checked ~ .custom-control-indicator.custom-control-material {
+  border: 0;
+}
+.custom-control-input:checked ~ .custom-control-indicator {
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      background-color: $value;
+    }
+  }
+}
+.custom-control-indicator {
+  top:0;
+}
+.form-control.is-warning {
+  border-color: $warning;
+  &:focus {
+    box-shadow: 0 0 0 .2rem rgba($warning,0.25);
+  }
+}
+
+
+/* Overwrite default medium editor style */
+.medium-editor-element {
+  border: 1px solid $gray-400;
+  padding: 1rem;
+  min-height: 15rem !important;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+  }
+}
+.medium-editor-action {
+  .fa {
+    font-size: 0.9em !important;
+  }
+}
+/* Overwrite Dropzone defulat style */
+.dropzone {
+  background: $gray-100 !important;
+  border: 1px solid $gray-400 !important;
+  min-height: 120px !important;
+  text-transform: uppercase;
+}
+
+
+
+/* Date Picker */
+.ngb-dp-month .btn-light {
+  box-shadow: none;
+  border-radius: 2px !important;
+  font-size: 0.8rem;
+  color: $body-color;
+}
+.ngb-dp-weekday {
+  color: $primary !important;
+}
+.ngb-dp-header {
+  padding-top: 0.75rem !important;
+}
+ngb-datepicker {
+  border-radius: 0 !important;
+}
+.btn-link.ngb-dp-arrow-btn {
+  color: $primary !important;
+  font-size: 0.75rem !important;
+}
+@each $color, $value in $theme-colors {
+  .datepicker-#{$color} {
+    .ngb-dp-weekday {
+      color: $value !important;
+    }
+    .btn-link.ngb-dp-arrow-btn {
+      color: $value !important;
+    }
+    .btn-light.bg-primary.text-white {
+      background: $value !important;
+    }
+  }
+}
+
+
+/* Overwrite Timepicker style */
+.ngb-tp .btn-link {
+  color: $primary;
+}
+@each $color, $value in $theme-colors {
+  .timepicker-#{$color} {
+    .ngb-tp .btn-link {
+      color: $value;
+    }
+  }
+}
+
+/* typeahed */
+.tt-menu {
+  background: white;
+  width: 100%;
+  box-shadow: 0 2px 2px 1px rgba(0,0,0,.1);
+  .tt-suggestion {
+    padding: 1rem 1rem;
+  }
+}

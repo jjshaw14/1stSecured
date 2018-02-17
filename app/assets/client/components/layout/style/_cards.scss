@@ -1,0 +1,101 @@
+.card {
+  border: 1px solid $gray-200;
+  position: relative;
+
+}
+.card-fullscreen {
+   position: fixed;
+   border:none !important;
+   left: 0;
+   top:0;
+   width: 100%;
+   min-height: 100%;
+   z-index: 21;
+   height: 100%;
+   overflow-y: auto !important;
+   .card-footer {
+     position: absolute;
+     bottom:0;
+     width: 100%;
+   }
+   .card-img-top{
+     max-height: 50vh;
+     object-fit: cover;
+   }
+}
+.card-collapsed {
+  .card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    height: 0;
+    overflow-y: hidden;
+  }
+}
+.card-body {
+  position: relative;
+  padding: 1.3rem 1.5rem;
+}
+.card-header {
+  position: relative;
+  border: none;
+  background: none;
+  padding: 1.3rem 1.5rem;
+
+  h1,h2,h3,h4,h5 {
+    margin: 0;
+    + p {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+    }
+  }
+  + .card-body {
+    padding-top: 0;
+    &.card-body-p {
+      padding-top: 1.25rem;
+    }
+  }
+}
+.card.collpased {
+  .card-body {
+
+  }
+}
+.card-actions {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 1.4rem;
+  top: 1.2rem;
+  @include clearfix();
+  li {
+    display: block;
+    margin:0;
+    padding: 0;
+    float: left;
+    a,button {
+      display: block;
+      width: 1.8rem;
+      background: none;
+      border: none;
+      outline: none;
+      margin:0;
+      padding: 0;
+      height: 1.8rem;
+      line-height: 1.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: $secondary;
+      border-radius: 50%;
+      margin-left: 0.3rem;
+      cursor: pointer;
+      &:hover {
+        background: rgba(100,100,100,0.1);
+      }
+    }
+  }
+}
+.card-footer {
+  background: none;
+}

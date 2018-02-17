@@ -1,0 +1,122 @@
+/*
+* Page Layout
+* For the layout styles to work properly, each page must follow following page layout
+* *******[Page Layout]*******
+1. [HEAD]
+
+    i. Title
+    ii. Metadata
+    iii. StyleSheets
+    iv. Critical Javascript
+
+2. [BODY]
+
+    i. Full Page Wrapper Div (div.full-page)
+        a. Left Sidebar (.sidebar-container div.sidebar.sidebar-left)
+
+        b. Page WRapper(div.page)
+          I. TopBar (.topbar-container .topbar)
+          II. Main Page Division (div.page-content)
+                  *** The Contents of Your Page Go Here****
+          III. Right Sidebar (Optional) (.sidebar-right-container div.sidebar.sidebar-right)
+
+
+    ii. JavaScript Files (for non Angular version)
+
+*/
+.sidebar-left {
+  width: $sidebar-size;
+  position: absolute;
+  height: 100%;
+  &.sidebar-fixed {
+    position: fixed;
+    .scroll {
+      height:100vh; overflow:hidden; position: relative;
+    }
+  }
+
+  left: 0;
+  top: 0;
+  transition: margin-left 0.3s, width 0.3s;
+  overflow: hidden;
+  z-index:10;
+  margin-left: -$sidebar-size;
+
+  &.visible {
+    margin-left: 0;
+  }
+  @include media-breakpoint-sidebar-collapse() {
+    margin-left: 0;
+    &.visible {
+      margin-left: 0;
+    }
+  }
+
+}
+.full-page {
+  position: relative;
+  min-height: 99vh;
+}
+.sidebar-right {
+  width: $sidebar-size;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 11;
+  margin-right: -$sidebar-size;
+  transition: margin-right 0.3s;
+  &.visible {
+    margin-right: 0;
+  }
+}
+
+.page {
+
+  margin-left: 0;
+  position: relative;
+  transition: 0.3s margin-left;
+
+  padding-top: $topbar-size;
+  @include media-breakpoint-sidebar-collapse() {
+    margin-left: $sidebar-size;
+    &.no-sidebar {
+      margin-left: 4.5rem;
+    }
+  }
+}
+.page-content {
+  padding: $grid-gutter-width ($grid-gutter-width/2);
+  padding-bottom: 0;
+
+  position: relative;
+
+  .card {
+    margin-bottom: $grid-gutter-width;
+  }
+  @include media-breakpoint-down(xs) {
+    padding: $grid-gutter-width 0;
+    .card {
+      margin-bottom: $grid-gutter-width/2;
+    }
+  }
+  padding-bottom: 30px;
+}
+/* Layout Utilities */
+
+.display-hover-only-container {
+  .display-hover-only-item {
+    visibility: hidden;
+  }
+  &:hover {
+    .display-hover-only-item {
+      visibility: visible;
+    }
+
+  }
+}
+.ps__thumb-y {
+  width: 3px !important;
+}
+.ps__rail-y:hover .ps__thumb-y {
+  width: 9px !important;
+}

@@ -1,0 +1,107 @@
+.sidebar {
+  width: $sidebar-size;
+  background: white;
+  color: inherit;
+  min-height: 100vh;
+  border-right: 1px solid $gray-200;
+  box-shadow: 0 1px 1px 1px rgba(200,200,200,0.1);
+  z-index:20;
+
+}
+.sidebar-dark {
+  background: darken($dark,12%);
+  border-right: 0;
+}
+.sidebar-right {
+  box-shadow: 0 1px 2px 2px rgba(100,100,100,0.1);
+}
+.sidebar-brand {
+  position: relative;
+  height: $topbar-size;
+  padding: 0.3rem 1.3rem;
+  line-height: ($topbar-size - (2 * $sidebar-padding-y));
+  font-size: 1.2em;
+  font-family: 'Arvo';
+  font-weight: 400;
+  .title {
+    transition: opacity 0.5s;
+  }
+
+}
+.sidebar-header {
+  font-weight: 400;
+  .logo {
+    top: ($topbar-size - $sidebar-logo-size)/2;
+    right: 1.25rem;
+    position:absolute;
+    height: $sidebar-logo-size;
+    width: $sidebar-logo-size;
+    text-align: center;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .material-icons {
+      font-size: 1.4rem;
+      line-height: 1;
+
+    }
+  }
+}
+
+
+.sidebar {
+
+  @include media-breakpoint-sidebar-collapse() {
+    &.collapsed {
+      width: 4.5rem;
+      .list-nav {
+        width: $sidebar-size;
+      }
+      .sidebar-brand .title {
+        opacity: 0;
+      }
+      .list-nav {
+        .list-nav-label {
+          display: none;
+        }
+        .list-nav-group-title {
+          visibility: hidden;
+          &::after {
+            content: '*';
+            visibility: visible;
+            position: absolute;
+            right: 2rem;
+          }
+
+        }
+        .list-nav-expand {
+          display: none;
+        }
+      }
+      &:hover {
+        width: $sidebar-size;
+        .sidebar-brand .title {
+          opacity: 1;
+        }
+        .list-nav {
+          .list-nav-label {
+            display:inline;
+          }
+          .list-nav-group-title {
+            visibility: visible;
+            &::after {
+              visibility: hidden;
+
+            }
+
+          }
+          .list-nav-expand {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+}

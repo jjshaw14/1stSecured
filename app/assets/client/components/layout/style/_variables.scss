@@ -1,0 +1,207 @@
+//
+// Color system
+//
+
+// stylelint-disable
+$white: #ffffff !default;
+$gray-100: #f3f6fa !default;
+$gray-200: #e8ecf1 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: lighten(#4e5a66 ,2%)!default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$grays: () !default;
+$grays: map-merge((
+"100": $gray-100,
+"200": $gray-200,
+"300": $gray-300,
+"400": $gray-400,
+"500": $gray-500,
+"600": $gray-600,
+"700": $gray-700,
+"800": $gray-800,
+"900": $gray-900
+), $grays);
+
+$blue: #3a92ff !default;
+$indigo: #6610f2 !default;
+$purple: darken(#8a75f2,1%) !default;
+$pink: #e83e8c !default;
+$red: #eb4c5d !default;
+$orange: #fd780a !default;
+$yellow: #ffc411 !default;
+$green: #1cbd35 !default;
+$teal: #26c1b2 !default;
+$cyan: #17a2b8 !default;
+$code-color: lighten(#bd4147,10%) !default;
+$colors: () !default;
+$colors: map-merge((
+"blue": $blue,
+"indigo": $indigo,
+"purple": $purple,
+"pink": $pink,
+"red": $red,
+"orange": $orange,
+"yellow": $yellow,
+"green": $green,
+"teal": $teal,
+"cyan": $cyan,
+"white": $white,
+"gray": $gray-600,
+"gray-dark": $gray-800
+), $colors);
+
+$primary: $purple !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $blue !default;
+$warning: $orange !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-700 !default;
+$link-color: $blue !default;
+
+
+
+$theme-colors: () !default;
+$theme-colors: map-merge((
+"primary": $primary,
+"secondary": $secondary,
+"success": $success,
+"info": $info,
+"warning": $warning,
+"danger": $danger,
+"light": $light,
+"dark": $dark,
+"teal": $teal,
+"indigo": $indigo,
+"cyan": $cyan,
+"yellow": $yellow,
+"pink": $pink
+), $theme-colors);
+// stylelint-enable
+
+
+$body-bg: $gray-100; //Modified
+$body-color: lighten($gray-700,2%);
+$grid-gutter-width: 30px;
+$separator-color: $gray-200;
+
+
+// Fonts
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// stylelint-disable value-keyword-case
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-monospace: "Roboto Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$font-family-base: $font-family-sans-serif;
+// stylelint-enable value-keyword-case
+
+$font-size-base: 0.875rem !default;
+$font-size-lg: ($font-size-base * 1) !default;
+$font-size-sm: ($font-size-base * .75) !default;
+
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-bold: 700 !default;
+
+$font-weight-base: $font-weight-normal !default;
+$line-height-base: 1.5 !default;
+
+$h1-font-size: $font-size-base * 2.2 !default;
+$h2-font-size: $font-size-base * 1.9 !default;
+$h3-font-size: $font-size-base * 1.6 !default;
+$h4-font-size: $font-size-base * 1.3 !default;
+$h5-font-size: $font-size-base * 1.1 !default;
+$h6-font-size: $font-size-base * 1 !default;
+
+
+$headings-font-weight: 300 !default;
+
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+$input-btn-padding-y: .5rem;
+$input-btn-padding-x: 1.5rem;
+$input-btn-line-height: $line-height-base !default;
+$input-btn-focus-width: 0px !default;
+
+
+$input-btn-padding-y-sm: .4rem; //Modified
+$input-btn-padding-x-sm: 1rem; //Modified
+
+
+$input-btn-padding-y-lg: 0.6rem; //Modified
+$input-btn-padding-x-lg: 2.25rem; //Modified
+
+
+
+
+// Forms
+$custom-control-indicator-size: 1.25rem !default;
+$custom-control-indicator-bg: #ddd !default;
+
+$code-bg: $gray-100 !default;
+
+$border-radius: 2px !default;
+$border-radius-sm: 2px !default;
+$border-radius-lg: 2px !default;
+
+// Spacing
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: ($spacer * .75),
+  4: $spacer,
+  5: ($spacer * 1.25),
+  6: ($spacer * 1.5),
+  7: ($spacer * 1.75),
+  8: ($spacer * 2),
+  9: ($spacer * 2.25),
+  10: ($spacer * 2.5),
+  11: ($spacer * 2.75),
+  12: ($spacer * 3),
+  13: ($spacer * 3.5),
+  14: ($spacer * 4),
+  15: ($spacer * 5),
+  16: ($spacer * 6),
+) !default;
+
+//
+// Pagination
+//
+$pagination-color: $secondary;
+$pagination-active-bg:              $info !default;
+$pagination-active-border-color:    $info !default;
+
+//
+// Tooltip
+//
+$tooltip-padding-y: 0.5rem !default;
+$tooltip-padding-x: 0.75rem!default;
+
+//
+// Layout
+//
+$sidebar-size: 17rem;
+$topbar-size: 3.8rem;
+$sidebar-padding-y : 0.3rem;
+$sidebar-logo-size: 2.5rem;
+$sidebar-expand-breakpoint: 1200px;
+
+
+// Tables
+
+$table-accent-bg: $gray-200 !default;
+$table-hover-bg: $gray-100 !default;

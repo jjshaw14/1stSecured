@@ -1,0 +1,100 @@
+.table {
+  thead {
+    tr {
+      td,th {
+        border-bottom-width: 1px;
+
+      }
+    }
+  }
+  thead,tbody {
+    tr {
+      th {
+        font-weight: 500;
+      }
+    }
+  }
+}
+.table.table-middle {
+  tbody {
+    tr {
+      td,th {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+.table.table-compact {
+  thead, tbody, tfoot {
+    tr {
+      td,th {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  }
+}
+.table-material {
+  thead,tbody, tfoot {
+    tr {
+      td,th {
+        &:first-child {
+          padding-left: 2rem;
+        }
+        &:last-child {
+          padding-right: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-down($breakpoint) {
+    $infix: breakpoint-infix-max($breakpoint, $grid-breakpoints);
+    .rt#{$infix} {
+      @include responsive-table-generate();
+    }
+  }
+}
+
+/* Overwrite default Datatable styling */
+
+.dataTables_wrapper {
+  select, input {
+    width: 5rem;
+    height: 2rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid $gray-200;
+  }
+  input {
+    width: 10rem;
+  }
+  .dataTables_paginate .paginate_button {
+    &.current {
+      background: $info !important;
+      color: white!important;
+    }
+    &:hover {
+      border-color: $gray-200 !important;
+      box-shadow: noone;
+      background: $gray-100 !important;
+      color: $body-color !important;
+
+    }
+  }
+}
+.dataTable {
+  border-color: $gray-200 !important;
+  td,th {
+    border-color: $gray-200 !important;
+    padding: 1rem 0.75rem !important;
+  }
+}
+.datatable-header-cell {
+  padding: 0.5rem 1rem;
+}
+.datatable-body-cell {
+  padding: 0.5rem 1rem;
+}

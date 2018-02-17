@@ -1,0 +1,19 @@
+@mixin form-validation-state-ng($state, $color) {
+  .form-control,
+  .custom-select {
+    &.ng-touched.ng-#{$state} {
+      border-color: $color;
+      &:focus {
+        box-shadow: 0 0 0 .2rem rgba($color,.25);
+      }
+    }
+  }
+
+  .form-check-input {
+    &.ng-touched.ng-#{$state} {
+      + .form-check-label {
+        color: $color;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@mixin nav-theme-generate($color, $background, $hovercolor, $faded-color) {
+
+  color: $color;
+  .list-nav-icon {
+    color: $faded-color;
+  }
+  .list-nav-child {
+    background-color: $hovercolor;
+  }
+
+  >.list-nav-item {
+    &.active {
+      background-color: $hovercolor;
+      >.list-nav-link {
+        background-color: $hovercolor;
+        >.list-nav-icon {
+          background: $background;
+          color: white;
+        }
+      }
+    }
+  }
+  .list-nav-link {
+    &:hover {
+      background-color: $hovercolor;
+    }
+
+  }
+  .list-nav-child {
+    .list-nav-item {
+      &.active {
+        .list-nav-link {
+          color: $background;
+          .list-nav-icon {
+            color: $background;
+            .material-icons {
+              color: $background;
+            }
+          }
+        }
+      }
+    }
+  }
+}

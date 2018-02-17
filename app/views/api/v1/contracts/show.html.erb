@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contract</title>
+  <style>
+    body {
+      width: 100%;
+      background-color: #999;
+    }
+
+    .page-preview-wrapper {
+      margin: 20px auto;
+      background-color: #fff;
+      width: 8.5in;
+      height: 11in;
+    }
+
+    .page {
+      padding: 30px 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-preview-wrapper">
+    <%= render partial: 'api/v1/contracts/printable', locals: { contract: @contract } %>
+  </div>
+</body>
+</html>

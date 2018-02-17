@@ -1,0 +1,38 @@
+<div class="full-page-container">
+  <div class="d-flex flex-row justify-content-center px-4" style="margin-top:9vh;" >
+    <div class="card" style="width:28rem;">
+      <div class="card-header py-3  d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #eee;">
+        <h5>Login to Continue</h5>
+        <img src="/favicon-32x32.png" />
+      </div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group mb-4 mt-2">
+            <%= f.label :email, 'Email Address' %>
+            <%= f.email_field :email, placeholder: 'you@email.com', autofocus: true, autocomplete: "email", class: 'form-control' %>
+          </div>
+          <div class="form-group mb-4">
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: 'off', placeholder: '*******', class: 'form-control' %>
+          </div>
+          <div class="custom-control custom-checkbox mb-2">
+            <%= f.check_box :remember_me, class: 'custom-control-input' %>
+            <%= f.label :remember_me, 'Keep Me Logged In', class: 'custom-control-label' %>
+          </div>
+          <div class="py-1">
+            <%= f.submit "Log in", class: 'btn btn-primary btn-block' %>
+          </div>
+          <div class="py-2 px-0">
+            <p class="mb-0">
+              <%= link_to 'Sign In With Google', user_google_oauth2_omniauth_authorize_path, class: 'btn btn-link pl-1' %>
+              <%= link_to 'Forgot Password?', new_password_path(resource_name), class: 'btn btn-link pl-1' %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <button class=" btn btn-link pl-1">Want to sign up? Contact us!</button>
+      </div>
+    </div>
+  </div>
+</div>
