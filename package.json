@@ -2,7 +2,8 @@
   "name": "FirstSecured",
   "private": true,
   "scripts": {
-    "dev": "webpack -w"
+    "dev": "webpack -w",
+    "postinstall": "webpack"
   },
   "dependencies": {
     "angular": "^1.6.8",

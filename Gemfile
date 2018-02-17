@@ -28,6 +28,8 @@ gem 'wkhtmltopdf-binary'
 
 gem 'redcarpet'
 
+gem 'webpacker', require: false
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
