@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope constraints: { subdomain: 'portal' } do
+  # scope constraints: { subdomain: 'portal' } do
     devise_for :users, path: '', controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
     namespace :api, defaults: { format: :json } do
@@ -38,8 +38,8 @@ Rails.application.routes.draw do
     end
 
     root to: 'portal#boot'
-  end
+  # end
 
 
-  root to: 'site#home'
+  # root to: 'site#home'
 end
