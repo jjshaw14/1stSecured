@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         end
         resource :vin, controller: :vin
         resources :users
+
+        resources :contracts, only: [:index]
       end
     end
 
