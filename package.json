@@ -2,7 +2,8 @@
   "name": "FirstSecured",
   "private": true,
   "scripts": {
-    "dev": "webpack -w"
+    "dev": "webpack -w",
+    "heroku-postbuild": "webpack"
   },
   "dependencies": {
     "angular": "^1.6.8",
