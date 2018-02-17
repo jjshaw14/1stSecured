@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack -w",
-    "postinstall": "webpack"
+    "postinstall": "webpack -p"
   },
   "dependencies": {
     "angular": "^1.6.8",
