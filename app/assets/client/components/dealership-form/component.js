@@ -3,7 +3,7 @@ import angular from 'angular'
 angular.module('firstsecured')
 .component('dealershipForm', {
   template: require('./template.html'),
-  controller: ['Dealership', '$routeParams', '$window', function(Dealership, $routeParams, $window) {
+  controller: ['Dealership', '$routeParams', '$window', '$location', function(Dealership, $routeParams, $window, $location) {
     var vm = this
 
     vm.$onInit = () => {
@@ -20,7 +20,7 @@ angular.module('firstsecured')
     vm.save = function() {
       Dealership.save(vm.dealership).then((response) => {
         vm.dealership = response.data
-        $window.location.path(`/dealerships/${vm.dealership.id}`)
+        $location.path(`/dealerships/${vm.dealership.id}`)
       })
     }
 

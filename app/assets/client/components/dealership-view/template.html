@@ -4,6 +4,8 @@
       <div class="card">
         <div class="card-body">
           <h1 class="card-title">
+            <a class="btn btn-primary btn-sm mb-2 pull-right" href="/dealerships/{{ vm.dealership.id }}/edit">Edit</a>
+
             {{ vm.dealership.name }}
           </h1>
           <h5>{{ vm.dealership | address }}</h5>
