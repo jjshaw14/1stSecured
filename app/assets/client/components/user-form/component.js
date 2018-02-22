@@ -3,7 +3,7 @@ import angular from 'angular'
 angular.module('firstsecured')
 .component('userForm', {
   template: require('./template.html'),
-  controller: ['User', '$routeParams', '$window', function(User, $routeParams, $window) {
+  controller: ['User', '$routeParams', '$window', '$location', function(User, $routeParams, $window, $location) {
     var vm = this
 
     vm.$onInit = () => {
@@ -18,9 +18,9 @@ angular.module('firstsecured')
     }
 
     vm.save = function() {
-      User.save(vm.dealership).then((response) => {
+      User.save(vm.user).then((response) => {
         vm.user = response.data
-        $window.location.path(`/users/${vm.user.id}`)
+        $location.path('/users')
       })
     }
 

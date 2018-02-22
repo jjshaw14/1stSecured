@@ -7,10 +7,13 @@ Rails.application.routes.draw do
         resources :dealerships do
           resources :templates do
             post :preview, action: :preview, on: :collection
+            get :preview, action: :preview, on: :member
           end
           resources :contracts
         end
         resource :vin, controller: :vin
+
+        resources :service_providers, path: 'service-providers'
         resources :users
 
         resources :contracts, only: [:index]
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
 
       get 'dealerships/:id/contracts/new'
       get 'dealerships/:id/contracts/:id/edit'
+      get 'dealerships/:id/contracts/:id'
       get 'dealerships/:id/templates/new'
       get 'dealerships/:id/templates/:id/edit'
       get 'dealerships/:id/users/new'

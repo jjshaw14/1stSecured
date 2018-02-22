@@ -26,10 +26,13 @@ ActiveRecord::Schema.define(version: 20180126021634) do
 
   create_table "claims", force: :cascade do |t|
     t.bigint "contract_id"
+    t.bigint "provider_id"
+    t.integer "cost_in_cents"
     t.integer "odometer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["contract_id"], name: "index_claims_on_contract_id"
+    t.index ["provider_id"], name: "index_claims_on_provider_id"
   end
 
   create_table "contract_addons", force: :cascade do |t|
@@ -106,6 +109,18 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["template_id"], name: "index_packages_on_template_id"
+  end
+
+  create_table "service_providers", force: :cascade do |t|
+    t.string "name"
+    t.string "address1"
+    t.string "address2"
+    t.string "address3"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "templates", force: :cascade do |t|

@@ -26,7 +26,10 @@ module Api
       end
 
       def create
-        @user = User.create(user_params)
+        @user = User.create(user_params) do |u|
+          u.password ||= SecureRandom.hex(20)
+        end
+
         if @user.save
           render 'show'
         else
@@ -61,9 +64,9 @@ module Api
       end
 
       def user_params
-        user_params = params.permit(:vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, dealership: [:id])
+        user_params = params.permit(:first_name, :last_name, :email)
 
-        user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params[:dealership]
+        # user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params[:dealership]
 
         user_params
       end

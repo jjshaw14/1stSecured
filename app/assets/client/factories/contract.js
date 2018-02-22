@@ -23,6 +23,7 @@ angular.module('firstsecured')
     },
 
     find: function(dealership, id) {
+      if (!_.isObject(dealership)) dealership = { id: dealership }
       return $q(function(resolve, reject) {
         API.get('dealerships', dealership.id, 'contracts', id).then(function(results) {
           resolve(results)
@@ -33,6 +34,7 @@ angular.module('firstsecured')
     },
 
     create: function(dealership, attrs) {
+      if (!_.isObject(dealership)) dealership = { id: dealership }
       return $q(function(resolve, reject) {
         API.post('dealerships', dealership.id, 'contracts', attrs).then(function(results) {
           resolve(results)

@@ -8,6 +8,11 @@ end
 json.first_name contract.first_name
 json.last_name contract.last_name
 
+json.email contract.email
+json.mobile_number contract.mobile_number
+json.home_number contract.home_number
+json.work_number contract.work_number
+
 json.vin contract.vin
 json.make contract.make
 json.model contract.model
@@ -22,14 +27,13 @@ json.city contract.city
 json.state contract.state
 json.zip contract.zip
 
-json.coverage do
-  json.id contract.coverage.id
-  json.name contract.coverage.limit_in_miles
-end unless contract.coverage.nil?
+json.coverage contract.coverage, partial: 'api/v1/coverages/coverage', as: :coverage unless contract.coverage.nil?
 
 json.addons contract.addons, partial: 'api/v1/addons/addon', as: :addon
 
 json.template contract.template, partial: 'api/v1/templates/template', as: :template
+
+json.matures_on contract.matures_on
 
 json.created_at contract.created_at
 json.updated_at contract.updated_at

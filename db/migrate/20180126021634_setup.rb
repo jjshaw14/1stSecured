@@ -58,8 +58,8 @@ class Setup < ActiveRecord::Migration[5.1]
     end
 
     create_table :claims do |t|
-      t.references :contract, index: true
-      t.integer :odometer
+      t.references :contract, :provider, index: true
+      t.integer :cost_in_cents, :odometer
 
       t.timestamps null: false
     end
@@ -68,6 +68,13 @@ class Setup < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :address1, :address2, :address3, :city, :state, :zip
       t.string :phone
+
+      t.timestamps null: false
+    end
+
+    create_table :service_providers do |t|
+      t.string :name
+      t.string :address1, :address2, :address3, :city, :state, :zip
 
       t.timestamps null: false
     end

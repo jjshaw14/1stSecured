@@ -10,15 +10,17 @@ angular.module('firstsecured')
     var vm = this
 
     vm.$onInit = () => {
+      vm.contract = {}
       vm.dealership = { id: $routeParams.dealershipId }
 
       Dealership.find($routeParams.dealershipId).then((response) => {
         vm.dealership = response.data
-        vm.contract.template = _.find(vm.dealership.templates, { id: parseInt($routeParams.template) })
+        if (!$routeParams.id) {
+          vm.contract.template = _.find(vm.dealership.templates, { id: parseInt($routeParams.template) })
+        }
       })
 
       if (!$routeParams.id) {
-        vm.contract = {}
         return
       }
 
@@ -32,7 +34,12 @@ angular.module('firstsecured')
     }
 
     vm.checkVIN = () => {
-      if (_.trim(vm.contract.vin).length !== 17) return
+      if (_.trim(vm.contract.vin).length !== 17) {
+        delete vm.contract.make
+        delete vm.contract.model
+        delete vm.contract.year
+        return
+      }
 
       VIN.get(vm.contract.vin).then((response) => {
         vm.contract.make  = response.data.make
@@ -64,8 +71,8 @@ angular.module('firstsecured')
     }
 
     vm.save = function() {
-      Contract.save(vm.dealership, vm.contract).then(() => {
-        $location.path(`/dealerships/${vm.dealership.id}`)
+      Contract.save(vm.dealership, vm.contract).then((response) => {
+        $location.path(`/dealerships/${vm.dealership.id}/contracts/${response.data.id}`)
       }, (response) => {
         vm.contract.errors = response.data.errors
       })

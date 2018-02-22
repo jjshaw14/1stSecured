@@ -33,9 +33,13 @@
           {{ contract.year }} {{ contract.make }} {{ contract.model }}
         </td>
         <td>
+          <a href="/dealerships/{{ contract.dealership.id }}/contracts/{{ contract.id }}">View</a> |
           <a href="/dealerships/{{ contract.dealership.id }}/contracts/{{ contract.id }}/edit">Edit</a> |
           <a target="_blank" href="/api/v1/dealerships/{{ contract.dealership.id }}/contracts/{{ contract.id }}.pdf">Print</a>
         </td>
+      </tr>
+      <tr ng-if="vm.contracts.length === 0">
+        <td colspan="5">No contracts.</td>
       </tr>
     </tbody>
   </table>

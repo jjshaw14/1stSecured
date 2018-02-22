@@ -37,6 +37,8 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem 'dotenv-rails'
+
+  gem 'rubocop'
 end
 
 group :development do

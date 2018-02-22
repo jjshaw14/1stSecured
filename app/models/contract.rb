@@ -25,7 +25,11 @@ class Contract < ApplicationRecord
   belongs_to :coverage, optional: true
   has_many :addons, through: :contract_addons
 
-  pg_search_scope :search_for, against: %i(first_name last_name make model year), using: { tsearch: { prefix: true } }
+  pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
+
+  def matures_on
+    created_at + coverage.length_in_months.months
+  end
 
   protected
 
