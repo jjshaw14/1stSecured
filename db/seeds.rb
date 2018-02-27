@@ -7,8 +7,8 @@ Dealership.create!(name: 'ABC Jeep', address1: '123 Broad St.', city: 'Richmond'
 Dealership.create!(name: 'Smith Honda', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
 Dealership.create!(name: 'Doe Subaru', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
 
-ServiceProvider.create!(name: '456 Body Shop')
-ServiceProvider.create!(name: 'XYZ Auto Glass')
+ServiceProvider.create!(name: '456 Body Shop', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
+ServiceProvider.create!(name: 'XYZ Auto Glass', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
 
 Template.create!(
   dealership: Dealership.first,

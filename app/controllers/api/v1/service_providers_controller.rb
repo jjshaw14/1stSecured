@@ -31,7 +31,7 @@ module Api
       end
 
       def provider_params
-        params.permit(:name)
+        params.permit(:name, :address1, :address2, :address3, :city, :state, :zip)
       end
     end
   end

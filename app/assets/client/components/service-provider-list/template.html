@@ -2,10 +2,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <a class="btn btn-primary btn-sm mb-2 pull-right" href="/users/new">New</a>
+        <a class="btn btn-primary btn-sm mb-2 pull-right" href="/service-providers/new">New</a>
 
         <h5 class="card-title">
-          Users
+          Service Providers
         </h5>
 
         <div class="py-3">
@@ -13,16 +13,16 @@
             <thead class="thead-dark">
               <tr>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Address</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="user in vm.users">
-                <td>{{ user.first_name }} {{ user.last_name }}</td>
-                <td>{{ user.email }}</td>
+              <tr ng-repeat="provider in vm.serviceProviders">
+                <td>{{ provider.name }}</td>
+                <td>{{ provider | address }}</td>
                 <td>
-                  <a href="/users/{{ user.id }}/edit">Edit</a>
+                  <a href="/service-providers/{{ provider.id }}/edit">Edit</a>
                 </td>
               </tr>
             </tbody>

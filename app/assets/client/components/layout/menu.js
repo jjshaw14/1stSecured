@@ -18,6 +18,11 @@ module.exports = [
     'isLabel': true
   },
   {
+    'path': '/service-providers',
+    'label': 'Service Providers',
+    'icon': { 'class': 'material-icons', 'content': 'people' }
+  },
+  {
     'path': '/users',
     'label': 'Users',
     'icon': { 'class': 'material-icons', 'content': 'people' }

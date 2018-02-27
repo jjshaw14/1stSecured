@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       get 'dealerships/:id'
       get 'dealerships'
 
+      get 'service-providers/new'
+      get 'service-providers/:id/edit'
+      get 'service-providers'
+
       get 'users/new'
       get 'users/:id/edit'
       get 'users'
