@@ -1,6 +1,12 @@
 AllCops:
   TargetRubyVersion: 2.4
+  Exclude:
+    - db/schema.rb
 Metrics/LineLength:
   Enabled: false
 Metrics/MethodLength:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
   Enabled: false

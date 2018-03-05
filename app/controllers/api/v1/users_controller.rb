@@ -44,7 +44,7 @@ module Api
             render layout: nil
           end
           format.pdf do
-            render pdf: "user"
+            render pdf: 'user'
           end
         end
       end

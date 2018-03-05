@@ -1,15 +1,36 @@
 User.create!(first_name: 'Kevin', last_name: 'Primm', email: 'kfprimm@gmail.com', password: 'Password123')
+
+PaperTrail.whodunnit = User.first.id
+
+def new_request
+  PaperTrail.controller_info = { request_id: SecureRandom.uuid, request_ip: '127.0.0.1' }
+end
+
+new_request
 User.create!(first_name: 'Micah', last_name: 'Robinson', email: 'micah@fsadealer.com', password: 'Password123')
+
+new_request
 User.create!(first_name: 'Trevor', last_name: 'Roberts', email: 'trevor@fsadealer.com', password: 'Password123')
+
+new_request
 User.create!(first_name: 'JJ', last_name: 'Shaw', email: 'jj@makingnoyze.com', password: 'Password123')
 
+new_request
 Dealership.create!(name: 'ABC Jeep', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
+
+new_request
 Dealership.create!(name: 'Smith Honda', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
+
+new_request
 Dealership.create!(name: 'Doe Subaru', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
 
+new_request
 ServiceProvider.create!(name: '456 Body Shop', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
+
+new_request
 ServiceProvider.create!(name: 'XYZ Auto Glass', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
 
+new_request
 Template.create!(
   dealership: Dealership.first,
   name: 'Standard',
@@ -57,10 +78,8 @@ STANDARD $100 DEDUCTIBLE PER CLAIM.
       name: 'Platinum',
       coverages: [
         Coverage.new(length_in_months: 4 * 12, limit_in_miles: 48_000, caveat: 'Only for vehicles with under 100,000 miles.'),
-        Coverage.new(length_in_months: 5 * 12, limit_in_miles: 100_000, caveat: 'Only for vehicles that are
-current model year plus 5 years and with less than 60,000 miles at the time of purchase.'),
-        Coverage.new(length_in_months: 5 * 12, limit_in_miles: 125_000, caveat: 'Only for vehicles that are
-current model year plus 5 years and with less than 60,000 miles at the time of purchase,'),
+        Coverage.new(length_in_months: 5 * 12, limit_in_miles: 100_000, caveat: 'Only for vehicles that are current model year plus 5 years and with less than 60,000 miles at the time of purchase.'),
+        Coverage.new(length_in_months: 5 * 12, limit_in_miles: 125_000, caveat: 'Only for vehicles that are current model year plus 5 years and with less than 60,000 miles at the time of purchase,')
       ],
       addons: [
         Addon.new(name: 'Roadside Assistance', amount_in_cents: 10_000),
@@ -80,6 +99,8 @@ STANDARD $100 DEDUCTIBLE PER CLAIM.
   ]
 )
 
+new_request
+
 package  = Template.first.packages.second
 coverage = package.coverages.first
 
@@ -94,3 +115,28 @@ Contract.create!(
   coverage: coverage,
   addons: package.addons.sample(2)
 )
+
+CSV.foreach(
+  Rails.root.join('spec', 'example1.csv'),
+  headers: true,
+  header_converters: ->(h) { h.parameterize.underscore.to_sym }
+) do |row|
+  new_request
+
+  month, day, year = row[:date].split('/').map(&:to_i)
+
+  contract = Contract.create!(
+    dealership: Dealership.first, template: Template.first,
+    created_by: User.first,
+    first_name: row[:first_name], last_name: row[:last_name], email: row[:email], home_number: row[:phone],
+    vin: row[:vin], odometer: Random.new.rand(30_000) + 10_000, purchased_on: Date.new(year, month, day),
+    address1: row[:address], city: row[:city], state: row[:state], zip: row[:zip],
+    price_in_cents: row[:price].to_s.gsub(/[$,]/, '').to_f * 100
+  )
+
+  if row[:claims].present?
+    new_request
+
+    contract.claims.create! odometer: contract.odometer + 1000 + Random.new.rand(10_000), cost_in_cents: row[:claims].to_s.gsub(/[$,]/, '').to_f * 100
+  end
+end

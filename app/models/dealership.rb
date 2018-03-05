@@ -1,7 +1,10 @@
 class Dealership < ApplicationRecord
+  has_paper_trail meta: { dealership_id: :id }
+
   include HasAddress
 
   has_many :contracts
+  has_many :claims, through: :contracts
   has_many :templates
   has_many :users
 

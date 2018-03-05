@@ -62,25 +62,35 @@
         </div>
         <div class="col-8">
           <div class="card">
-            <div class="card-body">
-              <a class="btn btn-sm btn-primary pull-right" href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
-                New Quote
-              </a>
+            <ul class="nav nav-tabs nav-material" role="tablist">
+              <li class="nav-item">
+                <a href ng-class="{ active: vm.view === 'contracts' }" ng-click="vm.view = 'contracts'" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Contracts</a>
+              </li>
+              <li class="nav-item">
+                <a href ng-class="{ active: vm.view === 'claims' }" ng-click="vm.view = 'claims';vm.updatePreview()" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Claims</a>
+              </li>
+            </ul>
 
-              <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
-                <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-                  New Quote <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" uib-dropdown-menu role="menu">
-                  <a href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
-                    {{ template.name }}
-                  </a>
+            <div class="card-body" ng-show="vm.view === 'contracts'">
+
+              <div class="mb-1">
+                <a class="btn btn-sm btn-primary pull-right " href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
+                  New Quote
+                </a>
+
+                <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
+                  <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                    New Quote <span class="caret"></span>
+                  </button>
+                  <div class="dropdown-menu" uib-dropdown-menu role="menu">
+                    <a href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
+                      {{ template.name }}
+                    </a>
+                  </div>
                 </div>
-              </div>
 
-              <h4 class="card-title">
-                Contracts
-              </h4>
+                <div class="clearfix"></div>
+              </div>
 
               <div class="py-3">
                 <contract-table ng-if="vm.dealership" dealership="vm.dealership"></contract-table>

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_paper_trail meta: { user_id: :id, dealership_id: :dealership_id }
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2]
 
   validates :first_name, presence: true
@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   belongs_to :dealership, optional: true
 
-  scope :admin, ->{ where(dealership_id: nil) }
-  scope :customer, ->{ where.not(dealership_id: nil) }
+  scope :admin, -> { where(dealership_id: nil) }
+  scope :customer, -> { where.not(dealership_id: nil) }
 
   def self.from_omniauth(env)
     find_by email: env.info.email

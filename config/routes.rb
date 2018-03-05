@@ -10,6 +10,7 @@ Rails.application.routes.draw do
             get :preview, action: :preview, on: :member
           end
           resources :contracts
+          resources :claims, only: [:index]
         end
         resource :vin, controller: :vin
 

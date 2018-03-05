@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.string "year"
     t.integer "odometer"
     t.date "purchased_on"
+    t.integer "price_in_cents"
     t.bigint "coverage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.bigint "package_id"
     t.integer "length_in_months"
     t.integer "limit_in_miles"
+    t.integer "cost_in_cents"
     t.text "caveat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -152,6 +154,29 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.index ["dealership_id"], name: "index_users_on_dealership_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.text "object_changes"
+    t.bigint "contract_id"
+    t.bigint "template_id"
+    t.bigint "dealership_id"
+    t.bigint "user_id"
+    t.string "request_id"
+    t.string "request_ip"
+    t.datetime "created_at"
+    t.index ["contract_id"], name: "index_versions_on_contract_id"
+    t.index ["dealership_id"], name: "index_versions_on_dealership_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["request_id"], name: "index_versions_on_request_id"
+    t.index ["request_ip"], name: "index_versions_on_request_ip"
+    t.index ["template_id"], name: "index_versions_on_template_id"
+    t.index ["user_id"], name: "index_versions_on_user_id"
   end
 
 end

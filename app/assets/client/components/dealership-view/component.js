@@ -6,6 +6,8 @@ angular.module('firstsecured')
   controller: ['Dealership', '$routeParams', 'pageTitle', function(Dealership, $routeParams, pageTitle) {
     var vm = this
 
+    vm.view = 'contracts'
+
     vm.$onInit = () => {
       Dealership.find($routeParams.id).then((response) => {
         vm.dealership = response.data

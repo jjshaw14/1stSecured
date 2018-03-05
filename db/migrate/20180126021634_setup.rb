@@ -17,7 +17,7 @@ class Setup < ActiveRecord::Migration[5.1]
 
     create_table :coverages do |t|
       t.references :package, index: true
-      t.integer :length_in_months, :limit_in_miles
+      t.integer :length_in_months, :limit_in_miles, :cost_in_cents
       t.text :caveat
       t.timestamps null: false
     end
@@ -46,6 +46,8 @@ class Setup < ActiveRecord::Migration[5.1]
       t.string :vin, :make, :model, :year
       t.integer :odometer
       t.date :purchased_on
+
+      t.integer :price_in_cents
 
       t.references :coverage, index: true
 
@@ -85,8 +87,8 @@ class Setup < ActiveRecord::Migration[5.1]
       t.string :first_name, :last_name
 
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -117,4 +119,18 @@ class Setup < ActiveRecord::Migration[5.1]
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
+
+  create_table :versions do |t|
+    t.string   :item_type, null: false
+    t.integer  :item_id,   null: false
+    t.string   :event,     null: false
+    t.string   :whodunnit
+    t.text     :object, :object_changes
+
+    t.references :contract, :template, :dealership, :user, index: true
+    t.string :request_id, :request_ip, index: true
+
+    t.datetime :created_at
+  end
+  add_index :versions, %i[item_type item_id]
 end
