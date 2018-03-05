@@ -30,6 +30,7 @@ ServiceProvider.create!(name: '456 Body Shop', address1: '123 Broad St.', city: 
 new_request
 ServiceProvider.create!(name: 'XYZ Auto Glass', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
 
+# rubocop:disable Layout/EmptyLinesAroundArguments
 new_request
 Template.create!(
   dealership: Dealership.first,
@@ -98,6 +99,7 @@ STANDARD $100 DEDUCTIBLE PER CLAIM.
     )
   ]
 )
+# rubocop:enable Layout/EmptyLinesAroundArguments
 
 new_request
 

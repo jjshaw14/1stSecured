@@ -5,18 +5,18 @@ module Api
       before_action :set_contract, except: %i[index create]
 
       def index
-        if @dealership.nil?
-          @contracts = Contract.all
-        else
-          @contracts = @dealership.contracts
-        end
+        @contracts = if @dealership.nil?
+                       Contract.all
+                     else
+                       @dealership.contracts
+                     end
 
         if params[:q].present?
           q = params[:q].gsub(/\s+/, ' ')
           if q.size == 17
             @contracts = @contracts.where(vin: q)
-          elsif q =~ /[0-9]{1,2}[\/|-][0-9]{2}[\/|-][0-9]{2,4}/
-            month, day, year = q.split(/\/|-/).map(&:to_i)
+          elsif q.match?(%r([0-9]{1,2}[\/|-][0-9]{2}[\/|-][0-9]{2,4}))
+            month, day, year = q.split(%r{\/|-}).map(&:to_i)
             year += 2000 if year < 2000
             @contracts = @contracts.where('DATE(created_at) = ? ', Date.new(year, month, day))
           else
@@ -62,11 +62,11 @@ module Api
       private
 
       def set_dealership
-        if params.key?(:dealership_id)
-          @dealership = Dealership.find(params[:dealership_id])
-        else
-          @dealership = current_user.dealership
-        end
+        @dealership = if params.key?(:dealership_id)
+                        Dealership.find(params[:dealership_id])
+                      else
+                        current_user.dealership
+                      end
       end
 
       def set_contract
@@ -76,13 +76,15 @@ module Api
       def contract_params
         contract_params = params.permit(:vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, coverage: [:id], addons: [:id], template: [:id])
 
-        contract_params[:coverage]   = Coverage.find(contract_params[:coverage][:id]) if contract_params[:coverage]
+        contract_params[:coverage] = Coverage.find(contract_params[:coverage][:id]) if contract_params[:coverage]
 
-        contract_params[:addons]     = contract_params[:addons].map do |addon_params|
-          Addon.find(addon_params[:id])
-        end if contract_params[:coverage]
+        if contract_params[:coverage]
+          contract_params[:addons] = contract_params[:addons].map do |addon_params|
+            Addon.find(addon_params[:id])
+          end
+        end
 
-        contract_params[:template]   = @dealership.templates.find(contract_params[:template][:id]) if contract_params[:template]
+        contract_params[:template] = @dealership.templates.find(contract_params[:template][:id]) if contract_params[:template]
 
         contract_params
       end

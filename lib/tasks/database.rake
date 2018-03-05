@@ -1,6 +1,6 @@
 namespace :db do
   task clean: :environment do
-    puts "Clean..."
+    puts 'Clean...'
     ActiveRecord::Base.connection.execute(%(
       DROP SCHEMA public CASCADE;
       CREATE SCHEMA public;
@@ -8,5 +8,5 @@ namespace :db do
       GRANT ALL ON SCHEMA public TO public;
     ))
   end
-  task flush: [:clean, :migrate, :seed]
+  task flush: %i[clean migrate seed]
 end

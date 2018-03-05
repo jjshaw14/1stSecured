@@ -1,7 +1,7 @@
 module Api
   module V1
     class DealershipsController < BaseController
-      before_action :set_dealership, except: [:index, :create]
+      before_action :set_dealership, except: %i[index create]
 
       def index
         @dealerships = Dealership.all

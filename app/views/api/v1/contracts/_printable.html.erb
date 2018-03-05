@@ -223,10 +223,10 @@
           <h5><%= package.name %> Package</h5>
 
           <div class="row options">
-            <% package.coverages.in_groups_of(package.has_coverage_caveats? ? 1 : 2).each do |coverages| %>
+            <% package.coverages.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
-                  <div class="option column <%= 'selected' if coverage == contract.coverage %> <%= 'column-50' unless package.has_coverage_caveats? %>">
+                  <div class="option column <%= 'selected' if coverage == contract.coverage %> <%= 'column-50' unless package.coverage_caveats? %>">
                     <%= term_in_months_or_years coverage.length_in_months.months %> or <%= number_with_delimiter coverage.limit_in_miles %> (whichever comes first). <%= coverage.caveat %>
                   </div>
                 <% end %>

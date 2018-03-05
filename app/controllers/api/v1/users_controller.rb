@@ -1,25 +1,25 @@
 module Api
   module V1
     class UsersController < BaseController
-      before_action :set_user, except: [:index, :create]
+      before_action :set_user, except: %i[index create]
 
       def index
-        if params[:q].present?
-          if params[:q].size == 17
-            @users = User.search_vin_for(params[:q])
-          else
-            @users = User.search_for(params[:q])
-          end
-        else
-          @users = User.all
-        end
+        @users = if params[:q].present?
+                   if params[:q].size == 17
+                     User.search_vin_for(params[:q])
+                   else
+                     User.search_for(params[:q])
+                   end
+                 else
+                   User.all
+                 end
 
         if params.key?(:admin)
-          if params[:admin] == 'true' || params[:admin].to_i == 1
-            @users = @users.admin
-          else
-            @users = @users.customer
-          end
+          @users = if params[:admin] == 'true' || params[:admin].to_i == 1
+                     @users.admin
+                   else
+                     @users.customer
+                   end
         end
 
         @users = @users.order(:created_at)

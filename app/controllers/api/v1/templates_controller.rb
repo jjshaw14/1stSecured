@@ -5,15 +5,15 @@ module Api
       before_action :set_template, except: %i[index create preview]
 
       def index
-        if params[:q].present?
-          if params[:q].size == 17
-            @templates = Template.search_vin_for(params[:q])
-          else
-            @templates = Template.search_for(params[:q])
-          end
-        else
-          @templates = Template.order(:created_at)
-        end
+        @templates = if params[:q].present?
+                       if params[:q].size == 17
+                         Template.search_vin_for(params[:q])
+                       else
+                         Template.search_for(params[:q])
+                       end
+                     else
+                       Template.order(:created_at)
+                     end
       end
 
       def create
@@ -58,11 +58,11 @@ module Api
       end
 
       def set_dealership
-        if params.key?(:dealership_id)
-          @dealership = Dealership.find(params[:dealership_id])
-        else
-          @dealership = current_user.dealership
-        end
+        @dealership = if params.key?(:dealership_id)
+                        Dealership.find(params[:dealership_id])
+                      else
+                        current_user.dealership
+                      end
       end
 
       def set_template

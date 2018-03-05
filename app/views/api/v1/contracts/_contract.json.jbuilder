@@ -39,13 +39,13 @@ json.history History.where(contract: contract).order(created_at: :desc) do |vers
   json.type "#{version.item_type}.#{version.event}".underscore
   begin
     json.partial! "api/v1/history/#{version.item_type}_#{version.event}".underscore
-  rescue ActionView::MissingTemplate
+  rescue ActionView::MissingTemplate # rubocop:disable Lint/HandleExceptions
   end
   json.request_id version.request_id
   json.created_by do
     json.id version.created_by.id
     json.first_name version.created_by.first_name
-    json.last_name version.created_by.last_name 
+    json.last_name version.created_by.last_name
   end
   json.created_at version.created_at
 end
