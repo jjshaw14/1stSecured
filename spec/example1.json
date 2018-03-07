@@ -7,6 +7,10 @@
       "coverages": [
         { "length_in_months": 36, "cost_in_cents": 64900, "limit_in_miles": 36000 },
         { "length_in_months": 60, "cost_in_cents": 99900, "limit_in_miles": 100000 }
+      ],
+      "addons": [
+        { "name": "Roadside Assistance", "cost_in_cents": 12500, "price_in_cents": 19900 },
+        { "name": "Diesel", "cost_in_cents": 0, "price_in_cents": 79600 }
       ]
     },
     {
@@ -18,6 +22,10 @@
         { "length_in_months": 60, "cost_in_cents": 104900, "limit_in_miles": 125000 },
         { "length_in_months": 72, "cost_in_cents": 99900, "limit_in_miles": 100000 },
         { "length_in_months": 72, "cost_in_cents": 104900, "limit_in_miles": 125000 }
+      ],
+      "addons": [
+        { "name": "Roadside Assistance", "cost_in_cents": 12500, "price_in_cents": 19900 },
+        { "name": "Diesel", "cost_in_cents": 0, "price_in_cents": 50000 }
       ]
     }
   ]

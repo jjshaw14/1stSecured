@@ -32,7 +32,7 @@ class Setup < ActiveRecord::Migration[5.1]
     create_table :addons do |t|
       t.references :package, index: true
       t.string :name
-      t.integer :amount_in_cents
+      t.integer :cost_in_cents, :price_in_cents
       t.timestamps null: false
     end
 

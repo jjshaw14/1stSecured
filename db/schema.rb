@@ -18,7 +18,8 @@ ActiveRecord::Schema.define(version: 20180126021634) do
   create_table "addons", force: :cascade do |t|
     t.bigint "package_id"
     t.string "name"
-    t.integer "amount_in_cents"
+    t.integer "cost_in_cents"
+    t.integer "price_in_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["package_id"], name: "index_addons_on_package_id"

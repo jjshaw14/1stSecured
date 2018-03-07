@@ -25,6 +25,7 @@
                 <p>Claims: {{ vm.dealership.performance.claims / 100 | currency }}</p>
                 <p>Fees: {{ vm.dealership.performance.fees / 100 | currency }}</p>
                 <p>In Reserve: {{ (vm.dealership.performance.costs - vm.dealership.performance.claims - vm.dealership.performance.fees) / 100 | currency }}</p>
+                <p>Loss Ratio: {{ vm.dealership.performance.loss_ratio }}%</p>
               </div>
             </div>
           </div>

@@ -78,8 +78,8 @@ $100 STANDARD DEDUCTIBLE. **Max Payout per Component** (see Gold Package) Not to
       ],
       addons: [
         Addon.new(name: 'Diesel Package'),
-        Addon.new(name: 'Roadside Assistance', amount_in_cents: 10_000),
-        Addon.new(name: 'Modified Suspension', amount_in_cents: 10_000)
+        Addon.new(name: 'Roadside Assistance', cost_in_cents: 0, price_in_cents: 10_000),
+        Addon.new(name: 'Modified Suspension', cost_in_cents: 0, price_in_cents: 10_000)
       ],
       terms: %(
 |   | MAXIMUM PAYOUT per COMPONENT |   |
@@ -102,8 +102,8 @@ STANDARD $100 DEDUCTIBLE PER CLAIM.
         Coverage.new(length_in_months: 5 * 12, limit_in_miles: 125_000, cost_in_cents: 50_000, caveat: 'Only for vehicles that are current model year plus 5 years and with less than 60,000 miles at the time of purchase,')
       ],
       addons: [
-        Addon.new(name: 'Roadside Assistance', amount_in_cents: 10_000),
-        Addon.new(name: 'Modified Suspension', amount_in_cents: 10_000)
+        Addon.new(name: 'Roadside Assistance', cost_in_cents: 0, price_in_cents: 10_000),
+        Addon.new(name: 'Modified Suspension', cost_in_cents: 0, price_in_cents: 10_000)
       ],
       terms: %(
 This service contract covers any components that were covered by the original manufacture service contract except:
