@@ -1,6 +1,11 @@
 quote-form {
-  span {
-    width: 75px;
+  .package {
+    position: relative;
+  }
+
+  .package-name {
+    position: absolute;
+    left: 0;top: 0;
   }
 
   label {
@@ -8,6 +13,6 @@ quote-form {
   }
 
   .coverage-and-addons {
-    float: left;
+    padding-left: 100px;
   }
 }

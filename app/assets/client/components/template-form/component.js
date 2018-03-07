@@ -6,23 +6,24 @@ require('./style.scss')
 angular.module('firstsecured')
 .component('templateForm', {
   template: require('./template.html'),
-  controller: ['Template', 'Dealership', '$routeParams', '$window', '$location', function(Template, Dealership, $routeParams, $window, $location) {
+  controller: ['Template', 'Dealership', 'Fee', '$routeParams', '$window', '$location', function(Template, Dealership, Fee, $routeParams, $window, $location) {
     var vm = this
 
     vm.$onInit = () => {
       vm.dealership = { id: $routeParams.dealershipId }
 
       vm.mode = 'config'
-      vm.terms = []
 
-      for (let i = 1; i < 12; i++) {
-        if (i % 3 === 0) {
-          vm.terms.push({ label: `${i} months`, value: i })
-        }
-      }
-      for (let i = 1; i < 7; i++) {
-        vm.terms.push({ label: `${i} years`, value: i * 12 })
-      }
+      Fee.all().then((response) => {
+        vm.terms = _.map(response.data, (fee) => {
+          let months = fee.length_in_months
+          if (months < 12) {
+            return { label: `${months} months`, value: months }
+          }
+          return { label: `${Math.floor(months / 12)} years`, value: months }
+        })
+        console.log(vm.terms)
+      })
 
       if (!$routeParams.id) {
         vm.template = { packages: [] }

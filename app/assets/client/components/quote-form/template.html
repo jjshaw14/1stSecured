@@ -30,6 +30,11 @@
                     </div>
                   </div>
 
+                  <div ng-class="{ 'is-invalid': vm.contract.errors.stock_number }" class="form-group">
+                    <label class="control-label">Stock Number</label>
+                    <input class="form-control" ng-model="vm.contract.stock_number" />
+                  </div>
+
                   <div ng-class="{ 'is-invalid': vm.contract.errors.vin }" class="form-group">
                     <label class="control-label">VIN</label>
                     <input class="form-control" ng-model="vm.contract.vin" ng-change="vm.checkVIN()" />
@@ -99,14 +104,14 @@
                 </div>
                 <div class="col-8">
                   <div ng-repeat="package in vm.contract.template.packages" class="package">
-                    <span class="float-left">{{ package.name }}</span>
+                    <div class="package-name">{{ package.name }}</div>
                     <div class="coverage-and-addons">
-                      <label ng-repeat="coverage in package.coverages">
-                        <input type="radio" name="coverage" ng-change="vm.uncheckAddons()" ng-model="vm.contract.coverage" ng-value="coverage" /> {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles
+                      <label ng-repeat="coverage in package.coverages" ng-class="{ 'text-muted': !vm.packageSelected(package) }">
+                        <input type="radio" name="coverage" ng-disabled="!vm.coverageAllowed(coverage)" ng-change="vm.uncheckAddons()" ng-model="vm.contract.coverage" ng-value="coverage" /> <span ng-class="{ 'text-strike': !vm.coverageAllowed(coverage) }">{{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles</span>
                       </label>
                       <br />
-                      <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) }">
-                        <input ng-disabled="!vm.packageSelected(package)" type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
+                      <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) || !vm.packageAllowed(package) }">
+                        <input ng-disabled="!vm.packageSelected(package) || !vm.packageAllowed(package)" type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
                       </label>
                     </div>
                     <div class="clearfix"></div>

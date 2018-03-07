@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       resources :users
 
       resources :contracts, only: [:index]
+
+      resources :fees
     end
   end
 

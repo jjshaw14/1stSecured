@@ -67,8 +67,10 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.string "make"
     t.string "model"
     t.string "year"
+    t.string "stock_number"
     t.integer "odometer"
     t.date "purchased_on"
+    t.integer "fee_in_cents"
     t.integer "price_in_cents"
     t.bigint "coverage_id"
     t.datetime "created_at", null: false
@@ -104,10 +106,18 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fees", force: :cascade do |t|
+    t.integer "length_in_months"
+    t.integer "cost_in_cents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "packages", force: :cascade do |t|
     t.bigint "template_id"
     t.string "name"
     t.text "terms"
+    t.boolean "absolute_mileage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["template_id"], name: "index_packages_on_template_id"

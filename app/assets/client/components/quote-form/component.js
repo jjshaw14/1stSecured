@@ -70,6 +70,14 @@ angular.module('firstsecured')
       return p && pkg.id === p.id
     }
 
+    vm.coverageAllowed = (coverage) => {
+      return vm.contract.odometer < coverage.limit_in_miles
+    }
+
+    vm.packageAllowed = (pkg) => {
+      return _.some(pkg.coverages, vm.coverageAllowed)
+    }
+
     vm.save = function() {
       Contract.save(vm.dealership, vm.contract).then((response) => {
         $location.path(`/dealerships/${vm.dealership.id}/contracts/${response.data.id}`)

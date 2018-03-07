@@ -13,6 +13,7 @@ json.mobile_number contract.mobile_number
 json.home_number contract.home_number
 json.work_number contract.work_number
 
+json.stock_number contract.stock_number
 json.vin contract.vin
 json.make contract.make
 json.model contract.model
@@ -27,7 +28,13 @@ json.city contract.city
 json.state contract.state
 json.zip contract.zip
 
-json.coverage contract.coverage, partial: 'api/v1/coverages/coverage', as: :coverage unless contract.coverage.nil?
+unless contract.coverage.nil?
+  json.package do
+    json.id contract.coverage.package.id
+    json.name contract.coverage.package.name
+    json.coverage contract.coverage, partial: 'api/v1/coverages/coverage', as: :coverage, locals: { top_level: true }
+  end
+end
 
 json.addons contract.addons, partial: 'api/v1/addons/addon', as: :addon
 

@@ -31,6 +31,7 @@
             </div>
             <div class="col-6">
               <ul class="list-unstyled">
+                <li>{{ vm.contract.stock_number }}</li>
                 <li>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
                 <li>{{ vm.contract.vin }}</li>
               </ul>
@@ -44,7 +45,9 @@
     <div class="card">
       <div class="card-body">
         <div class="py-3">
-          <p>Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{ vm.contract.coverage.limit_in_miles | number }} miles.</p>
+          <p>{{ vm.contract.package.name }} Package</p>
+          <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
+          <p>Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{ vm.contract.package.coverage.limit_in_miles | number }} miles.</p>
           <div ng-if="vm.contract.addons.length > 0">
             <label>Addons:</label>
             <ul>
@@ -64,8 +67,14 @@
           <div class="pull-right">
             <button class="btn btn-primary">Create Claim</button>
           </div>
-          <ul>
-            <li ng-repeat="event in vm.contract.history">{{ event | json }}</li>
+          <ul class="list-group list-group-borderless list-group-sm">
+            <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
+              <span class="text">
+                <i class="material-icons mr-1">mail_outline</i>
+                <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
+              </span>
+              <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
+            </li>
           </ul>
         </div>
       </div>

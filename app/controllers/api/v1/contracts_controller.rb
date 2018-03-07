@@ -46,7 +46,7 @@ module Api
             render layout: nil
           end
           format.pdf do
-            render pdf: 'contract'
+            render pdf: 'contract', margin: { top: 5, left: 5, bottom: 5, right: 5 }
           end
         end
       end
@@ -74,7 +74,7 @@ module Api
       end
 
       def contract_params
-        contract_params = params.permit(:vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, coverage: [:id], addons: [:id], template: [:id])
+        contract_params = params.permit(:stock_number, :vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, coverage: [:id], addons: [:id], template: [:id])
 
         contract_params[:coverage] = Coverage.find(contract_params[:coverage][:id]) if contract_params[:coverage]
 

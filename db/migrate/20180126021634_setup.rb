@@ -2,6 +2,12 @@
 
 class Setup < ActiveRecord::Migration[5.1]
   def change
+    create_table :fees do |t|
+      t.integer :length_in_months
+      t.integer :cost_in_cents
+      t.timestamps null: false
+    end
+
     create_table :templates do |t|
       t.references :dealership, index: true
       t.string :name
@@ -12,6 +18,7 @@ class Setup < ActiveRecord::Migration[5.1]
       t.references :template, index: true
       t.string :name
       t.text :terms
+      t.boolean :absolute_mileage
       t.timestamps null: false
     end
 
@@ -43,11 +50,11 @@ class Setup < ActiveRecord::Migration[5.1]
       t.string :email, :home_number, :work_number, :mobile_number
       t.string :address1, :address2, :address3, :city, :state, :zip
 
-      t.string :vin, :make, :model, :year
+      t.string :vin, :make, :model, :year, :stock_number
       t.integer :odometer
       t.date :purchased_on
 
-      t.integer :price_in_cents
+      t.integer :fee_in_cents, :price_in_cents
 
       t.references :coverage, index: true
 

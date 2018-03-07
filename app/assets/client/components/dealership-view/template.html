@@ -17,7 +17,21 @@
 
           <div class="card">
             <div class="card-body">
-              <div class="py-3">
+              <div class="pb-3">
+                <h4 class="card-title">
+                  Performance
+                </h4>
+                <p>Costs: {{ vm.dealership.performance.costs / 100 | currency }}</p>
+                <p>Claims: {{ vm.dealership.performance.claims / 100 | currency }}</p>
+                <p>Fees: {{ vm.dealership.performance.fees / 100 | currency }}</p>
+                <p>In Reserve: {{ (vm.dealership.performance.costs - vm.dealership.performance.claims - vm.dealership.performance.fees) / 100 | currency }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="pb-3">
                 <h4 class="card-title">
                   Templates
                 </h4>
@@ -40,7 +54,7 @@
 
           <div class="card">
             <div class="card-body">
-              <div class="py-3">
+              <div class="pb-3">
                 <h4 class="card-title">
                   Users
                 </h4>
