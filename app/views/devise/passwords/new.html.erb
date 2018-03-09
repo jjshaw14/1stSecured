@@ -1,16 +1,34 @@
-<h2>Forgot your password?</h2>
+<div class="full-page-container">
+  <div class="d-flex flex-row justify-content-center px-4" style="margin-top:9vh;" >
+    <div class="card" style="width:28rem;">
+      <div class="card-header py-3  d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #eee;">
+        <h5>Forgot your password?</h5>
+        <img src="/favicon-32x32.png" />
+      </div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <% if resource.errors.messages[:email].first == 'not found' %>
+            <div class="alert alert-danger">
+              <strong>Oops.</strong> We can't find that email!
+            </div>
+          <% end %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <div class="form-group mb-4 mt-2">
+            <%= f.label :email, 'Email Address' %>
+            <%= f.email_field :email, placeholder: 'you@email.com', autofocus: true, autocomplete: "email", class: 'form-control' %>
+          </div>
+          <div class="py-1">
+            <%= f.submit "Send Me Password Reset Instructions", class: 'btn btn-primary btn-block' %>
+          </div>
+          <div class="py-2 px-0">
+            <p class="mb-0">
+            </p>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <a href="/" class="btn btn-link pl-1">Remember your password? Login!</a>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

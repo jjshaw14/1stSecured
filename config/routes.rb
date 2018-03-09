@@ -3,14 +3,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :dealerships do
-        resources :templates do
-          post :preview, action: :preview, on: :collection
-          get :preview, action: :preview, on: :member
-        end
-        resources :contracts
-        resources :claims, only: [:index]
+      resources :dealerships
+
+      resources :templates do
+        post :preview, action: :preview, on: :collection
+        get :preview, action: :preview, on: :member
       end
+      resources :contracts
+
+      resources :claims, only: [:index]
+
       resource :vin, controller: :vin
 
       resources :service_providers, path: 'service-providers'
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
       resources :contracts, only: [:index]
 
       resources :fees
+
+      resource :me, controller: :me, only: %i[show update]
     end
   end
 

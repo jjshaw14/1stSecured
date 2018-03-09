@@ -1,15 +1,14 @@
 module Api
   module V1
     class ContractsController < BaseController
-      before_action :set_dealership
       before_action :set_contract, except: %i[index create]
 
       def index
-        @contracts = if @dealership.nil?
-                       Contract.all
-                     else
-                       @dealership.contracts
-                     end
+        @contracts = Contract.available_to(current_user)
+
+        if params.key?(:dealership)
+          @contracts = @contracts.where(dealership_id: params[:dealership])
+        end
 
         if params[:q].present?
           q = params[:q].gsub(/\s+/, ' ')
@@ -28,7 +27,7 @@ module Api
       end
 
       def create
-        @contract = @dealership.contracts.build(contract_params) do |c|
+        @contract = contract_params[:dealership].contracts.build(contract_params) do |c|
           c.created_by = current_user
         end
 
@@ -61,16 +60,8 @@ module Api
 
       private
 
-      def set_dealership
-        @dealership = if params.key?(:dealership_id)
-                        Dealership.find(params[:dealership_id])
-                      else
-                        current_user.dealership
-                      end
-      end
-
       def set_contract
-        @contract = @dealership.contracts.find(params[:id])
+        @contract = Contract.available_to(current_user).find(params[:id])
       end
 
       def contract_params
@@ -84,7 +75,10 @@ module Api
           end
         end
 
-        contract_params[:template] = @dealership.templates.find(contract_params[:template][:id]) if contract_params[:template]
+        if contract_params[:template]
+          contract_params[:template] = @dealership.templates.find(contract_params[:template][:id])
+          contract_params[:dealership] = contract_params[:template].dealership
+        end
 
         contract_params
       end

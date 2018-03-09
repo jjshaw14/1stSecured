@@ -245,7 +245,7 @@
             <% end %>
             <% package.addons.each do |addon| %>
               <div class="option <%= 'selected' if contract.addons.include?(addon) %> column column-50">
-                <%= addon.name %> <%= ['-', number_to_currency(addon.amount_in_dollars)].join(' ') if addon.amount_in_dollars.present? %>
+                <%= addon.name %> <%= ['-', number_to_currency(addon.price_in_dollars)].join(' ') if addon.price_in_dollars.present? %>
               </div>
             <% end %>
           </div>

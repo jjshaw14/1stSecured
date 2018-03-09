@@ -1,18 +1,18 @@
 module Api
   module V1
     class TemplatesController < BaseController
-      before_action :set_dealership
       before_action :set_template, except: %i[index create preview]
 
       def index
+        @templates = Template.available_to(current_user)
         @templates = if params[:q].present?
                        if params[:q].size == 17
-                         Template.search_vin_for(params[:q])
+                         @templates.search_vin_for(params[:q])
                        else
-                         Template.search_for(params[:q])
+                         @templates.search_for(params[:q])
                        end
                      else
-                       Template.order(:created_at)
+                       @templates.order(:created_at)
                      end
       end
 
@@ -57,16 +57,8 @@ module Api
         @contract ||= Contract.new(template: @template, dealership: Dealership.new, created_by: User.new)
       end
 
-      def set_dealership
-        @dealership = if params.key?(:dealership_id)
-                        Dealership.find(params[:dealership_id])
-                      else
-                        current_user.dealership
-                      end
-      end
-
       def set_template
-        @template = @dealership.templates.find(params[:id])
+        @template = Template.available_to(current_user).find(params[:id])
       end
 
       def template_params

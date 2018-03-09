@@ -23,7 +23,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
@@ -32,6 +32,9 @@
     <% if Rails.env.development? %>
     <script src="http://localhost:35729/livereload.js"></script>
     <% end %>
-    <%= javascript_include_tag 'application' %>
+
+    <%= javascript_include_tag 'vendor.bundle' %>
+    <%= javascript_include_tag 'core.bundle' %>
+    <%= javascript_include_tag "#{current_user.admin? ? 'admin' : 'dealer'}.bundle" unless current_user.blank? %>
   </body>
 </html>

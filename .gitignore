@@ -7,6 +7,8 @@
 .DS_Store
 dump.rdb
 
+/.env
+
 # Ignore bundler config.
 /.bundle
 
@@ -21,6 +23,6 @@ dump.rdb
 
 .byebug_history
 
-/app/assets/javascripts/bundle.js*
+/app/assets/javascripts/*bundle.js*
 
 /public/assets

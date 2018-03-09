@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Canable::Enforcers
+
   protect_from_forgery with: :exception
 
   protected

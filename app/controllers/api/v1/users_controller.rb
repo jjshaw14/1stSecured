@@ -64,10 +64,8 @@ module Api
       end
 
       def user_params
-        user_params = params.permit(:first_name, :last_name, :email)
-
-        # user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params[:dealership]
-
+        user_params = params.permit(:first_name, :last_name, :email, :password, dealership: [:id])
+        user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params.key?(:dealership)
         user_params
       end
     end

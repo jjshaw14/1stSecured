@@ -1,3 +1,4 @@
+var webpack  = require('webpack')
 var path     = require('path')
 var NODE_ENV = process.env.NODE_ENV || 'development'
 
@@ -10,11 +11,30 @@ if (NODE_ENV === 'development') {
   devtool = 'source-map'
 }
 
+plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  filename: '../app/assets/javascripts/vendor.bundle.js',
+  chunks: ['core'],
+  minChunks: Infinity
+}))
+
+plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  name: 'core',
+  filename: '../app/assets/javascripts/core.bundle.js',
+  chunks: ['admin', 'dealer'],
+  minChunks: Infinity
+}))
+
 module.exports = {
-  entry: './app/assets/client/entry.js',
+  entry: {
+    vendor: './app/assets/client/core/vendor.js',
+    core: './app/assets/client/core/index.js',
+    admin: './app/assets/client/admin/index.js',
+    dealer: './app/assets/client/dealer/index.js'
+  },
   output: {
     path: __dirname + '/public',
-    filename: '../app/assets/javascripts/bundle.js'
+    filename: '../app/assets/javascripts/[name].bundle.js'
   },
   devtool: devtool,
   plugins: plugins,

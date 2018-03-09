@@ -2,8 +2,7 @@ module Api
   module V1
     class ClaimsController < BaseController
       def index
-        @dealership = Dealership.find(params[:dealership_id])
-        @claims = @dealership.claims
+        @claims = Claim.available_to(current_user)
       end
     end
   end

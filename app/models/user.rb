@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Canable::Cans
+
   has_paper_trail meta: { user_id: :id, dealership_id: :dealership_id }
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2]
@@ -19,5 +21,9 @@ class User < ApplicationRecord
 
   def name
     [first_name, last_name].join(' ')
+  end
+
+  def admin?
+    dealership_id.nil?
   end
 end

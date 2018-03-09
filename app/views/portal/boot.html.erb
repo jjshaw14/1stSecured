@@ -1,4 +1,4 @@
-<div ng-app="firstsecured">
+<div ng-app="firstsecured.<%= current_user.admin? ? 'admin' : 'dealer' %>">
   <base href="/" />
   <layout></layout>
 </div>

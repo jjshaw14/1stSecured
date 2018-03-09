@@ -3,7 +3,11 @@ class Addon < ApplicationRecord
 
   belongs_to :package
 
-  def amount_in_dollars
-    amount_in_cents && (amount_in_cents / 100)
+  def cost_in_dollars
+    cost_in_cents && (cost_in_cents / 100)
+  end
+
+  def price_in_dollars
+    price_in_cents && (price_in_cents / 100)
   end
 end

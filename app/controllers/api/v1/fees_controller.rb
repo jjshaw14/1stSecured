@@ -4,6 +4,8 @@ module Api
       before_action :set_fee, except: %i[index create]
 
       def index
+        enforce_view_permission Fee
+
         @fees = Fee.all
       end
 

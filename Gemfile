@@ -21,6 +21,7 @@ gem 'redis', '~> 3.0'
 
 gem 'devise'
 gem 'omniauth-google-oauth2'
+gem 'canable'
 
 gem 'httparty'
 gem 'wicked_pdf'
@@ -31,6 +32,8 @@ gem 'redcarpet'
 gem 'webpacker', require: false
 
 gem 'paper_trail'
+
+gem 'sendgrid'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

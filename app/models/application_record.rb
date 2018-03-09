@@ -9,4 +9,6 @@ class ApplicationRecord < ActiveRecord::Base
     @record.assign_attributes params
     @record
   end
+
+  scope :available_to, ->(user) { user.dealership ? where(dealership: user.dealership) : all }
 end
