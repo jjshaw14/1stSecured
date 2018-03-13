@@ -24,6 +24,10 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <%= stylesheet_link_tag 'vendor.bundle' %>
+    <%= stylesheet_link_tag 'core.bundle' %>
+    <%= stylesheet_link_tag "#{current_user.admin? ? 'admin' : 'dealer'}.bundle" unless current_user.blank? %>
+
     <%= csrf_meta_tags %>
   </head>
   <body>

@@ -1,6 +1,7 @@
 var webpack  = require('webpack')
 var path     = require('path')
 var NODE_ENV = process.env.NODE_ENV || 'development'
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var plugins = [], devtool
 
@@ -24,6 +25,11 @@ plugins.push(new webpack.optimize.CommonsChunkPlugin({
   chunks: ['admin', 'dealer'],
   minChunks: Infinity
 }))
+
+var extractSCSS = new ExtractTextPlugin({
+  filename: '../app/assets/stylesheets/[name].bundle.css'
+})
+plugins.push(extractSCSS)
 
 module.exports = {
   entry: {
@@ -61,20 +67,22 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?sourceMap',
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [
-                path.resolve(__dirname, './node_modules'),
-                path.resolve(__dirname, './app/assets/client/core/stylesheets')
-              ]
-            }
-          },
-          'postcss-loader'
-        ]
+        use: extractSCSS.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?sourceMap',
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [
+                  path.resolve(__dirname, './node_modules'),
+                  path.resolve(__dirname, './app/assets/client/core/stylesheets')
+                ]
+              }
+            },
+            'postcss-loader'
+          ]
+        })
       },
       { test: /\.(jpg|png)$/, loader: 'file-loader?name=/assets/[hash].[ext]' },
       { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff&name=/assets/[hash].[ext]' },

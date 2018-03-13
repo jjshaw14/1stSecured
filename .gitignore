@@ -24,5 +24,8 @@ dump.rdb
 .byebug_history
 
 /app/assets/javascripts/*bundle.js*
+/app/assets/stylesheets/*bundle.css*
 
 /public/assets
+
+/data
