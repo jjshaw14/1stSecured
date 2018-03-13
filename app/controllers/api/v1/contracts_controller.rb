@@ -65,7 +65,7 @@ module Api
       end
 
       def contract_params
-        contract_params = params.permit(:stock_number, :vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, coverage: [:id], addons: [:id], template: [:id])
+        contract_params = params.permit(:stock_number, :vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, :signed_copy, coverage: [:id], addons: [:id], template: [:id])
 
         contract_params[:coverage] = Coverage.find(contract_params[:coverage][:id]) if contract_params[:coverage]
 
@@ -76,7 +76,7 @@ module Api
         end
 
         if contract_params[:template]
-          contract_params[:template] = @dealership.templates.find(contract_params[:template][:id])
+          contract_params[:template] = Template.available_to(current_user).find(contract_params[:template][:id])
           contract_params[:dealership] = contract_params[:template].dealership
         end
 

@@ -50,6 +50,8 @@ class Setup < ActiveRecord::Migration[5.1]
       t.string :email, :home_number, :work_number, :mobile_number
       t.string :address1, :address2, :address3, :city, :state, :zip
 
+      t.string :signed_copy
+
       t.string :vin, :make, :model, :year, :stock_number
       t.integer :odometer
       t.date :purchased_on

@@ -9,7 +9,10 @@ Rails.application.routes.draw do
         post :preview, action: :preview, on: :collection
         get :preview, action: :preview, on: :member
       end
-      resources :contracts
+
+      resources :contracts do
+        resource :attachment, only: :show
+      end
 
       resources :claims, only: [:index]
 
@@ -32,11 +35,11 @@ Rails.application.routes.draw do
     get 'contracts/:id'
     get 'contracts'
 
-    get 'dealerships/:id/contracts/new'
-    get 'dealerships/:id/contracts/:id/edit'
-    get 'dealerships/:id/contracts/:id'
-    get 'dealerships/:id/templates/new'
-    get 'dealerships/:id/templates/:id/edit'
+    get 'contracts/new'
+    get 'contracts/:id/edit'
+    get 'contracts/:id'
+    get 'templates/new'
+    get 'templates/:id/edit'
     get 'dealerships/:id/users/new'
     get 'dealerships/:id/users/:id/edit'
     get 'dealerships/new'

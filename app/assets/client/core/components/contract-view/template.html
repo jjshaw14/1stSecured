@@ -11,72 +11,83 @@
   <div class="col-4">
     <div class="card">
       <div class="card-body">
-        <div class="py-3">
-          <div class="row">
-            <div class="col-6">
-              <ul class="list-unstyled">
-                <li>{{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
-                <li>{{ vm.contract.address1 }}</li>
-                <li>{{ vm.contract.address2 }}</li>
-                <li>{{ vm.contract.address3 }}</li>
-                <li>{{ vm.contract.city }}, {{ vm.contract.state }} {{ vm.contract.zip }}</li>
-              </ul>
+        <div class="row">
+          <div class="col-6">
+            <ul class="list-unstyled">
+              <li>{{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
+              <li>{{ vm.contract.address1 }}</li>
+              <li>{{ vm.contract.address2 }}</li>
+              <li>{{ vm.contract.address3 }}</li>
+              <li>{{ vm.contract.city }}, {{ vm.contract.state }} {{ vm.contract.zip }}</li>
+            </ul>
 
-              <ul class="list-unstyled">
-                <li ng-bind-html="vm.contract.email | email"></li>
-                <li ng-show="vm.contract.mobile_number">Cell: {{ vm.contract.mobile_number | phone }}</li>
-                <li ng-show="vm.contract.home_number">Home: {{ vm.contract.home_number | phone }}</li>
-                <li ng-show="vm.contract.work_number">Work: {{ vm.contract.work_number | phone }}</li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <ul class="list-unstyled">
-                <li>{{ vm.contract.stock_number }}</li>
-                <li>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
-                <li>{{ vm.contract.vin }}</li>
-              </ul>
-            </div>
+            <ul class="list-unstyled">
+              <li ng-bind-html="vm.contract.email | email"></li>
+              <li ng-show="vm.contract.mobile_number">Cell: {{ vm.contract.mobile_number | phone }}</li>
+              <li ng-show="vm.contract.home_number">Home: {{ vm.contract.home_number | phone }}</li>
+              <li ng-show="vm.contract.work_number">Work: {{ vm.contract.work_number | phone }}</li>
+            </ul>
           </div>
-          <p>Purchased on {{ vm.contract.purchased_on | date:'MM/dd/yy' }} with {{ vm.contract.odometer | number }} miles.</p>
+          <div class="col-6">
+            <ul class="list-unstyled">
+              <li>{{ vm.contract.stock_number }}</li>
+              <li>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
+              <li>{{ vm.contract.vin }}</li>
+            </ul>
+          </div>
         </div>
+        <p>Purchased on {{ vm.contract.purchased_on | date:'MM/dd/yy' }} with {{ vm.contract.odometer | number }} miles.</p>
       </div>
     </div>
 
     <div class="card">
       <div class="card-body">
-        <div class="py-3">
-          <p>{{ vm.contract.package.name }} Package</p>
-          <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
-          <p>Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{ vm.contract.package.coverage.limit_in_miles | number }} miles.</p>
-          <div ng-if="vm.contract.addons.length > 0">
-            <label>Addons:</label>
-            <ul>
-              <li ng-repeat="addon in vm.contract.addons">
-                {{ addon.name }}
-              </li>
-            </ul>
-          </div>
+        <p>{{ vm.contract.package.name }} Package</p>
+        <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
+        <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{ vm.contract.package.coverage.limit_in_miles | number }} miles.</p>
+        <div class="mt-2" ng-if="vm.contract.addons.length > 0">
+          <label>Addons:</label>
+          <ul>
+            <li ng-repeat="addon in vm.contract.addons">
+              {{ addon.name }}
+            </li>
+          </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="card" ng-show="vm.contract.signed_copy">
+      <div class="card-body">
+        <a target="_blank" href="{{ vm.contract.signed_copy }}"><i class="material-icons">file_download</i> Download Signed Copy</a>
       </div>
     </div>
   </div>
   <div class="col-8">
+    <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)" ng-hide="vm.contract.signed_copy">
+      <input type="file" />
+
+      <h4 class="mb-4 font-weight-bold">
+        <i class="material-icons">error_outline</i>
+        Signed Copy Missing
+      </h4>
+
+      <p class="m-0">There is no signed copy of the contract on file. Please <a href>select one</a> or drop it here.</p>
+    </div>
+
     <div class="card">
       <div class="card-body">
-        <div class="py-3">
-          <div class="pull-right">
-            <button class="btn btn-primary">Create Claim</button>
-          </div>
-          <ul class="list-group list-group-borderless list-group-sm">
-            <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
-              <span class="text">
-                <i class="material-icons mr-1">mail_outline</i>
-                <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
-              </span>
-              <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
-            </li>
-          </ul>
+        <div class="pull-right">
+          <button class="btn btn-primary">Create Claim</button>
         </div>
+        <ul class="list-group list-group-borderless list-group-sm">
+          <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
+            <span class="text">
+              <i class="material-icons mr-1">mail_outline</i>
+              <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
+            </span>
+            <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

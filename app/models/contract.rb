@@ -11,6 +11,13 @@ class Contract < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :submitted_by, class_name: 'User', optional: true
 
+  has_many :contract_addons
+
+  belongs_to :coverage, optional: true
+  has_many :addons, through: :contract_addons
+
+  has_many :claims
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -24,14 +31,19 @@ class Contract < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true
 
-  has_many :contract_addons
-
-  belongs_to :coverage, optional: true
-  has_many :addons, through: :contract_addons
-
-  has_many :claims
+  mount_base64_uploader :signed_copy, SignedCopyUploader, file_name: ->(c) { [c.id, c.first_name, c.last_name].join(' ').parameterize }
 
   pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
+
+  scope :loss_ratio, (lambda do
+    TERM_TOTAL   = '((SUM(coverages.length_in_months) / 12.0) * 365)'.freeze
+    TERM_MATURED = 'SUM(current_date - purchased_on)'.freeze
+    CLAIMS_TOTAL = 'SUM(COALESCE(claims.cost_in_cents, 0))'.freeze
+    COSTS_TOTAL  = '(SUM(coverages.cost_in_cents) + SUM(COALESCE(addons.cost_in_cents, 0))) * 100'.freeze
+    left_joins(:claims).left_joins(:coverage).left_joins(:addons)
+    .select("ROUND(((#{TERM_TOTAL} / #{TERM_MATURED}) * #{CLAIMS_TOTAL}) / #{COSTS_TOTAL}, 2) AS loss_ratio")
+    .to_a.first.loss_ratio || '100.00'
+  end)
 
   def matures_on
     coverage && created_at + coverage.length_in_months.months

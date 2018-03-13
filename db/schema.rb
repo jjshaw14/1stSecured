@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20180126021634) do
     t.string "city"
     t.string "state"
     t.string "zip"
+    t.string "signed_copy"
     t.string "vin"
     t.string "make"
     t.string "model"

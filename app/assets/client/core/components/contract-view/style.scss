@@ -1,13 +1,21 @@
-quote-form {
-  span {
-    width: 75px;
-  }
+@import 'variables';
 
-  label {
-    margin-right: 10px;
-  }
+contract-view {
+  .signed-copy-drop {
+    background-color: #fff;
+    border: 2px dashed $gray-200;
 
-  .coverage-and-addons {
-    float: left;
+    width: 100%;
+
+    input[type=file] {
+      display: none;
+    }
+
+    &.hovering {
+      border-color: $brand;
+      background-color: lighten($brand, 50%);
+
+      color: $white;
+    }
   }
 }

@@ -6,7 +6,7 @@ import _       from 'lodash'
 angular.module('firstsecured.core')
 .component('contractView', {
   template: require('./template.html'),
-  controller: ['$http', 'Contract', '$window', '$location', '$routeParams', function($http, Contract, $window, $location, $routeParams) {
+  controller: ['Contract', '$window', '$location', '$routeParams', function(Contract, $window, $location, $routeParams) {
     var vm = this
 
     vm.$onInit = () => {
@@ -26,6 +26,12 @@ angular.module('firstsecured.core')
         return topLevelEvent
       })
       console.log(vm.timeline)
+    }
+
+    vm.uploadFile = (data) => {
+      Contract.update({}, vm.contract, { signed_copy: data }).then((response) => {
+        vm.contract = response.data
+      })
     }
   }]
 })

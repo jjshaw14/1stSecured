@@ -5,7 +5,7 @@ angular.module('firstsecured.core')
   var Template = {
     all: (dealership, options) => {
       return $q(function(resolve, reject) {
-        API.get('dealerships', dealership.id, 'templates', options).then(function(results) {
+        API.get('templates', options).then(function(results) {
           resolve(results)
         }, function(results) {
           reject(results)
@@ -13,9 +13,9 @@ angular.module('firstsecured.core')
       })
     },
 
-    find: (dealership, id) => {
+    find: (id) => {
       return $q(function(resolve, reject) {
-        API.get('dealerships', dealership.id, 'templates', id).then(function(results) {
+        API.get('templates', id).then(function(results) {
           resolve(results)
         }, function(results) {
           reject(results)
@@ -23,9 +23,9 @@ angular.module('firstsecured.core')
       })
     },
 
-    create: (dealership, attrs) => {
+    create: (attrs) => {
       return $q(function(resolve, reject) {
-        API.post('dealerships', dealership.id, 'templates', attrs).then(function(results) {
+        API.post('templates', attrs).then(function(results) {
           resolve(results)
         }, function(results) {
           reject(results)
@@ -33,11 +33,11 @@ angular.module('firstsecured.core')
       })
     },
 
-    update: (dealership, template, attrs) => {
+    update: (template, attrs) => {
       attrs || (attrs = template)
       if (!template.id) throw 'invalid template id.'
       return $q(function(resolve, reject) {
-        API.patch('dealerships', dealership.id, 'templates', template.id, attrs).then(function(results) {
+        API.patch('templates', template.id, attrs).then(function(results) {
           resolve(results)
         }, function(results) {
           reject(results)
@@ -45,9 +45,9 @@ angular.module('firstsecured.core')
       })
     },
 
-    preview: (dealership, attrs) => {
+    preview: (attrs) => {
       return $q(function(resolve, reject) {
-        API.post('dealerships', dealership.id, 'templates', 'preview.html', attrs).then(function(results) {
+        API.post('templates', 'preview.html', attrs).then(function(results) {
           resolve(results)
         }, function(results) {
           reject(results)
@@ -55,8 +55,8 @@ angular.module('firstsecured.core')
       })
     },
 
-    save: (dealership, attrs) => {
-      return (attrs.id ? Template.update : Template.create)(dealership, attrs)
+    save: (attrs) => {
+      return (attrs.id ? Template.update : Template.create)(attrs)
     }
   }
 

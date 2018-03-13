@@ -1,12 +1,12 @@
 <div>
-  <div class="mb-5">
+  <div class="mb-5 mx-5">
     <form>
       <input type="text" class="form-control" placeholder="Search by customer name, date, or VIN..." ng-model="vm.searchText" ng-change="vm.search()" autofocus />
     </form>
   </div>
 
-  <table class="table table-bordered table-condensed">
-    <thead class="thead-dark">
+  <table class="table table-middle table-material rt-md mb-0">
+    <thead class="rt-table-hide">
       <tr>
         <th>Date</th>
         <th ng-hide="vm.dealership">Dealership</th>
@@ -17,9 +17,9 @@
     </thead>
     <tbody>
       <tr ng-repeat="contract in vm.contracts">
-        <td>{{ contract.created_at | date:'MM/dd/yyyy' }}</td>
-        <td ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
-        <td>
+        <td class="rt-header">{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
+        <td class="rt-full" ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
+        <td class="rt-full">
           {{ contract.first_name }} {{ contract.last_name }} <br >
           <!-- <small>
             {{ contract.address1 }} <br >
@@ -28,11 +28,11 @@
             {{ contract.city }}, {{ contract.state }} {{ contract.zip }} <br >
           </small> -->
         </td>
-        <td>
+        <td class="rt-full">
           {{ contract.vin }} /
           {{ contract.year }} {{ contract.make }} {{ contract.model }}
         </td>
-        <td>
+        <td class="rt-full text-right">
           <a href="/contracts/{{ contract.id }}">View</a> |
           <a href="/contracts/{{ contract.id }}/edit">Edit</a> |
           <a target="_blank" href="/api/v1/contracts/{{ contract.id }}.pdf">Print</a>

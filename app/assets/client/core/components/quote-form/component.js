@@ -6,20 +6,15 @@ import _ from 'lodash'
 angular.module('firstsecured.core')
 .component('quoteForm', {
   template: require('./template.html'),
-  controller: ['Dealership', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Dealership, Contract, VIN, $http, $window, $location, $routeParams) {
+  bindings: {
+    contract: '=',
+    onSave: '='
+  },
+  controller: ['Template', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Contract, VIN, $http, $window, $location, $routeParams) {
     var vm = this
 
     vm.$onInit = () => {
-      vm.contract = {}
-      vm.dealership = { id: $routeParams.dealershipId }
-
-      Dealership.find($routeParams.dealershipId).then((response) => {
-        vm.dealership = response.data
-        if (!$routeParams.id) {
-          vm.contract.template = _.find(vm.dealership.templates, { id: parseInt($routeParams.template) })
-        }
-      })
-
+      console.log(vm.contract)
       if (!$routeParams.id) {
         return
       }
@@ -27,7 +22,14 @@ angular.module('firstsecured.core')
       Contract.find(vm.dealership, $routeParams.id).then((response) => {
         vm.contract = response.data
 
-        vm.contract.coverage = _.find(_.flatten(_.map(vm.contract.template.packages, 'coverages')), { id: vm.contract.coverage.id })
+        // Dealership.find(vm.contract.dealership.id).then((response) => {
+        //   vm.dealership = response.data
+        //   if (!$routeParams.id) {
+        //     vm.contract.template = _.find(vm.dealership.templates, { id: parseInt($routeParams.template) })
+        //   }
+        // })
+
+        // vm.contract.coverage = _.find(_.flatten(_.map(vm.contract.template.packages, 'coverages')), { id: vm.contract.package.coverage.id })
 
         if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(vm.contract.purchased_on)
       })
@@ -80,7 +82,8 @@ angular.module('firstsecured.core')
 
     vm.save = function() {
       Contract.save(vm.dealership, vm.contract).then((response) => {
-        $location.path(`/dealerships/${vm.dealership.id}/contracts/${response.data.id}`)
+        vm.contract = response
+        vm.onSave(response)
       }, (response) => {
         vm.contract.errors = response.data.errors
       })

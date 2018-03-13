@@ -1,13 +1,91 @@
 <div class="row">
+  <div class="col-lg-3 col-12">
+    <div class="card">
+      <div class="d-flex">
+        <div class="px-4 bg-light d-flex align-items-center border-right">
+          <div class="px-3 text-danger text-size-7">
+            <i class="material-icons">trending_down</i>
+          </div>
+
+        </div>
+        <div class="media-body">
+          <div class="text-center py-4 px-4">
+            <h3> {{ vm.me.dealership.performance.loss_ratio }}% </h3>
+            <p class="my-0 text-secondary">Loss Ratio</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-lg-3 col-12">
+    <div class="card">
+      <div class="d-flex">
+        <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
+          <div class="px-3 text-success text-size-7">
+            <i class="material-icons">attach_money</i>
+          </div>
+
+        </div>
+        <div class="media-body">
+          <div class="text-center py-4 px-4">
+            <h3> {{ (vm.me.dealership.performance.costs - vm.me.dealership.performance.claims - vm.me.dealership.performance.fees) / 100 | currency }} </h3>
+            <p class="my-0 text-secondary">Amount in Reserve</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-12">
+    <div class="card">
+      <div class="d-flex">
+        <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
+          <div class="px-3 text-danger text-size-7">
+            <i class="material-icons">thumb_down</i>
+          </div>
+
+        </div>
+        <div class="media-body">
+          <div class="text-center py-4 px-4">
+            <h3> {{ vm.me.dealership.performance.claims / 100 | currency }} </h3>
+            <p class="my-0 text-secondary">Claims</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-12">
+    <div class="card">
+      <div class="d-flex">
+        <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
+          <div class="px-3 text-success text-size-7">
+            <i class="material-icons">attach_money</i>
+          </div>
+
+        </div>
+        <div class="media-body">
+          <div class="text-center py-4 px-4">
+            <h3> {{ vm.me.dealership.performance.fees / 100 | currency }} </h3>
+            <p class="my-0 text-secondary">Fees Owed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">
-          Contracts
-        </h5>
-        <div class="py-3">
-          <contract-table dealership="vm.me.dealership"></contract-table>
-        </div>
+      <div class="card-header">
+        <h5>Contracts</h5>
+      </div>
+      <div class="card-body px-0 pb-0">
+        <contract-table dealership="vm.me.dealership"></contract-table>
       </div>
     </div>
   </div>

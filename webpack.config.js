@@ -59,7 +59,23 @@ module.exports = {
           configFile: path.resolve(__dirname, '.eslintrc')
         }
       },
-      { test: /\.s?css$/, loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules'), 'postcss-loader'] },
+      {
+        test: /\.s?css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.resolve(__dirname, './node_modules'),
+                path.resolve(__dirname, './app/assets/client/core/stylesheets')
+              ]
+            }
+          },
+          'postcss-loader'
+        ]
+      },
       { test: /\.(jpg|png)$/, loader: 'file-loader?name=/assets/[hash].[ext]' },
       { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff&name=/assets/[hash].[ext]' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url-loader?limit=10000&minetype=application/octet-stream&name=/assets/[hash].[ext]' },

@@ -28,6 +28,8 @@ json.city contract.city
 json.state contract.state
 json.zip contract.zip
 
+json.signed_copy "/api/v1/contracts/#{contract.id}/attachment.pdf" if contract.signed_copy.file.present?
+
 unless contract.coverage.nil?
   json.package do
     json.id contract.coverage.package.id

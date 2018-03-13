@@ -19,11 +19,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
 
+gem 'canable'
 gem 'devise'
 gem 'omniauth-google-oauth2'
-gem 'canable'
 
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-base64'
 gem 'httparty'
+gem 'fog-aws'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
