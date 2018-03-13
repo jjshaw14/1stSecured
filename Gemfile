@@ -27,10 +27,12 @@ gem 'omniauth-google-oauth2'
 
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-base64'
-gem 'httparty'
 gem 'fog-aws'
+gem 'httparty'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+
+gem 'error_page_assets'
 
 gem 'redcarpet'
 

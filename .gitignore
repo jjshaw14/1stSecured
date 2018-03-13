@@ -27,5 +27,8 @@ dump.rdb
 /app/assets/stylesheets/*bundle.css*
 
 /public/assets
+/public/404.html
+/public/422.html
+/public/500.html
 
 /data

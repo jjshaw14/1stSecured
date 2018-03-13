@@ -25,9 +25,10 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono%7CArvo:400%7CRoboto:300,400,500,700%7CCookie" rel="stylesheet">
-  <link href="/assets/vendor.bundle.css" rel="stylesheet" />
-  <link href="/assets/core.bundle.css" rel="stylesheet" />
+  <%= stylesheet_link_tag 'vendor.bundle' %>
+  <%= stylesheet_link_tag 'core.bundle' %>
 </head>
 <body>
 
@@ -40,13 +41,13 @@
     </div>
     <div class="text-center">
       <h1 class="mb-4">
-        Page Not Found
+        Processing Error
       </h1>
       <h4 class="mb-4">
         Oops..
       </h4>
       <p class="mb-1">
-        Looks like something can't be found.
+        Maybe you tried to change something you didn't have access to.
       </p>
       <p class="mb-10">
         Sorry about that!
@@ -56,5 +57,7 @@
       </p>
     </div>
   </div>
+
+  <script src="/assets/application.js"></script>
 </body>
 </html>
