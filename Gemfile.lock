@@ -303,5 +303,8 @@ DEPENDENCIES
   wicked_pdf
   wkhtmltopdf-binary
 
+RUBY VERSION
+   ruby 2.4.3p205
+
 BUNDLED WITH
    1.16.1
