@@ -9,4 +9,4 @@ Rails.application.config.assets.version = '1.1'
 # Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile webpack assets.
-Rails.application.config.assets.precompile = [/.*\.bundle\.(js|css)/, '404.html', '422.html', '500.html']
+Rails.application.config.assets.precompile = [/.*\.bundle\.(js|css)/, '404.html', '422.html', '500.html', 'logo.png']

@@ -36,16 +36,16 @@
                 Templates
               </h4>
               <div ng-show="vm.dealership.templates.length === 0">
-                No templates. <a href="/dealerships/{{ vm.dealership.id }}/templates/new">Add one.</a>
+                No templates. <a href="/templates/new">Add one.</a>
               </div>
               <ul class="mb-0 pl-6" ng-show="vm.dealership.templates.length > 0">
                 <li ng-repeat="template in vm.dealership.templates">
                   {{ template.name }} -
-                  <a href="/dealerships/{{ vm.dealership.id }}/templates/{{ template.id }}/edit">Edit</a> |
-                  <a target="_blank" href="/api/v1/dealerships/{{ vm.dealership.id }}/templates/{{ template.id }}.html">Preview</a>
+                  <a href="/templates/{{ template.id }}/edit">Edit</a> |
+                  <a target="_blank" href="/api/v1/templates/{{ template.id }}.html">Preview</a>
                 </li>
                 <li>
-                  <a href="/dealerships/{{ vm.dealership.id }}/templates/new">New Template</a>
+                  <a href="/templates/new">New Template</a>
                 </li>
               </ul>
             </div>
@@ -59,15 +59,15 @@
                 Users
               </h4>
               <div ng-show="vm.dealership.users.length === 0">
-                No users. <a href="/dealerships/{{ vm.dealership.id }}/users/new">Add one.</a>
+                No users. <a href="/users/new?dealership={{ vm.dealership.id }}">Add one.</a>
               </div>
               <ul class="mb-0 pl-6" ng-show="vm.dealership.users.length > 0">
                 <li ng-repeat="user in vm.dealership.users">
                   {{ user.first_name }} {{ user.last_name }} <small>({{ user.email }})</small> -
-                  <a href="/dealerships/{{ vm.dealership.id }}/users/{{ user.id }}/edit">Edit</a>
+                  <a href="/users/{{ user.id }}/edit">Edit</a>
                 </li>
                 <li>
-                  <a href="/dealerships/{{ vm.dealership.id }}/users/new">New User</a>
+                  <a href="/users/new?dealership={{ vm.dealership.id }}">New User</a>
                 </li>
               </ul>
             </div>
@@ -97,7 +97,7 @@
                   New Quote <span class="caret"></span>
                 </button>
                 <div class="dropdown-menu" uib-dropdown-menu role="menu">
-                  <a href="/dealerships/{{ vm.dealership.id }}/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
+                  <a href="/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
                     {{ template.name }}
                   </a>
                 </div>

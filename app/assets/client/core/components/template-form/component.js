@@ -6,12 +6,13 @@ require('./style.scss')
 angular.module('firstsecured.core')
 .component('templateForm', {
   template: require('./template.html'),
+  bindings: {
+    template: '=record'
+  },
   controller: ['Template', 'Dealership', 'Fee', '$routeParams', '$window', '$location', function(Template, Dealership, Fee, $routeParams, $window, $location) {
     var vm = this
 
     vm.$onInit = () => {
-      vm.dealership = { id: $routeParams.dealershipId }
-
       vm.mode = 'config'
 
       Fee.all().then((response) => {
@@ -24,24 +25,12 @@ angular.module('firstsecured.core')
         })
         console.log(vm.terms)
       })
-
-      if (!$routeParams.id) {
-        vm.template = { packages: [] }
-        Dealership.find($routeParams.dealershipId).then((response) => {
-          vm.template.dealership = response.data
-        })
-        return
-      }
-
-      Template.find(vm.dealership, $routeParams.id).then((response) => {
-        vm.template = response.data
-      })
     }
 
     vm.updatePreview = () => {
       vm.previewHTML = 'Rendering...'
 
-      Template.preview(vm.dealership, vm.template).then((response) => {
+      Template.preview(vm.template).then((response) => {
         vm.previewHTML = response.data
       }, () => {
         vm.previewHTML = 'An error occurred while rendering.'

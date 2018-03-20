@@ -62,7 +62,7 @@ module Api
       end
 
       def template_params
-        template_params = params.permit(:name, packages: [:id, :name, :terms, coverages: %i[id length_in_months limit_in_miles caveat], addons: %i[id name amount]])
+        template_params = params.permit(:name, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat], addons: %i[id name amount]])
 
         if template_params.key?(:packages)
           template_params[:packages] = template_params[:packages].map do |package_params|
