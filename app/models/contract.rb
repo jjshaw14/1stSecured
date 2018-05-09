@@ -36,12 +36,12 @@ class Contract < ApplicationRecord
   pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
 
   scope :loss_ratio, (lambda do
-    TERM_TOTAL   = '((SUM(coverages.length_in_months) / 12.0) * 365)'.freeze
-    TERM_MATURED = 'SUM(current_date - purchased_on)'.freeze
-    CLAIMS_TOTAL = 'SUM(COALESCE(claims.cost_in_cents, 0))'.freeze
-    COSTS_TOTAL  = '(SUM(coverages.cost_in_cents) + SUM(COALESCE(addons.cost_in_cents, 0))) * 100'.freeze
+    term   = '((SUM(coverages.length_in_months) / 12.0) * 365)'
+    matured = 'SUM(current_date - purchased_on)'
+    claims = 'SUM(COALESCE(claims.cost_in_cents, 0))'
+    costs  = '(SUM(coverages.cost_in_cents) + SUM(COALESCE(addons.cost_in_cents, 0))) * 100'
     left_joins(:claims).left_joins(:coverage).left_joins(:addons)
-    .select("ROUND(((#{TERM_TOTAL} / #{TERM_MATURED}) * #{CLAIMS_TOTAL}) / #{COSTS_TOTAL}, 2) AS loss_ratio")
+    .select("ROUND(((#{term} / #{matured}) * #{claims}) / #{costs}, 2) AS loss_ratio")
     .to_a.first.loss_ratio || '100.00'
   end)
 

@@ -1,5 +1,8 @@
 class Addon < ApplicationRecord
-  has_paper_trail meta: { template_id: ->(addon) { addon.package.template.id }, dealership_id: ->(addon) { addon.package.template.dealership.id } }
+  has_paper_trail meta: {
+    template_id: ->(addon) { addon.package.template.id },
+    dealership_id: ->(addon) { addon.package.template.dealership.id }
+  }
 
   belongs_to :package
 

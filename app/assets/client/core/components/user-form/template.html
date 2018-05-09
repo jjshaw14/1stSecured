@@ -18,9 +18,13 @@
     <label>Password</label>
     <input class="form-control" type="password" ng-model="vm.user.password" />
   </div>
-
-  <hr />
-
+  <div className='form-group'>
+    <label>Dealership</label>
+    <select
+      ng-model='vm.user.dealership'
+      ng-options='dealership as dealership.name for dealership in vm.dealerships track by
+                                                dealership.id'
+      ></select>
   <div class="form-group">
     <div class="float-right">
       <button type="submit" class="btn btn-primary">Save</button>

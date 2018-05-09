@@ -65,12 +65,14 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
+    database_cleaner (1.7.0)
     devise (4.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     dotenv (2.2.1)
     dotenv-rails (2.2.1)
       dotenv (= 2.2.1)
@@ -79,6 +81,11 @@ GEM
     erubi (1.7.0)
     excon (0.60.0)
     execjs (2.7.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
@@ -204,6 +211,23 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-rails (3.7.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
     rubocop (0.52.1)
       parallel (~> 1.10)
       parser (>= 2.4.0.2, < 3.0)
@@ -278,9 +302,11 @@ DEPENDENCIES
   capybara (~> 2.13)
   carrierwave (~> 1.0)
   carrierwave-base64
+  database_cleaner
   devise
   dotenv-rails
   error_page_assets
+  factory_bot_rails
   fog-aws
   httparty
   jbuilder (~> 2.5)
@@ -293,6 +319,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   redcarpet
   redis (~> 3.0)
+  rspec-rails
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver

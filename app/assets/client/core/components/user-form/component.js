@@ -8,7 +8,10 @@ angular.module('firstsecured.core')
   },
   controller: ['User', 'Dealership', '$routeParams', '$window', '$location', function(User, Dealership, $routeParams, $window, $location) {
     var vm = this
-
+    vm.dealerships = []
+    Dealership.all().then(function(response) {
+      vm.dealerships = response.data
+    })
     vm.save = function() {
       User.save(vm.user).then((response) => {
         vm.user = response.data

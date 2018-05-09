@@ -126,7 +126,8 @@ package  = Template.first.packages.second
 coverage = package.coverages.first
 
 Contract.create!(
-  dealership: Template.first.dealership, template: Template.first,
+  dealership: Template.first.dealership,
+  template: Template.first,
   created_by: User.first,
   first_name: 'Kevin', last_name: 'Primm', purchased_on: Date.today - 7.days,
   email: 'kfprimm@gmail.com', mobile_number: '8045138434',
@@ -139,7 +140,7 @@ Contract.create!(
 
 new_request
 
-attrs = JSON.parse(File.read(Rails.root.join('spec', 'example1.json'))).deep_symbolize_keys
+attrs = JSON.parse(File.read(Rails.root.join('data', 'example1.json'))).deep_symbolize_keys
 
 template = Template.new(
   dealership: Dealership.first,
@@ -157,7 +158,7 @@ end
 template.save!
 
 CSV.foreach(
-  Rails.root.join('spec', 'example1.csv'),
+  Rails.root.join('data', 'example1.csv'),
   headers: true,
   header_converters: ->(h) { h.parameterize.underscore.to_sym }
 ) do |row|

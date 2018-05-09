@@ -89,12 +89,12 @@
 
             <div class="mb-1 px-5">
               <a class="btn btn-sm btn-primary pull-right " href="/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
-                New Quote
+                New Contract
               </a>
 
               <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
                 <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-                  New Quote <span class="caret"></span>
+                  New Contract<span class="caret"></span>
                 </button>
                 <div class="dropdown-menu" uib-dropdown-menu role="menu">
                   <a href="/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">

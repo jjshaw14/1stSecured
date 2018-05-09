@@ -14,13 +14,13 @@ module Api
                    User.all
                  end
 
-        if params.key?(:admin)
-          @users = if params[:admin] == 'true' || params[:admin].to_i == 1
-                     @users.admin
-                   else
-                     @users.customer
-                   end
-        end
+#        if params.key?(:admin)
+#          @users = if params[:admin] == 'true' || params[:admin].to_i == 1
+#                     @users.admin
+#                   else
+#                     @users.customer
+#                   end
+#       end
 
         @users = @users.order(:created_at)
       end
