@@ -11,7 +11,6 @@ angular.module('firstsecured.core')
   },
   controller: ['Template', 'Dealership', 'Fee', '$routeParams', '$window', '$location', function(Template, Dealership, Fee, $routeParams, $window, $location) {
     var vm = this
-
     vm.$onInit = () => {
       vm.mode = 'config'
 
@@ -23,7 +22,6 @@ angular.module('firstsecured.core')
           }
           return { label: `${Math.floor(months / 12)} years`, value: months }
         })
-        console.log(vm.terms)
       })
     }
 
@@ -62,7 +60,8 @@ angular.module('firstsecured.core')
     }
 
     vm.save = function() {
-      Template.save(vm.dealership, vm.template).then((response) => {
+      Template.save(vm.template).then((response) => {
+        console.log(response.data)
         vm.template = response.data
         $location.path(`/dealerships/${vm.template.dealership.id}`)
       })

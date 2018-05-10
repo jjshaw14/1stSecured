@@ -4,7 +4,7 @@ module Api
       before_action :set_contract, except: %i[index create]
 
       def index
-        @contracts = Contract.available_to(current_user)
+        @contracts = Contract.available_to(current_user).includes(:dealership)
 
         if params.key?(:dealership)
           @contracts = @contracts.where(dealership_id: params[:dealership])

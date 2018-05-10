@@ -1,11 +1,15 @@
 import angular from 'angular'
 
-angular.module('firstsecured.admin')
+angular.module('firstsecured.core')
 .component('dealershipView', {
   template: require('./template.html'),
-  controller: ['Dealership', '$routeParams', 'pageTitle', function(Dealership, $routeParams, pageTitle) {
+  controller: ['$window', 'Me', 'Dealership', '$routeParams', 'pageTitle', function($window, Me, Dealership, $routeParams, pageTitle) {
     var vm = this
-
+    Me.get().then((me) => {
+      if (me.dealership && String(me.dealership.id) !== $routeParams.id) {
+        $window.history.back()
+      }
+    })
     vm.view = 'contracts'
 
     vm.$onInit = () => {

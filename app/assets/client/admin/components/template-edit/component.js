@@ -10,7 +10,13 @@ angular.module('firstsecured.admin')
 
     vm.$onInit = () => {
       Template.find($routeParams.id).then((response) => {
+        console.log(response.data)
+        response.data.packages.forEach((p) => {
+          p.coverages.forEach((coverage) => { coverage.amount = parseFloat(coverage.cost) })
+          p.addons.forEach((addon) => { addon.amount = parseFloat(addon.cost) })
+        })
         vm.template = response.data
+        console.log(vm.template)
       })
     }
   }]

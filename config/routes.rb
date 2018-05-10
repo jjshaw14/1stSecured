@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     get 'dealerships/:id/edit'
     get 'dealerships/:id'
     get 'dealerships'
-
+    get 'dealerships/:dealership_id/templates/new'
     get 'service-providers/new'
     get 'service-providers/:id/edit'
     get 'service-providers'

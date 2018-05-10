@@ -17,7 +17,7 @@ module Api
       end
 
       def create
-        @template = @dealership.templates.build(template_params)
+        @template = Template.new(template_params)
         if @template.save
           render 'show'
         else
@@ -62,27 +62,25 @@ module Api
       end
 
       def template_params
-        template_params = params.permit(:name, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat], addons: %i[id name amount]])
+        template_params = params.permit(:name, :dealership_id, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat amount], addons: %i[id name amount]])
 
         if template_params.key?(:packages)
           template_params[:packages] = template_params[:packages].map do |package_params|
             if package_params.key?(:coverages)
               package_params[:coverages] = package_params[:coverages].map do |coverage_params|
+                coverage_params[:cost_in_cents] = (coverage_params.delete(:amount) * 100).to_i if coverage_params.key?(:amount)
                 Coverage.find_or_initialize_by_params(coverage_params)
               end
             end
-
             if package_params.key?(:addons)
               package_params[:addons] = package_params[:addons].map do |addon_params|
-                addon_params[:amount_in_cents] = (addon_params.delete(:amount) * 100).to_i if addon_params.key?(:amount)
+                addon_params[:cost_in_cents] = (addon_params.delete(:amount) * 100).to_i if addon_params.key?(:amount)
                 Addon.find_or_initialize_by_params(addon_params)
               end
             end
-
             Package.find_or_initialize_by_params(package_params)
           end
         end
-
         template_params
       end
     end

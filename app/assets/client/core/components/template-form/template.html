@@ -31,7 +31,9 @@
                 <div class="mb-1" ng-repeat="coverage in package.coverages">
                   <div class="form-inline">
                     <select class="form-control mr-1" ng-model="coverage.length_in_months" ng-options="option.value as option.label for option in vm.terms"></select>
-                    <input class="form-control" ng-model="coverage.limit_in_miles" />
+                    <input class="form-control" ng-model="coverage.limit_in_miles" placeholder='100,000' />
+                    <input class="form-control" ng-model="coverage.amount" placeholder='$1000'
+                    ng-input-currency />
                     <a href class="text-danger ml-2" ng-click="vm.removeCoverage(package, coverage)"><i class="material-icons">delete</i></a>
                   </div>
                 </div>
@@ -43,8 +45,9 @@
               <div>
                 <div class="mb-1" ng-repeat="addon in package.addons">
                   <div class="form-inline">
-                    <input class="form-control mr-1" ng-model="addon.name" />
-                    <input ng-input-currency class="form-control" ng-model="addon.amount" />
+                    <input class="form-control mr-1" ng-model="addon.name" placeholder="Roadside Assitance" />
+                    <input ng-input-currency class="form-control" ng-model="addon.amount"
+                    placeholder="$100" />
                     <button type="button" class="btn btn-link" ng-click="vm.removeAddon(package, addon)"><i class="material-icons text-danger">delete</i></button>
                   </div>
                 </div>
