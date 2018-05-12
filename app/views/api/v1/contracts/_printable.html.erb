@@ -4,7 +4,8 @@
   * {
     font-family: 'Roboto', sans-serif;
   }
-
+  .alwaysbreak { page-break-before: always; }
+  .nobreak { page-break-inside: avoid; }
   .row {
     width: 100%;
     box-sizing: border-box;
@@ -254,16 +255,34 @@
         </li>
       <% end %>
     </ul>
-    <p class="legal-text">
-      The issuing Dealer/Producer/Obligator agrees, subject to the terms and conditions listed, that during the service contract period it will make repairs and/or replace defective parts or authorize repairs at approved repair facilities for covered parts when a Mechanical Breakdown has occurred. A covered mechanical breakdown is defined as a listed covered part failing to perform the function in which it was designed to perform. We reserve the right to use “New”, “Used” or “Re-manufactured” parts and this decision is at the sole discretion of the Administrator. FSA LLC is only the administrator of this service contract. The Dealer/Provider/Obligator is responsible for providing payment to FSA LLC which will be used to pay all valid claims. The Dealer/Provider/Obligator guarantees there will be sufficient funds to cover any and all valid claims.
-    </p>
-    <p class="legal-text">
-      I have read both pages of this document and agree to all the terms and conditions listed herein. I understand additional coverage is available for my vehicle and has been offered to me.
-    </p>
-    <p>
-      Customer Signature _________________________________________________________________________ Date _______________________________
-      Dealer Signature ___________________________________________________________________________ Date _______________________________
-    </p>
+    <div class='alwaysbreak'>
+      <p class="legal-text">
+        The issuing Dealer/Producer/Obligator agrees, subject to the terms and conditions listed, that during the service contract period it will make repairs and/or replace defective parts or authorize repairs at approved repair facilities for covered parts when a Mechanical Breakdown has occurred. A covered mechanical breakdown is defined as a listed covered part failing to perform the function in which it was designed to perform. We reserve the right to use “New”, “Used” or “Re-manufactured” parts and this decision is at the sole discretion of the Administrator. FSA LLC is only the administrator of this service contract. The Dealer/Provider/Obligator is responsible for providing payment to FSA LLC which will be used to pay all valid claims. The Dealer/Provider/Obligator guarantees there will be sufficient funds to cover any and all valid claims.
+      </p>
+      <p class="legal-text">
+        I have read both pages of this document and agree to all the terms and conditions listed herein. I understand additional coverage is available for my vehicle and has been offered to me.
+      </p>
+      <p>
+      <div class='column-50' style='float:left'>
+        <p>Customer:</p>
+        <br/>
+        <p>Full Name:______________________</p>
+        <br />
+        <br />
+        <p>Signature:______________________</p>
+        <br/>
+        <p>Date:______________ </p>
+      </div>
+      <div class='column-50' style='float:left'>
+        <p>Dealer:</p>
+        <br/>
+        <p>Full Name:_______________________</p>
+        <br />
+        <p>Signature:_______________________</p>
+        <br/>
+        <br/>
+        <p>Date:______________ </p>
+    </div>
   </div>
 </div>
 

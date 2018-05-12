@@ -5,10 +5,12 @@ angular.module('firstsecured.core')
   template: require('./template.html'),
   controller: ['$window', 'Me', 'Dealership', '$routeParams', 'pageTitle', function($window, Me, Dealership, $routeParams, pageTitle) {
     var vm = this
+
     Me.get().then((me) => {
       if (me.dealership && String(me.dealership.id) !== $routeParams.id) {
         $window.history.back()
       }
+      vm.isAdmin = me.dealership ? false  : true
     })
     vm.view = 'contracts'
 
@@ -19,5 +21,6 @@ angular.module('firstsecured.core')
         pageTitle.set(vm.dealership.name)
       })
     }
+
   }]
 })
