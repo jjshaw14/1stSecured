@@ -40,6 +40,7 @@ angular.module('firstsecured.core')
     },
 
     update: function(dealership, contract, attrs) {
+      console.log(contract, attrs)
       attrs || (attrs = contract)
       if (!contract.id) throw 'invalid contract id.'
       return $q(function(resolve, reject) {
