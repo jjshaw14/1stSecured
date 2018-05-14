@@ -34,7 +34,8 @@
 
       <div class="form-group">
         <label>Purchase Date</label>
-        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.purchased_on }" type="date" ng-model="vm.contract.purchased_on" />
+        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.purchased_on }"
+        type="date" ng-model="vm.contract.purchased_on" date-format="mm/dd/yyyy" />
       </div>
 
       <div class="form-group">

@@ -3,17 +3,15 @@ require('./style.scss')
 import angular from 'angular'
 import _ from 'lodash'
 
+import moment from 'moment'
+
 angular.module('firstsecured.core')
 .component('quoteForm', {
   template: require('./template.html'),
-  bindings: {
-    contract: '=',
-    onSave: '='
-  },
-  controller: ['Template', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Contract, VIN, $http, $window, $location, $routeParams) {
+  controller: ['Template', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Contract, VIN, $http, $window, $location, $routeParams ) {
     var vm = this
-
     vm.$onInit = () => {
+
       console.log(vm.contract)
       if (!$routeParams.id) {
         return
@@ -30,8 +28,9 @@ angular.module('firstsecured.core')
         // })
 
         // vm.contract.coverage = _.find(_.flatten(_.map(vm.contract.template.packages, 'coverages')), { id: vm.contract.package.coverage.id })
+        if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(moment.utc(vm.contract.purchased_on))
 
-        if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(vm.contract.purchased_on)
+        console.log(vm.contract)
       })
     }
 
@@ -79,7 +78,9 @@ angular.module('firstsecured.core')
     vm.packageAllowed = (pkg) => {
       return _.some(pkg.coverages, vm.coverageAllowed)
     }
-
+    vm.onSave = function() {
+      $location.path(`/contracts/${vm.contract.id}`)
+    }
     vm.save = function() {
       Contract.save(vm.dealership, vm.contract).then((response) => {
         vm.contract = response
