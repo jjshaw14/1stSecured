@@ -35,6 +35,7 @@
     "simplemde": "^1.11.2",
     "simplemde-angular": "https://github.com/hansottowirtz/simplemde-angular",
     "style-loader": "^0.20.1",
+    "toastr": "^2.1.4",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-livereload-plugin": "^1.0.0"

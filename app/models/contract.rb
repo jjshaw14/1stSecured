@@ -49,6 +49,10 @@ class Contract < ApplicationRecord
     coverage && created_at + coverage.length_in_months.months
   end
 
+  def price
+    price_in_cents / 100.00 if price_in_cents.present?
+  end
+
   protected
 
   def lookup_info_by_vin!

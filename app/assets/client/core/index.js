@@ -1,11 +1,8 @@
 import './vendor'
 import './stylesheets/simplify.scss'
-import 'date-input-polyfill'
 
 import angular from 'angular'
 import dropdown from 'angular-ui-bootstrap/src/dropdown'
-
-
 
 var app = angular.module('firstsecured.core', [dropdown, 'checklist-model', 'ngInputCurrency', 'simplemde', 'ngRoute'])
 

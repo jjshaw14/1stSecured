@@ -82,9 +82,35 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Contracts</h5>
+        <h5 style='float:left'>Contracts</h5>
+
+        <div class="mb-1 px-5">
+          <a
+            class="btn btn-sm btn-primary pull-right "
+            href="/contracts/new?template={{ vm.me.dealership.templates[0].id }}"
+            ng-if="vm.me.dealership.templates.length === 1">
+            New Contract
+          </a>
+
+          <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.me.dealership.templates.length > 1">
+            <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+              New Contract<span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" uib-dropdown-menu role="menu">
+              <a href="/contracts/new?template={{ template.id }}" class="dropdown-item"
+                ng-repeat="template in vm.me.dealership.templates">
+                {{ template.name }}
+              </a>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+
       </div>
       <div class="card-body px-0 pb-0">
+
+
         <contract-table dealership="vm.me.dealership"></contract-table>
       </div>
     </div>

@@ -8,29 +8,20 @@ import moment from 'moment'
 angular.module('firstsecured.core')
 .component('quoteForm', {
   template: require('./template.html'),
+  bindings: {
+    contract: '=?',
+    onSave: '=?'
+  },
   controller: ['Template', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Contract, VIN, $http, $window, $location, $routeParams ) {
     var vm = this
     vm.$onInit = () => {
-
-      console.log(vm.contract)
       if (!$routeParams.id) {
         return
       }
 
       Contract.find(vm.dealership, $routeParams.id).then((response) => {
         vm.contract = response.data
-
-        // Dealership.find(vm.contract.dealership.id).then((response) => {
-        //   vm.dealership = response.data
-        //   if (!$routeParams.id) {
-        //     vm.contract.template = _.find(vm.dealership.templates, { id: parseInt($routeParams.template) })
-        //   }
-        // })
-
-        // vm.contract.coverage = _.find(_.flatten(_.map(vm.contract.template.packages, 'coverages')), { id: vm.contract.package.coverage.id })
         if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(moment.utc(vm.contract.purchased_on))
-
-        console.log(vm.contract)
       })
     }
 
@@ -59,10 +50,9 @@ angular.module('firstsecured.core')
     }
 
     vm.selectedPackage = () => {
-      if (!vm.contract || !vm.contract.coverage) return false
-
+      if (!vm.contract || !vm.contract.coverage_id) return false
       return _.find(vm.contract.template.packages, (pkg) => {
-        return _.filter(pkg.coverages, { id: vm.contract.coverage.id }).length > 0
+        return _.filter(pkg.coverages, { id: vm.contract.coverage_id }).length > 0
       })
     }
 
@@ -83,7 +73,7 @@ angular.module('firstsecured.core')
     }
     vm.save = function() {
       Contract.save(vm.dealership, vm.contract).then((response) => {
-        vm.contract = response
+        vm.contract = response.data
         vm.onSave(response)
       }, (response) => {
         vm.contract.errors = response.data.errors

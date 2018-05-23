@@ -1,5 +1,5 @@
 json.id contract.id
-
+json.dealership_id contract.dealership_id
 json.dealership do
   json.id contract.dealership.id
   json.name contract.dealership.name
@@ -7,7 +7,7 @@ end
 
 json.first_name contract.first_name
 json.last_name contract.last_name
-
+json.price contract.price
 json.email contract.email
 json.mobile_number contract.mobile_number
 json.home_number contract.home_number
@@ -29,7 +29,7 @@ json.state contract.state
 json.zip contract.zip
 
 json.signed_copy "/api/v1/contracts/#{contract.id}/attachment.pdf" if contract.signed_copy.file.present?
-
+json.coverage_id contract.coverage_id
 unless contract.coverage.nil?
   json.package do
     json.id contract.coverage.package.id
@@ -39,7 +39,7 @@ unless contract.coverage.nil?
 end
 
 json.addons contract.addons, partial: 'api/v1/addons/addon', as: :addon
-
+json.template_id contract.template_id
 json.template contract.template, partial: 'api/v1/templates/template', as: :template
 
 json.matures_on contract.matures_on
@@ -55,7 +55,7 @@ json.history History.where(contract: contract).order(created_at: :desc) do |vers
     json.id version.created_by.id
     json.first_name version.created_by.first_name
     json.last_name version.created_by.last_name
-  end
+  end unless version.created_by.nil?
   json.created_at version.created_at
 end
 

@@ -5,9 +5,9 @@ angular.module('firstsecured.dealer')
   template: require('./template.html'),
   controller: ['Me', 'pageTitle', function(Me, pageTitle) {
     pageTitle.set('Contracts')
-
+    var vm = this
     Me.get().then((me) => {
-      this.me = me
+      vm.me = me
     })
   }]
 })

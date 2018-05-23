@@ -13,12 +13,13 @@ angular.module('firstsecured.core')
 
       Template.find($routeParams.template).then((response) => {
         vm.contract.template = response.data
-        Me.get().then((me) =>  me.dealership  && me.dealership.id !== vm.contract.template.dealership.id  && $location.path('/'))
+        Me.get().then((me) =>  me.dealership  && me.dealership.id !== vm.dealership.id  && $location.path('/'))
       })
     }
 
-    vm.onSave = () => {
-      $location.path(`/contracts/${vm.contract.id}`)
+    vm.onSave = (resp) => {
+      console.log(resp)
+      $location.path(`/contracts/${vm.contract.id || resp.data.id}`)
     }
   }]
 })

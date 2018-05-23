@@ -35,7 +35,8 @@
       <div class="form-group">
         <label>Purchase Date</label>
         <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.purchased_on }"
-        type="date" ng-model="vm.contract.purchased_on" date-format="mm/dd/yyyy" />
+        type="date" ng-model="vm.contract.purchased_on" date-format="yyyy-mm-dd"
+        placeholder='yyyy-mm-dd' />
       </div>
 
       <div class="form-group">
@@ -74,7 +75,7 @@
           </div>
         </div>
         <div class="invalid-feedback">
-          Please enter basic address info.
+          Please enter address info.
         </div>
       </div>
 
@@ -97,13 +98,28 @@
         <label>Work Number</label>
         <input class="form-control" ng-model="vm.contract.work_number" />
       </div>
+      <div class="form-group">
+        <label>Selling Price</label>
+        <input class="form-control" ng-model="vm.contract.price" ng-input-currency />
+      </div>
     </div>
     <div class="col-8">
       <div ng-repeat="package in vm.contract.template.packages" class="package">
         <div class="package-name">{{ package.name }}</div>
         <div class="coverage-and-addons">
-          <label ng-repeat="coverage in package.coverages" ng-class="{ 'text-muted': !vm.packageSelected(package) }">
-            <input type="radio" name="coverage" ng-disabled="!vm.coverageAllowed(coverage)" ng-change="vm.uncheckAddons()" ng-model="vm.contract.coverage" ng-value="coverage" /> <span ng-class="{ 'text-strike': !vm.coverageAllowed(coverage) }">{{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles</span>
+          <label
+            ng-repeat="coverage in package.coverages"
+            ng-class="{ 'text-muted': !vm.packageSelected(package) }">
+            <input
+              type="radio"
+              name="coverage"
+              ng-disabled="!vm.coverageAllowed(coverage)"
+              ng-change="vm.uncheckAddons()"
+              ng-model="vm.contract.coverage_id"
+              ng-value="coverage.id" />
+            <span
+              ng-class="{ 'text-strike': !vm.coverageAllowed(coverage) }">
+                {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles</span>
           </label>
           <br />
           <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) || !vm.packageAllowed(package) }">

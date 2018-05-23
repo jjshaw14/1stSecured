@@ -30,6 +30,7 @@ angular.module('firstsecured.core')
     },
 
     create: function(dealership, attrs) {
+      console.log(dealership, attrs)
       return $q(function(resolve, reject) {
         API.post('contracts', attrs).then(function(results) {
           resolve(results)

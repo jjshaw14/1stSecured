@@ -11,3 +11,5 @@ import 'ng-input-currency'
 
 import 'checklist-model'
 import 'angular-ui-bootstrap/src/dropdown'
+
+import 'toastr/build/toastr.css'
