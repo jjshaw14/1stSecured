@@ -14,4 +14,5 @@ module Api
         claim_params = params.permit(:odometer, :cost)
       end
     end
+  end
 end
