@@ -30,7 +30,7 @@ class Contract < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
-
+  delegate :terms, to: :template
   mount_base64_uploader :signed_copy, SignedCopyUploader, file_name: ->(c) { [c.id, c.first_name, c.last_name].join(' ').parameterize }
 
   pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }

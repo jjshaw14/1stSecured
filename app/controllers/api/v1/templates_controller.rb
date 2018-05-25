@@ -24,7 +24,9 @@ module Api
           render json: { errors: @template.errors }, status: 422
         end
       end
-
+      def terms
+        render json: DEFAULT_TERMS
+      end
       def show
         dummy_contract
         respond_to do |format|
@@ -62,7 +64,7 @@ module Api
       end
 
       def template_params
-        template_params = params.permit(:name, :dealership_id, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat amount], addons: %i[id name amount]])
+        template_params = params.permit(:terms, :name, :dealership_id, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat amount], addons: %i[id name amount]])
 
         if template_params.key?(:packages)
           template_params[:packages] = template_params[:packages].map do |package_params|

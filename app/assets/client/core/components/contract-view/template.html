@@ -1,6 +1,11 @@
 <div class="card">
   <div class="card-body">
     <a class="btn btn-primary btn-sm pull-right" href="/contracts/{{ vm.contract.id }}/edit">Edit</a>
+
+    <a target="_blank" style='margin-right:3px;' href="/api/v1/contracts/{{ vm.contract.id }}.pdf" class="btn btn-primary
+      btn-sm pull-right">Print</a>
+
+
     <h1 class="card-title">
       <a href="/dealerships/{{ vm.contract.dealership.id }}">{{ vm.contract.dealership.name }}</a> > {{ vm.contract.first_name }} {{ vm.contract.last_name }} ({{ vm.contract.vin }})
     </h1>

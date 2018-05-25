@@ -35,7 +35,6 @@
     <% if Rails.env.development? %>
     <script src="http://localhost:35729/livereload.js"></script>
     <% end %>
-
     <%= javascript_include_tag 'vendor.bundle' %>
     <%= javascript_include_tag 'core.bundle' %>
     <%= javascript_include_tag "#{current_user.admin? ? 'admin' : 'dealer'}.bundle" unless current_user.blank? %>

@@ -1,6 +1,5 @@
 import angular from 'angular'
 import _ from 'lodash'
-
 require('./style.scss')
 
 angular.module('firstsecured.core')

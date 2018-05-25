@@ -13,5 +13,7 @@ class Dealership < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
-
+  def default_terms
+    DEFAULT_TERMS
+  end
 end

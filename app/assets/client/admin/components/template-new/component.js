@@ -1,5 +1,6 @@
 import angular from 'angular'
 
+
 angular.module('firstsecured.admin')
 .component('templateNew', {
   template: require('./template.html'),
@@ -11,9 +12,11 @@ angular.module('firstsecured.admin')
         if (me.dealership && me.dealership.id !== $routeParams.dealership_id) {
           $location.path('/')
         } else {
+          console.log(me.dealership)
           vm.template = {
             packages: [],
-            dealership_id: $routeParams.dealership_id
+            dealership_id: $routeParams.dealership_id,
+            terms: me.dealership.default_terms
           }
         }
       })

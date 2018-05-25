@@ -1,6 +1,6 @@
 json.id dealership.id
 json.name dealership.name
-
+json.default_terms dealership.default_terms
 json.address1 dealership.address1
 json.address2 dealership.address2
 json.address3 dealership.address3

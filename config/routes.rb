@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :templates do
         post :preview, action: :preview, on: :collection
         get :preview, action: :preview, on: :member
+        get :terms, action: :terms, on: :collection
       end
 
       resources :contracts do

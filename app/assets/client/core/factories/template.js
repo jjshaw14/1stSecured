@@ -22,7 +22,6 @@ angular.module('firstsecured.core')
         })
       })
     },
-
     create: (attrs) => {
       return $q(function(resolve, reject) {
         API.post('templates', attrs).then(function(results) {
