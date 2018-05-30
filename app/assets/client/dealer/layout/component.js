@@ -10,6 +10,18 @@ angular.module('firstsecured.dealer')
 
     Me.get().then((me) => {
       vm.me = me
+      vm.sidebarCollapsed = false
+      vm.menu = me.user_type === 'owner' ? [
+        {
+          'label': 'SETTINGS',
+          'isLabel': true
+        },
+        {
+          'path': '/users',
+          'label': 'Users',
+          'icon': { 'class': 'material-icons', 'content': 'people' }
+        }
+      ] : undefined
     })
   }]
 })

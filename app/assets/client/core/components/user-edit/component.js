@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('firstsecured.admin')
+angular.module('firstsecured.core')
 .component('userEdit', {
   template: require('./template.html'),
   controller: ['User', 'pageTitle', '$routeParams', function(User, pageTitle, $routeParams) {

@@ -32,7 +32,9 @@ class Contract < ApplicationRecord
   validates :zip, presence: true
   delegate :terms, to: :template
   mount_base64_uploader :signed_copy, SignedCopyUploader, file_name: ->(c) { [c.id, c.first_name, c.last_name].join(' ').parameterize }
-
+  scope :this_month, -> {
+    where('purchased_on > ? ', Date.today.at_beginning_of_month)
+  }
   pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
 
   scope :loss_ratio, (lambda do

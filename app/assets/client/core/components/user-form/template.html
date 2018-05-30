@@ -14,17 +14,25 @@
     <label>Email</label>
     <input class="form-control" ng-model="vm.user.email" />
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-show='vm.edit === false'>
     <label>Password</label>
     <input class="form-control" type="password" ng-model="vm.user.password" />
   </div>
-  <div className='form-group'>
+  <div className='form-group' ng-show='!vm.me.dealership'>
     <label>Dealership</label>
     <select
       ng-model='vm.user.dealership'
       ng-options='dealership as dealership.name for dealership in vm.dealerships track by
                                                 dealership.id'
       ></select>
+  </div>
+  <div className='form-group' ng-show='!vm.me.dealership || vm.me.user_type === "owner"'>
+    <label>User Type:</label>
+    <select
+      ng-model='vm.user.user_type'
+      ng-options='user_type as user_type for user_type in vm.user_types'
+                                                ></select>
+  </div>
   <div class="form-group">
     <div class="float-right">
       <button type="submit" class="btn btn-primary">Save</button>

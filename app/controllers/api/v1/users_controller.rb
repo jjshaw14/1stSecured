@@ -13,16 +13,7 @@ module Api
                  else
                    User.all
                  end
-
-#        if params.key?(:admin)
-#          @users = if params[:admin] == 'true' || params[:admin].to_i == 1
-#                     @users.admin
-#                   else
-#                     @users.customer
-#                   end
-#       end
-
-        @users = @users.order(:created_at)
+            @users = @users.available_to(current_user).order(:created_at)
       end
 
       def create
@@ -64,7 +55,7 @@ module Api
       end
 
       def user_params
-        user_params = params.permit(:first_name, :last_name, :email, :password, dealership: [:id])
+        user_params = params.permit(:user_type, :first_name, :last_name, :email, :password, dealership: [:id])
         user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params.key?(:dealership)
         user_params
       end

@@ -1,4 +1,58 @@
 <div class="full-page">
+  <div class="sidebar-container">
+
+    <aside class="sidebar sidebar-left sidebar-fixed sidebar-dark" ng-class="{ collapsed: vm.sidebarCollapsed }">
+
+      <div class="scroll">
+        <div class="sidebar-header text-white bg-brand">
+        <div class="sidebar-brand d-flex justify-content-between align-items-center">
+          <div class="title text-truncate">
+            1<sup>st</sup> Secured Administrators
+          </div>
+          <div class="logo align-items-center justify-content-around">
+            <img class="img-fluid" src="/favicon-96x96.png" />
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-nav-container">
+        <ul class="list-nav sidebar-nav list-nav-dark list-nav-dark-info">
+          <li ng-repeat="item in vm.menu" ng-class="{ 'list-nav-group-title': item.isLabel, 'list-nav-item': !item.isLabel }">
+            <span ng-if="item.isLabel">{{ item.label }}</span>
+
+            <a ng-if="!item.isLabel && item.children" href="" class="list-nav-link">
+              <span class="list-nav-icon">
+                <i class="{{ item.icon.class }}">{{ item.icon.content }}</i>
+              </span>
+              <span class="list-nav-label">{{ item.label }}</span>
+              <span class="list-nav-expand">
+                <i class="material-icons">add</i>
+              </span>
+            </a>
+            <ul ng-if="!item.isLabel && item.children" class="list-nav-child">
+              <li ng-repeat="subitem in item.children" class="list-nav-item list-nav-child-item">
+                <a href="{{ subitem.path }}" class="list-nav-link">
+                  <span class="list-nav-icon list-nav-icon-sm">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                  </span>
+                  <span class="list-nav-label">{{ subitem.label }}</span>
+                </a>
+              </li>
+            </ul>
+
+            <a ng-if="!item.isLabel && !item.children" href="{{ item.path }}" class="list-nav-link">
+              <span class="list-nav-icon">
+                <i class="{{ item.icon.class }}">{{ item.icon.content }}</i>
+              </span>
+              <span class="list-nav-label">{{ item.label }}</span>
+            </a>
+
+          </li>
+        </ul>
+      </div>
+      </div>
+    </aside>
+
+  </div>
   <div class="page" class="no-sidebar">
     <div class="topbar-container">
       <nav class="navbar bg-white text-secondary navbar-expand-sm py-0 topbar fixed">

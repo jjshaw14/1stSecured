@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show='vm.me.user_type === "owner"'>
   <div class="col-lg-3 col-12">
     <div class="card">
       <div class="d-flex">
@@ -49,8 +49,8 @@
         </div>
         <div class="media-body">
           <div class="text-center py-4 px-4">
-            <h3> {{ vm.me.dealership.performance.claims / 100 | currency }} </h3>
-            <p class="my-0 text-secondary">Claims</p>
+            <h3> {{ vm.me.dealership.performance.claims_this_month / 100 | currency }} </h3>
+            <p class="my-0 text-secondary">Claims This Month</p>
           </div>
         </div>
       </div>
@@ -68,8 +68,8 @@
         </div>
         <div class="media-body">
           <div class="text-center py-4 px-4">
-            <h3> {{ vm.me.dealership.performance.fees / 100 | currency }} </h3>
-            <p class="my-0 text-secondary">Fees Owed</p>
+            <h3> {{ vm.me.dealership.performance.fees_this_month / 100 | currency }} </h3>
+            <p class="my-0 text-secondary">Fees Owed This Month</p>
           </div>
         </div>
       </div>
