@@ -7,6 +7,6 @@ json.dealership do
 end
 json.dealership_id template.dealership_id
 json.packages template.packages, partial: 'api/v1/packages/package', as: :package
-
+json.terms template.terms
 json.created_at template.created_at
 json.updated_at template.updated_at

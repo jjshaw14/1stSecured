@@ -12,7 +12,6 @@ angular.module('firstsecured.core')
     var vm = this
     vm.$onInit = () => {
       vm.mode = 'config'
-
       Fee.all().then((response) => {
         vm.terms = _.map(response.data, (fee) => {
           let months = fee.length_in_months

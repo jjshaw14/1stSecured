@@ -77,7 +77,13 @@
 
         <button ng-click="vm.addPackage()" type="button" class="btn btn-primary">+ Package</button>
 
+        <div class='form-group'>
+          <label style='margin:0 auto;display:block;'>Terms and Conditions</label>
+          <textarea simplemde="{ spellChecker: false }" ng-model="vm.template.terms"></textarea>
+        </div>
       </div>
+
+
 
       <div ng-show="vm.mode === 'preview'" ng-class="{ 'show active': vm.mode === 'preview' }" class="tab-pane fade" role="tabpanel">
         <iframe template-preview="{{ vm.previewHTML }}"></iframe>
