@@ -67,7 +67,7 @@ module Api
       def contract_params
 
         contract_params = params.permit(:stock_number, :price, :vin, :odometer, :purchased_on, :first_name, :last_name, :address1, :address2, :address3, :city, :state, :zip, :email, :mobile_number, :home_number, :work_number, :signed_copy, :coverage_id, addons: [:id], template: [:id, :dealership_id])
-        puts contract_params[:price]
+        contract_params[:price] ||= 0
         contract_params[:price_in_cents] = (contract_params.delete(:price) * 100).to_i if contract_params.key?(:price)
 
         if contract_params[:coverage_id]
