@@ -10,7 +10,7 @@ json.zip dealership.zip
 
 json.performance { json.partial! 'performance', locals: { dealership: dealership } }
 
-json.templates dealership.templates, partial: 'api/v1/templates/template', as: :template
+json.templates dealership.templates.where(deleted_at: nil), partial: 'api/v1/templates/template', as: :template
 json.users dealership.users, partial: 'api/v1/users/user', as: :user
 
 json.created_at dealership.created_at

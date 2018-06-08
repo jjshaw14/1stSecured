@@ -35,7 +35,9 @@
         <td class="rt-full text-right">
           <a href="/contracts/{{ contract.id }}">View</a> |
           <a href="/contracts/{{ contract.id }}/edit">Edit</a> |
+          <a href="#" ng-click="vm.deleteContract(contract)">Delete</a> |
           <a target="_blank" href="/api/v1/contracts/{{ contract.id }}.pdf">Print</a>
+
         </td>
       </tr>
       <tr ng-if="vm.contracts.length === 0">

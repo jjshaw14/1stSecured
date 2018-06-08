@@ -42,6 +42,7 @@
                 <li ng-repeat="template in vm.dealership.templates">
                   {{ template.name }} -
                   <a href="/templates/{{ template.id }}/edit">Edit</a> |
+                  <a href="#" ng-click="vm.deleteTemplate(template)">Delete</a> |
                   <a target="_blank" href="/api/v1/templates/{{ template.id }}.pdf">Preview</a>
                 </li>
                 <li>

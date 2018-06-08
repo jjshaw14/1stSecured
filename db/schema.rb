@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525204513) do
+ActiveRecord::Schema.define(version: 20180608131230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20180525204513) do
     t.bigint "coverage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["coverage_id"], name: "index_contracts_on_coverage_id"
     t.index ["created_by_id"], name: "index_contracts_on_created_by_id"
     t.index ["dealership_id"], name: "index_contracts_on_dealership_id"
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 20180525204513) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "fees", force: :cascade do |t|
@@ -143,6 +145,7 @@ ActiveRecord::Schema.define(version: 20180525204513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "terms"
+    t.datetime "deleted_at"
     t.index ["dealership_id"], name: "index_templates_on_dealership_id"
   end
 

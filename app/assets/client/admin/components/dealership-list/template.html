@@ -24,6 +24,7 @@
                   <td>{{ dealership | address }}</td>
                   <td>
                     <a href="/dealerships/{{ dealership.id }}">View</a>
+                    <a href="#" ng-click="vm.deleteDealership(dealership)">Delete</a>
                   </td>
                 </tr>
               </tbody>

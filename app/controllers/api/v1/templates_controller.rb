@@ -4,7 +4,7 @@ module Api
       before_action :set_template, except: %i[index create preview]
 
       def index
-        @templates = Template.available_to(current_user)
+        @templates = Template.available_to(current_user).where(deleted_at: nil)
         @templates = if params[:q].present?
                        if params[:q].size == 17
                          @templates.search_vin_for(params[:q])
@@ -26,6 +26,14 @@ module Api
       end
       def terms
         render json: DEFAULT_TERMS
+      end
+      def destroy
+        @template.deleted_at = Time.now
+        if @template.save
+          render json: @template, status: 200
+        else
+          render json: {errors: @template.errors}, status: 422
+        end
       end
       def show
         dummy_contract

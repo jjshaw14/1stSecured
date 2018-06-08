@@ -4,7 +4,7 @@ module Api
       before_action :set_contract, except: %i[index create]
 
       def index
-        @contracts = Contract.available_to(current_user).includes(:dealership)
+        @contracts = Contract.available_to(current_user).where(deleted_at: nil).includes(:dealership)
 
         if params.key?(:dealership)
           @contracts = @contracts.where(dealership_id: params[:dealership])
@@ -25,7 +25,14 @@ module Api
           @contracts = @contracts.order(:created_at)
         end
       end
-
+      def destroy
+        @contract.deleted_at = Time.now
+        if @contract.save
+          render json: @contract, status: 200
+        else
+          render json: {errors: @contract.errors }, status: 422
+        end
+      end
       def create
         @contract = contract_params[:dealership].contracts.build(contract_params) do |c|
           c.created_by = current_user

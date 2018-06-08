@@ -1,9 +1,9 @@
 import angular from 'angular'
-
+import toastr from 'toastr'
 angular.module('firstsecured.core')
 .component('dealershipView', {
   template: require('./template.html'),
-  controller: ['$window', 'Me', 'Dealership', '$routeParams', 'pageTitle', function($window, Me, Dealership, $routeParams, pageTitle) {
+  controller: ['$window', 'Me', 'Dealership', '$routeParams', 'pageTitle', 'Template', function($window, Me, Dealership, $routeParams, pageTitle, Template) {
     var vm = this
 
     Me.get().then((me) => {
@@ -13,6 +13,13 @@ angular.module('firstsecured.core')
       vm.isAdmin = me.dealership ? false  : true
     })
     vm.view = 'contracts'
+
+    vm.deleteTemplate = (t) => {
+      Template.destroy(t).then(ret => {
+        vm.dealership.templates = vm.dealership.templates.filter(template => template.id !== ret.data.id)
+        toastr.success('deleted successfully')
+      })
+    }
 
     vm.$onInit = () => {
       Dealership.find($routeParams.id).then((response) => {

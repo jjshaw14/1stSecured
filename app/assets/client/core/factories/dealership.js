@@ -44,7 +44,16 @@ angular.module('firstsecured.core')
         })
       })
     },
-
+    destroy: function(attrs) {
+      if (!attrs.id) throw 'invalid dealership id.'
+      return $q(function(resolve, reject) {
+        API.delete('dealerships/' + attrs.id).then(function(results) {
+          resolve(results)
+        }, function(results) {
+          reject(results)
+        })
+      })
+    },
     save: function(attrs) {
       return (attrs.id ? Dealership.update : Dealership.create)(attrs)
     }

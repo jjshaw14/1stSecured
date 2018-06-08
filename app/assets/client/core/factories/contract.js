@@ -29,6 +29,16 @@ angular.module('firstsecured.core')
       })
     },
 
+    destroy: function(attrs) {
+      if (!attrs.id) throw 'invalid contract id.'
+      return $q(function(resolve, reject) {
+        API.delete('contracts/' + attrs.id).then(function(results) {
+          resolve(results)
+        }, function(results) {
+          reject(results)
+        })
+      })
+    },
     create: function(dealership, attrs) {
       console.log(dealership, attrs)
       return $q(function(resolve, reject) {

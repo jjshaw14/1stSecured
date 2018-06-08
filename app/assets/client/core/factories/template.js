@@ -13,6 +13,16 @@ angular.module('firstsecured.core')
       })
     },
 
+    destroy: function(attrs) {
+      if (!attrs.id) throw 'invalid template id.'
+      return $q(function(resolve, reject) {
+        API.delete('templates/' + attrs.id).then(function(results) {
+          resolve(results)
+        }, function(results) {
+          reject(results)
+        })
+      })
+    },
     find: (id) => {
       return $q(function(resolve, reject) {
         API.get('templates', id).then(function(results) {
