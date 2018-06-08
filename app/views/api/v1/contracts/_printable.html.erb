@@ -286,7 +286,10 @@
       <% end %>
       <li class='fields'>
         <div class='row'>
-          <div class='column column-100' style='text-align:center'><span>Service Contract Selling Price</span> <%= contract.price %> </div>
+          <div class='column column-100' style='height:17px;position:relative'>
+            <span style='position:absolute;padding:2px 0;'>Service Contract Selling Price</span>
+            <span style='position:absolute;left:50%;text-align:center;padding:2px 0;'> <%= contract.price %> </span>
+          </div>
         </div>
       </li>
     </ul>
