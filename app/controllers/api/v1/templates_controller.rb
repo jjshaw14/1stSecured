@@ -75,11 +75,13 @@ module Api
         template_params = params.permit(:terms, :name, :dealership_id, packages: [:id, :name, :terms, :absolute_mileage, coverages: %i[id length_in_months limit_in_miles caveat amount], addons: %i[id name amount]])
 
         if template_params.key?(:packages)
-          template_params[:packages] = template_params[:packages].map do |package_params|
+          template_params[:packages] = template_params[:packages].map.with_index do |package_params, i|
             if package_params.key?(:coverages)
-              package_params[:coverages] = package_params[:coverages].map do |coverage_params|
+              package_params[:coverages] = package_params[:coverages].map.with_index do |coverage_params, k|
                 coverage_params[:cost_in_cents] = (coverage_params.delete(:amount) * 100).to_i if coverage_params.key?(:amount)
-                Coverage.find_or_initialize_by_params(coverage_params)
+                Coverage.find_or_initialize_by_params(coverage_params).tap{|c|
+                  c.order = k
+                }
               end
             end
             if package_params.key?(:addons)
@@ -88,7 +90,9 @@ module Api
                 Addon.find_or_initialize_by_params(addon_params)
               end
             end
-            Package.find_or_initialize_by_params(package_params)
+            Package.find_or_initialize_by_params(package_params).tap{|p|
+              p.order = i
+            }
           end
         end
         template_params

@@ -260,12 +260,12 @@
           <div class="column column-33"><span>Mileage</span> <%= number_with_delimiter contract.odometer %></div>
         </div>
       </li>
-      <% contract.template.packages.each do |package| %>
+      <% contract.template.packages.order(:order).each do |package| %>
         <li class="package">
           <h4><%= package.name %> Package</h4>
 
           <div class="row options">
-            <% package.coverages.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
+            <% package.coverages.order(:order).in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
                   <div class="option column <%= 'selected' if coverage == contract.coverage %> <%= 'column-50' unless package.coverage_caveats? %>">
@@ -311,7 +311,6 @@
         <p><span>Date</span></p>
     </div>
 </div>
-
 <div class="page terms-and-conditions">
           <%= markdown.render((contract.terms || '').strip).html_safe %>
 </div>

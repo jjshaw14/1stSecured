@@ -61,13 +61,6 @@ angular.module('firstsecured.core')
       return p && pkg.id === p.id
     }
 
-    vm.coverageAllowed = (coverage) => {
-      return vm.contract.odometer < coverage.limit_in_miles
-    }
-
-    vm.packageAllowed = (pkg) => {
-      return _.some(pkg.coverages, vm.coverageAllowed)
-    }
     vm.onSave = function() {
       $location.path(`/contracts/${vm.contract.id}`)
     }

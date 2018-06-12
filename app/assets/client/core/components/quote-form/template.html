@@ -113,17 +113,15 @@
             <input
               type="radio"
               name="coverage"
-              ng-disabled="!vm.coverageAllowed(coverage)"
               ng-change="vm.uncheckAddons()"
               ng-model="vm.contract.coverage_id"
               ng-value="coverage.id" />
-            <span
-              ng-class="{ 'text-strike': !vm.coverageAllowed(coverage) }">
+            <span>
                 {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.limit_in_miles | number }} miles</span>
           </label>
           <br />
           <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) || !vm.packageAllowed(package) }">
-            <input ng-disabled="!vm.packageSelected(package) || !vm.packageAllowed(package)" type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
+            <input type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
           </label>
         </div>
         <div class="clearfix"></div>

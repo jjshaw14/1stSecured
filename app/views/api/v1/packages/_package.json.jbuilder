@@ -1,7 +1,7 @@
 json.id package.id
 json.name package.name
 
-json.coverages package.coverages, partial: 'api/v1/coverages/coverage', as: :coverage
+json.coverages package.coverages.order(:order), partial: 'api/v1/coverages/coverage', as: :coverage
 json.addons package.addons, partial: 'api/v1/addons/addon', as: :addon
 json.terms package.terms
 
