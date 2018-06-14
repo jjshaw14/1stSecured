@@ -78,6 +78,7 @@ module Api
           template_params[:packages] = template_params[:packages].map.with_index do |package_params, i|
             if package_params.key?(:coverages)
               package_params[:coverages] = package_params[:coverages].map.with_index do |coverage_params, k|
+                coverage_params[:amount] ||= 0
                 coverage_params[:cost_in_cents] = (coverage_params.delete(:amount) * 100).to_i if coverage_params.key?(:amount)
                 Coverage.find_or_initialize_by_params(coverage_params).tap{|c|
                   c.order = k
@@ -86,6 +87,7 @@ module Api
             end
             if package_params.key?(:addons)
               package_params[:addons] = package_params[:addons].map do |addon_params|
+                addon_params[:amount] ||= 0
                 addon_params[:cost_in_cents] = (addon_params.delete(:amount) * 100).to_i if addon_params.key?(:amount)
                 Addon.find_or_initialize_by_params(addon_params)
               end
