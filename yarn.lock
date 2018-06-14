@@ -2575,9 +2575,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-ng-input-currency@^0.9.10:
-  version "0.9.10"
-  resolved "https://registry.yarnpkg.com/ng-input-currency/-/ng-input-currency-0.9.10.tgz#104ae9fcfab96598cc3b84efefbb1db40890c382"
+ng-currency@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/ng-currency/-/ng-currency-1.2.5.tgz#96e2ed7fc988056017547bbbb4a3c90e6bffe63c"
 
 node-gyp@^3.3.1:
   version "3.6.2"
