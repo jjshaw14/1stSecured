@@ -42,7 +42,10 @@ angular.module('firstsecured.core')
     }
 
     vm.addCoverage = (pkg) => {
-      pkg.coverages.push({})
+      pkg.coverages.push({
+        fee: 125,
+        up_to: false
+      })
     }
 
     vm.removeCoverage = (pkg, coverage) => {
@@ -50,7 +53,9 @@ angular.module('firstsecured.core')
     }
 
     vm.addAddon = (pkg) => {
-      pkg.addons.push({})
+      pkg.addons.push({
+        fee: 0
+      })
     }
 
     vm.removeAddon = (pkg, addon) => {

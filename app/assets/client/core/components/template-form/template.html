@@ -29,11 +29,20 @@
               <label>Coverage Levels</label>
               <div>
                 <div class="mb-1" ng-repeat="coverage in package.coverages">
-                  <div class="form-inline">
+                  <div class="form">
+                    Coverage
                     <select class="form-control mr-1" ng-model="coverage.length_in_months" ng-options="option.value as option.label for option in vm.terms"></select>
-                    <input class="form-control" ng-model="coverage.limit_in_miles" placeholder='100,000' />
-                    <input class="form-control" ng-model="coverage.amount" placeholder='$1000'
+                    <br/>
+                    Miles
+                    <input class="form-control" ng-model="coverage.limit_in_miles" placeholder='100,000' /> 
+                    <br/>
+                    Reserve Amount: <input class="form-control" ng-model="coverage.amount" placeholder='$1000 RESERVE AMOUNT'
                     ng-currency />
+                    <br/>
+                    Fee:
+                    <input class="form-control" ng-model="coverage.fee" placeholder='$1000 FEE' ng-currency />
+                    <span class='checkbox-inline'> Up To: <input
+                      class="form-control checkbox" type='checkbox' ng-model="coverage.up_to" /> </span>
                     <a href class="text-danger ml-2" ng-click="vm.removeCoverage(package, coverage)"><i class="material-icons">delete</i></a>
                   </div>
                 </div>
@@ -46,26 +55,12 @@
                 <div class="mb-1" ng-repeat="addon in package.addons">
                   <div class="form-inline">
                     <input class="form-control mr-1" ng-model="addon.name" placeholder="Roadside Assitance" />
-                    <input ng-currency class="form-control" ng-model="addon.amount"
-                    placeholder="$100" />
+                    <input ng-currency class="form-control" ng-model="addon.amount" placeholder="$100 RESERVE AMOUNT" />
+                    <input ng-currency class="form-control" ng-model="addon.fee" placeholder="$100 FEE" />
                     <button type="button" class="btn btn-link" ng-click="vm.removeAddon(package, addon)"><i class="material-icons text-danger">delete</i></button>
                   </div>
                 </div>
                 <button ng-click="vm.addAddon(package)" type="button" class="btn btn-primary">+ Addon</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Mileage Type</label>
-            <div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" ng-name="package_{{ package.id }}_absolute_mileage" ng-model="package.absolute_mileage" ng-value="true">
-                <label class="form-check-label" for="absolute_mileage">Absolute</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" ng-name="package_{{ package.id }}_absolute_mileage" ng-model="package.absolute_mileage" ng-value="false">
-                <label class="form-check-label" for="absolute_mileage">Relative</label>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ class Contract < ApplicationRecord
   include HasAddress
 
   before_save :lookup_info_by_vin!
-  before_save :refresh_fee
+  before_save :cache_values_from_template
 
   belongs_to :dealership
   belongs_to :template
@@ -54,7 +54,46 @@ class Contract < ApplicationRecord
   def price
     price_in_cents / 100.00 if price_in_cents.present?
   end
+  def cached_template
+    @cached_template ||= varchar_template ? OpenStruct.new(JSON.parse(varchar_template)).tap{|template|
+      template.coverages = template.coverages.is_a?(String) ?
+        JSON.parse(template.coverages).map{|coverage|
+          OpenStruct.new(coverage)
+      } : template.coverages.map{|c| OpenStruct.new(c) }
 
+      template.addons = template.addons.is_a?(String) ?
+        JSON.parse(template.addons).map{
+          OpenStruct.new(addon)
+      } : template.addons.map{|a| OpenStruct.new(a) }
+
+      template.packages = template.packages.is_a?(String) ?
+        JSON.parse(template.packages).map{|package|
+        OpenStruct.new(package).tap{|package|
+          package['coverage_caveats?'] = template.coverages.any?{|coverage| coverage.caveat }
+        }
+
+      } : template.packages.map{|p| OpenStruct.new(p) }
+
+      template.packages.map{|package|
+        package.addons = template.addons.select{|addon| addon.package_id == package.id }
+        package.coverages = template.coverages.select{|coverage| coverage.package_id == package.id }
+      }
+    }: template
+  end
+
+  def cache_values_from_template
+    self.varchar_template = template.attributes.tap{|json_template|
+      json_template['packages']  = template.packages.to_json
+      json_template['coverages'] = template.packages.flat_map(&:coverages)
+      json_template['addons'] = template.packages.flat_map(&:addons)
+    }.to_json
+
+    self.limit_in_miles = coverage.limit_in_miles
+    self.length_in_months = coverage.length_in_months
+    self.up_to = coverage.up_to
+    self.fee_in_cents = coverage.fee_in_cents + addons.sum('fee_in_cents')
+    self.cost_in_cents = coverage.cost_in_cents + addons.sum('cost_in_cents')
+  end
   protected
 
   def lookup_info_by_vin!
@@ -64,7 +103,4 @@ class Contract < ApplicationRecord
     self.year ||= data[:year]
   end
 
-  def refresh_fee
-    self.fee_in_cents = Fee.find_from_coverage(coverage).cost_in_cents
-  end
 end

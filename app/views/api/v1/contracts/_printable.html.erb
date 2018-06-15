@@ -46,21 +46,13 @@
     display: inline-block;
     padding: 0 1px;
   }
-  .column-100 {
-    width:100%;
-  }
-  .column-50 {
-    width: 50%;
-  }
-  .column-33 {
-    width: 33%;
-  }
-  .column-66 {
-    width: 66%;
-  }
-  .column-25 {
-    width: 25%;
-  }
+  .column-100 { width:100%; }
+  .column-50 { width: 50%; }
+  .column-33 { width: 33%; }
+  .column-66 { width: 66%; }
+  .column-25 { width: 25%; }
+  .column-10 { width:10%; }
+  .column-15 { width: 15%; }
 
   /* ------------------------------- */
 
@@ -212,7 +204,7 @@
     <ul class="form-blocks">
       <li class="notice">
         YOU MUST CALL THE ADMINISTRATOR FIRST; NO REPAIR OR INSPECTION COSTS WILL BE PAID WITHOUT PRIOR
-        AUTHORIZATION! FOR CLAIMS CALL: 1-833-FSA-PLAN.
+        AUTHORIZATION! FOR CLAIMS CALL: 1-833-FSA-PLAN. FAX: 801-704-7075
       </li>
       <li class="fields">
         <h5>Customer Information</h5>
@@ -222,8 +214,9 @@
         </div>
         <div class="row">
           <div class="column column-50"><span>Address</span> <%= contract.address_lines %></div>
-          <div class="column column-25"><span>City</span> <%= [contract.city, contract.state].join(', ') %></div>
-          <div class="column column-25"><span>Zip</span> <%= contract.zip %></div>
+          <div class="column column-25"><span>City</span> <%= contract.city %></div>
+          <div class="column column-15"><span>State</span><%= contract.state%></div>
+          <div class="column column-10"><span>Zip</span> <%= contract.zip %></div>
         </div>
         <div class="row">
           <div class="column column-33"><span>Home #</span> <%= number_to_phone contract.home_number, area_code: true %></div>
@@ -260,22 +253,22 @@
           <div class="column column-33"><span>Mileage</span> <%= number_with_delimiter contract.odometer %></div>
         </div>
       </li>
-      <% contract.template.packages.order(:order).each do |package| %>
+      <% contract.cached_template.packages.sort_by{|p| p.order}.each do |package| %>
         <li class="package">
           <h4><%= package.name %> Package</h4>
 
           <div class="row options">
-            <% package.coverages.order(:order).in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
+            <% package.coverages.sort_by{|c| c.order}.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
-                  <div class="option column <%= 'selected' if coverage == contract.coverage %> <%= 'column-50' unless package.coverage_caveats? %>">
-                    <%= term_in_months_or_years coverage.length_in_months.months %> or <%= number_with_delimiter coverage.limit_in_miles %> miles (whichever comes first). <%= coverage.caveat %>
+                  <div class="option column <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>">
+                    <%= term_in_months_or_years coverage.length_in_months.months %> or<%= coverage.up_to ? content_tag(:span, " up to", class: 'underlined') : '' %> <%= number_with_delimiter coverage.limit_in_miles %> miles (whichever comes first). <%= coverage.caveat %>
                   </div>
                 <% end %>
               </div>
             <% end %>
             <% package.addons.each do |addon| %>
-              <div class="option <%= 'selected' if contract.addons.include?(addon) %> column column-50">
+              <div class="option <%= 'selected' if contract.addon_ids.include?(addon.id) %> column column-50">
                 <%= addon.name %> <%= ['-', number_to_currency(addon.price_in_dollars)].join(' ') if addon.price_in_dollars.present? %>
               </div>
             <% end %>
@@ -288,7 +281,7 @@
         <div class='row'>
           <div class='column column-100' style='height:17px;position:relative'>
             <span style='position:absolute;padding:2px 0;'>Service Contract Selling Price</span>
-            <span style='position:absolute;left:50%;text-align:center;padding:2px 0;'> <%= contract.price %> </span>
+            <span style='position:absolute;left:50%;text-align:center;padding:2px 0;bottom:15%;font-size:12px;'> <%= contract.price %> </span>
           </div>
         </div>
       </li>

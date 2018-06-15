@@ -6,6 +6,9 @@ def new_request
   PaperTrail.controller_info = { request_id: SecureRandom.uuid, request_ip: '127.0.0.1' }
 end
 
+new_request!
+Fee.create!(length_in_months: 1, cost_in_cents: 2500)
+
 new_request
 Fee.create!(length_in_months: 3, cost_in_cents: 2500)
 

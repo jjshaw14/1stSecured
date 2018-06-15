@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611231040) do
+ActiveRecord::Schema.define(version: 20180615172516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 20180611231040) do
   create_table "addons", force: :cascade do |t|
     t.bigint "package_id"
     t.string "name"
-    t.integer "cost_in_cents"
+    t.bigint "cost_in_cents"
     t.integer "price_in_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "fee_in_cents", default: 0
     t.index ["package_id"], name: "index_addons_on_package_id"
   end
 
@@ -78,6 +79,11 @@ ActiveRecord::Schema.define(version: 20180611231040) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "cost_in_cents"
+    t.integer "limit_in_miles"
+    t.integer "length_in_months"
+    t.boolean "up_to"
+    t.text "varchar_template"
     t.index ["coverage_id"], name: "index_contracts_on_coverage_id"
     t.index ["created_by_id"], name: "index_contracts_on_created_by_id"
     t.index ["dealership_id"], name: "index_contracts_on_dealership_id"
@@ -89,11 +95,13 @@ ActiveRecord::Schema.define(version: 20180611231040) do
     t.bigint "package_id"
     t.integer "length_in_months"
     t.integer "limit_in_miles"
-    t.integer "cost_in_cents"
+    t.bigint "cost_in_cents"
     t.text "caveat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order"
+    t.integer "fee_in_cents", default: 0
+    t.boolean "up_to", default: false
     t.index ["package_id"], name: "index_coverages_on_package_id"
   end
 
@@ -113,7 +121,6 @@ ActiveRecord::Schema.define(version: 20180611231040) do
 
   create_table "fees", force: :cascade do |t|
     t.integer "length_in_months"
-    t.integer "cost_in_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
