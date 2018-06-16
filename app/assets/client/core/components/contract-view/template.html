@@ -13,31 +13,24 @@
 </div>
 
 <div class="row">
-  <div class="col-4">
+  <div class="col-6">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             <ul class="list-unstyled">
-              <li>{{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
-              <li>{{ vm.contract.address1 }}</li>
+              <li><strong>Name:</strong> {{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
+              <li><strong>Address: </strong>{{ vm.contract.address1 }}</li>
               <li>{{ vm.contract.address2 }}</li>
               <li>{{ vm.contract.address3 }}</li>
               <li>{{ vm.contract.city }}, {{ vm.contract.state }} {{ vm.contract.zip }}</li>
-            </ul>
-
-            <ul class="list-unstyled">
-              <li ng-bind-html="vm.contract.email | email"></li>
-              <li ng-show="vm.contract.mobile_number">Cell: {{ vm.contract.mobile_number | phone }}</li>
-              <li ng-show="vm.contract.home_number">Home: {{ vm.contract.home_number | phone }}</li>
-              <li ng-show="vm.contract.work_number">Work: {{ vm.contract.work_number | phone }}</li>
-            </ul>
-          </div>
-          <div class="col-6">
-            <ul class="list-unstyled">
-              <li>{{ vm.contract.stock_number }}</li>
-              <li>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
-              <li>{{ vm.contract.vin }}</li>
+              <li><strong>Email: </strong><span ng-bind-html="vm.contract.email | email"> </span></li>
+              <li ng-show="vm.contract.mobile_number"><strong>Cell: </strong>{{ vm.contract.mobile_number | phone }}</li>
+              <li ng-show="vm.contract.home_number"><strong>Home: </strong>{{ vm.contract.home_number | phone }}</li>
+              <li ng-show="vm.contract.work_number"><strong>Work: </strong>{{ vm.contract.work_number | phone }}</li>
+              <li><strong>Stock Number: </strong>{{ vm.contract.stock_number }}</li>
+              <li><strong>Year/Make/Model: </strong>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
+              <li><strong>Vin: </strong>{{ vm.contract.vin }}</li>
             </ul>
           </div>
         </div>
@@ -49,7 +42,8 @@
       <div class="card-body">
         <p>{{ vm.contract.package.name }} Package</p>
         <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
-        <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{ vm.contract.package.coverage.limit_in_miles | number }} miles.</p>
+        <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{
+        vm.contract.miles_matured_on | number }} miles.</p>
         <div class="mt-2" ng-if="vm.contract.addons.length > 0">
           <label>Addons:</label>
           <ul>
@@ -67,7 +61,7 @@
       </div>
     </div>
   </div>
-  <div class="col-8">
+  <div class="col-6">
     <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)" ng-hide="vm.contract.signed_copy">
       <input type="file" />
 

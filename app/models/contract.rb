@@ -36,7 +36,9 @@ class Contract < ApplicationRecord
     where('purchased_on > ? ', Date.today.at_beginning_of_month)
   }
   pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
-
+  scope :without_deleted, -> {
+    where(deleted_at: nil)
+  }
   scope :loss_ratio, (lambda do
     term   = '((SUM(coverages.length_in_months) / 12.0) * 365)'
     matured = 'SUM(current_date - purchased_on)'
@@ -93,6 +95,9 @@ class Contract < ApplicationRecord
     self.up_to = coverage.up_to
     self.fee_in_cents = coverage.fee_in_cents + addons.sum('fee_in_cents')
     self.cost_in_cents = coverage.cost_in_cents + addons.sum('cost_in_cents')
+  end
+  def miles_matured_on
+    up_to ? limit_in_miles : limit_in_miles + odometer
   end
   protected
 

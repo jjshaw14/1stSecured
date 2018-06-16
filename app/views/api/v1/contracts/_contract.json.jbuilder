@@ -12,7 +12,7 @@ json.email contract.email
 json.mobile_number contract.mobile_number
 json.home_number contract.home_number
 json.work_number contract.work_number
-
+json.up_to contract.up_to
 json.stock_number contract.stock_number
 json.vin contract.vin
 json.make contract.make
@@ -20,7 +20,7 @@ json.model contract.model
 json.year contract.year
 json.odometer contract.odometer
 json.purchased_on contract.purchased_on
-
+json.miles_matured_on contract.miles_matured_on
 json.address1 contract.address1
 json.address2 contract.address2
 json.address3 contract.address3
