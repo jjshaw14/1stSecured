@@ -12,7 +12,15 @@ angular.module('firstsecured.core')
         })
       })
     },
-
+    new: (dealershipId) => {
+      return $q(function(res, rej) {
+        API.get('templates/new?dealership_id='.concat(dealershipId)).then(function(results) {
+          res(results)
+        }, function(results) {
+          rej(results)
+        })
+      })
+    },
     destroy: function(attrs) {
       if (!attrs.id) throw 'invalid template id.'
       return $q(function(resolve, reject) {

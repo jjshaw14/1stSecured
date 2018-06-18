@@ -1,7 +1,7 @@
 module Api
   module V1
     class TemplatesController < BaseController
-      before_action :set_template, except: %i[index create preview]
+      before_action :set_template, except: %i[index create preview, new]
 
       def index
         @templates = Template.available_to(current_user).where(deleted_at: nil)
@@ -44,6 +44,12 @@ module Api
         end
       end
 
+      def new
+        @template = Template.default(params[:dealership_id])
+        respond_to do |f|
+          f.json {render 'api/v1/templates/show' }
+        end
+      end
       def preview
         @template = Template.new(template_params)
         dummy_contract

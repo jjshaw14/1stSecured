@@ -4,20 +4,20 @@ import angular from 'angular'
 angular.module('firstsecured.admin')
 .component('templateNew', {
   template: require('./template.html'),
-  controller: ['Dealership', 'pageTitle', '$routeParams', 'Me', '$location', function(Dealership, pageTitle, $routeParams, Me, $location) {
+  controller: ['Dealership', 'Template', 'pageTitle', '$routeParams', 'Me', '$location', function(Dealership, Template, pageTitle, $routeParams, Me, $location) {
     var vm = this
     pageTitle.set('New Template')
     vm.$onInit = () => {
+      Template.new($routeParams.dealership_id).then((resp) => {
+        resp.data.packages.forEach((p) => {
+          p.coverages.forEach((coverage) => { coverage.amount = parseFloat(coverage.cost) })
+          p.addons.forEach((addon) => { addon.amount = parseFloat(addon.cost) })
+        })
+        vm.template = resp.data
+      })
       Me.get().then((me) => {
         if (me.dealership && me.dealership.id !== $routeParams.dealership_id) {
           $location.path('/')
-        } else {
-          console.log(me.dealership)
-          vm.template = {
-            packages: [],
-            dealership_id: $routeParams.dealership_id,
-            terms: me.dealership.default_terms
-          }
         }
       })
     }
