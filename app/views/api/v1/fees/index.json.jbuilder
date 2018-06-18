@@ -1,1 +1,1 @@
-json.array! @fees, partial: 'fee', as: :fee
+json.array! @fees.order(:length_in_months), partial: 'fee', as: :fee
