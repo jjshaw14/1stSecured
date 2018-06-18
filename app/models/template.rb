@@ -5,6 +5,7 @@ class Template < ApplicationRecord
   has_many :packages, autosave: true
   def self.default dealership_id
     find(DEFAULT_ID).dup.tap{|template|
+      template.dealership_id = dealership_id
       template.define_singleton_method(:packages) {
         Package.where(template_id: DEFAULT_ID).map{|package|
           package_id = package.id
