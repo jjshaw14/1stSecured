@@ -41,7 +41,7 @@ class Contract < ApplicationRecord
   }
   scope :loss_ratio, (lambda do
     term   = '((SUM(length_in_months) / 12.0) * 365)'
-    matured = 'SUM(current_date - purchased_on)'
+    matured = 'COALESCE(SUM(current_date - purchased_on), 0)'
     claims = 'SUM(COALESCE(claims.cost_in_cents, 0))'
     costs  = '(SUM(contracts.cost_in_cents))'
     left_joins(:claims)
