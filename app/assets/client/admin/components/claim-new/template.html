@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">
+      <a href="/dealerships/{{ vm.user.dealership.id }}">{{ vm.claim.contract.full_name  }}</a> >
+      New Claim
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <claim-form record="vm.claim"></claim-form>
+    </div>
+  </div>
+</div>

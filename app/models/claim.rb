@@ -11,4 +11,11 @@ class Claim < ApplicationRecord
   }
   validates :cost_in_cents, numericality: { greater_than: 0, allow_nil: true }
   validates :odometer, numericality: { greater_than: 0 }
+  after_save :update_odometer_on_contract
+
+  private
+  def update_odometer_on_contract
+    contract.updated_odometer = odometer if odometer
+    contract.save
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615172516) do
+ActiveRecord::Schema.define(version: 20180619160300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20180615172516) do
     t.integer "odometer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.string "shop_name"
+    t.string "shop_phone"
+    t.string "shop_address"
+    t.string "shop_rep"
+    t.text "shop_notes"
+    t.datetime "authorized_at"
+    t.datetime "repaired_at"
+    t.text "notes"
+    t.boolean "can_it_be_safely_moved"
     t.index ["contract_id"], name: "index_claims_on_contract_id"
     t.index ["provider_id"], name: "index_claims_on_provider_id"
   end
@@ -84,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180615172516) do
     t.integer "length_in_months"
     t.boolean "up_to"
     t.text "varchar_template"
+    t.integer "updated_odometer"
     t.index ["coverage_id"], name: "index_contracts_on_coverage_id"
     t.index ["created_by_id"], name: "index_contracts_on_created_by_id"
     t.index ["dealership_id"], name: "index_contracts_on_dealership_id"

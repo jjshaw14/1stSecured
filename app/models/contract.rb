@@ -95,19 +95,18 @@ class Contract < ApplicationRecord
     self.limit_in_miles = coverage.limit_in_miles
     self.length_in_months = coverage.length_in_months
     self.up_to = coverage.up_to
-    self.fee_in_cents = coverage.fee_in_cents + addons.sum('fee_in_cents')
-    self.cost_in_cents = coverage.cost_in_cents + addons.sum('cost_in_cents')
+    self.fee_in_cents = coverage.fee_in_cents + addons.reload.sum('fee_in_cents')
+    self.cost_in_cents = coverage.cost_in_cents + addons.reload.sum('cost_in_cents')
   end
   def miles_matured_on
     up_to ? limit_in_miles : limit_in_miles + odometer
   end
-  protected
 
+  protected
   def lookup_info_by_vin!
     data = VinLookupService.new.execute(vin)
     self.make ||= data[:make]
     self.model ||= data[:model]
     self.year ||= data[:year]
   end
-
 end

@@ -86,28 +86,36 @@
             </li>
           </ul>
 
-          <div class="card-body px-0 pb-0">
+          <div ng-if='vm.view === "contracts"'>
+            <div class="card-body px-0 pb-0">
 
-            <div class="mb-1 px-5">
-              <a class="btn btn-sm btn-primary pull-right " href="/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
-                New Contract
-              </a>
+              <div class="mb-1 px-5">
+                <a class="btn btn-sm btn-primary pull-right " href="/contracts/new?template={{ vm.dealership.templates[0].id }}" ng-if="vm.dealership.templates.length === 1">
+                  New Contract
+                </a>
 
-              <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
-                <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-                  New Contract<span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" uib-dropdown-menu role="menu">
-                  <a href="/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
-                    {{ template.name }}
-                  </a>
+                <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1">
+                  <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                    New Contract<span class="caret"></span>
+                  </button>
+                  <div class="dropdown-menu" uib-dropdown-menu role="menu">
+                    <a href="/contracts/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.dealership.templates">
+                      {{ template.name }}
+                    </a>
+                  </div>
                 </div>
+
+                <div class="clearfix"></div>
               </div>
 
-              <div class="clearfix"></div>
-            </div>
+              <contract-table ng-if="vm.dealership" dealership="vm.dealership"></contract-table>
 
-            <contract-table ng-if="vm.dealership" dealership="vm.dealership"></contract-table>
+            </div>
+          </div>
+        </div>
+        <div ng-if='vm.view === "claims"'>
+          <div class="card-body px-0 pb-0">
+            <claims-table ng-if="vm.dealership" dealership="vm.dealership"></claims-table>
           </div>
         </div>
       </div>
