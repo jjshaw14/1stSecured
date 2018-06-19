@@ -10,8 +10,8 @@ if current_user.dealership.present?
     json.name current_user.dealership.name
     json.users current_user.dealership.users, partial: 'api/v1/users/user', as: :user
     json.performance { json.partial! 'api/v1/dealerships/performance', locals: { dealership: current_user.dealership } }
-    if current_user.dealership.templates.present?
-      json.templates current_user.dealership.templates.map{|template| {name: template.name, id: template.id }  }
+    if current_user.dealership.templates.without_deleted.present?
+      json.templates current_user.dealership.templates.without_deleted.map{|template| {name: template.name, id: template.id }  }
     end
   end
 end
