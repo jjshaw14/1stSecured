@@ -8,6 +8,7 @@ end
 json.first_name contract.first_name
 json.last_name contract.last_name
 json.price contract.price
+json.cost contract.cost
 json.email contract.email
 json.mobile_number contract.mobile_number
 json.home_number contract.home_number

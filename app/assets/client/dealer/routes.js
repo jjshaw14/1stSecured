@@ -8,7 +8,7 @@ angular.module('firstsecured.dealer')
     .when('/contracts', { template: '<contract-list></contract-list>' })
     .when('/users/new', { template: '<user-new></user-new>' })
     .when('/users/:id/edit', { template: '<user-edit></user-edit>' })
-
+    .when('/claims/:id', {template: '<claim-view></claim-view>'})
     .when('/users', { template: '<user-list></user-list>' })
     .otherwise({ redirectTo: '/contracts' })
 

@@ -54,7 +54,9 @@ class Contract < ApplicationRecord
   def matures_on
     coverage && created_at + coverage.length_in_months.months
   end
-
+  def cost
+    cost_in_cents / 100.00 if cost_in_cents.present?
+  end
   def price
     price_in_cents / 100.00 if price_in_cents.present?
   end

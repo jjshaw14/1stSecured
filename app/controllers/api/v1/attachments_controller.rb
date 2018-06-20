@@ -9,6 +9,13 @@ module Api
           send_file @contract.signed_copy.file.path, disposition: :inline
         end
       end
+      def claim
+        @claim = Claim.available_to(current_user).find(params[:claim_id])
+        if Rails.env.production?
+          redirect_to @claim.attachment.url
+        else
+          send_file @contract.attachment.file.path, disposition: :inline
+      end
     end
   end
 end

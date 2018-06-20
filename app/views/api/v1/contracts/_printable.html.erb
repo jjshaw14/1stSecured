@@ -232,8 +232,9 @@
         </div>
         <div class="row">
           <div class="column column-50"><span>Address</span> <%= contract.dealership.address_lines %></div>
-          <div class="column column-25"><span>City</span> <%= [contract.dealership.city, contract.dealership.state].join(', ') %></div>
-          <div class="column column-25"><span>Zip</span> <%= contract.dealership.zip %></div>
+          <div class="column column-25"><span>City</span> <%= contract.dealership.city %></div>
+          <div class="column column-15"><span>State</span> <%= contract.dealership.state %></div>
+          <div class="column column-10"><span>Zip</span> <%= contract.dealership.zip %></div>
         </div>
         <div class="row">
           <div class="column column-50"><span>Phone</span> <%= number_to_phone contract.dealership.phone, area_code: true %></div>
@@ -281,7 +282,7 @@
         <div class='row'>
           <div class='column column-100' style='height:17px;position:relative'>
             <span style='position:absolute;padding:2px 0;'>Service Contract Selling Price</span>
-            <span style='position:absolute;left:50%;text-align:center;padding:2px 0;bottom:15%;font-size:12px;'> <%= contract.price %> </span>
+            <span style='position:absolute;left:50%;text-align:center;padding:2px 0;bottom:15%;font-size:12px;'> <%= format('%.2f', contract.price) %> </span>
           </div>
         </div>
       </li>

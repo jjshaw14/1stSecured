@@ -1,132 +1,80 @@
 <form ng-submit="vm.save()" novalidate>
   <div class="row">
-    <div class="col-4">
-      <div class="form-group row">
-        <div class="col">
-          <label class="control-label">Year</label>
-          <div class="form-control-static">{{ vm.contract.year }}</div>
+    <div class="col-12">
+      <div class="row">
+        <div class='col-6 form-group'>
+          <label class='form-label'>Customer</label>
+          <div class="form-control-static"><strong>Full Name:</strong> {{ vm.claim.contract.first_name + ' ' +
+            vm.claim.contact.last_name }}</div>
+          <div class='form-control-static'><strong>Phone:</strong> {{vm.claim.contract.mobile_number}}</div>
         </div>
-        <div class="col">
-          <label class="control-label">Make</label>
-          <div class="form-control-static">{{ vm.contract.make || '&nbsp;' }}</div>
+        <div class='col-6 form-group'>
+          <label class='form-label'>Car</label>
+          <div class="form-control-static"><strong>Model:</strong> {{ vm.claim.contract.model || '&nbsp;' }}</div>
+          <div class="form-control-static"><strong>Make:</strong> {{ vm.claim.contract.make || '&nbsp;' }}</div>
+          <div class="form-control-static"><strong>Year:</strong> {{ vm.claim.contract.year }}</div>
+          <div class="form-control-static"><strong>VIN:</strong> {{ vm.claim.contract.vin }}</div>
         </div>
-        <div class="col">
-          <label class="control-label">Model</label>
-          <div class="form-control-static">{{ vm.contract.model || '&nbsp;' }}</div>
         </div>
+
+      <div class="form-group">
+        <label>Odometer</label>
+        <input type="number" min="0" class="form-control" ng-class="{ 'is-invalid':
+        vm.claims.errors.odometer }" ng-model="vm.claim.odometer" />
       </div>
 
       <div class="form-group">
-        <label class="control-label">Stock Number</label>
-        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.stock_number }" ng-model="vm.contract.stock_number" />
-        <div class="invalid-feedback">
-          Please enter a number.
-        </div>
+        <label>Issue</label>
+            <input class="form-control" ng-class="{ 'is-invalid': vm.claim.errors.issue }"
+            ng-model="vm.claim.issue" type='textarea' />
       </div>
 
       <div class="form-group">
-        <label class="control-label">VIN</label>
-        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.vin }" ng-model="vm.contract.vin" ng-change="vm.checkVIN()" />
-        <div class="invalid-feedback">
-          Please enter a VIN.
-        </div>
+        <label>Location</label>
+            <input class="form-control" ng-class="{ 'is-invalid': vm.claim.errors.location }"
+            ng-model="vm.claim.location" type='textarea' />
       </div>
 
       <div class="form-group">
-        <label>Purchase Date</label>
-        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.purchased_on }"
-        type="date" ng-model="vm.contract.purchased_on" date-format="yyyy-mm-dd"
-        placeholder='yyyy-mm-dd' />
+        <label>Can it be moved safely?</label>
+            <input class="form-control" ng-class="{ 'is-invalid':
+                                        vm.claim.errors.can_it_be_moved_safely }"
+            ng-model="vm.claim.can_it_be_moved_safely" type='checkbox' />
       </div>
-
-      <div class="form-group">
-        <label>Miles</label>
-        <input type="number" min="0" class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.odometer }" ng-model="vm.contract.odometer" />
-      </div>
-
       <hr />
 
       <div class="form-group">
-        <label>Name</label>
-        <div class="row">
-          <div class="col pr-1">
-            <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.first_name }" ng-model="vm.contract.first_name" placeholder="First" />
-          </div>
-          <div class="col pl-1">
-            <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.last_name }" ng-model="vm.contract.last_name" placeholder="Last" />
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Address</label>
-        <input class="form-control mb-1" ng-class="{ 'is-invalid': vm.contract.errors.address1 }" ng-model="vm.contract.address1" placeholder="Line 1" />
-        <input class="form-control mb-1" ng-class="{ 'is-invalid': vm.contract.errors.address2 }" ng-model="vm.contract.address2" placeholder="Line 2" />
-        <input class="form-control mb-1" ng-class="{ 'is-invalid': vm.contract.errors.address3 }" ng-model="vm.contract.address3" placeholder="Line 3" />
-        <div class="row">
-          <div class="col pr-1">
-            <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.city }" ng-model="vm.contract.city" placeholder="City" />
-          </div>
-          <div class="col px-0">
-            <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.state }" ng-model="vm.contract.state" placeholder="State" />
-          </div>
-          <div class="col pl-1">
-            <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.zip }" ng-model="vm.contract.zip" placeholder="Zip" />
-          </div>
-        </div>
-        <div class="invalid-feedback">
-          Please enter address info.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Email</label>
-        <input class="form-control" ng-model="vm.contract.email" />
-      </div>
-
-      <div class="form-group">
-        <label>Mobile Number</label>
-        <input class="form-control" ng-model="vm.contract.mobile_number" />
-      </div>
-
-      <div class="form-group">
-        <label>Home Number</label>
-        <input class="form-control" ng-model="vm.contract.home_number" />
-      </div>
-
-      <div class="form-group">
-        <label>Work Number</label>
-        <input class="form-control" ng-model="vm.contract.work_number" />
-      </div>
-      <div class="form-group">
-        <label>Selling Price</label>
-        <input class="form-control" ng-model="vm.contract.price" ng-currency />
-      </div>
-    </div>
-    <div class="col-8">
-      <div ng-repeat="package in vm.contract.template.packages" class="package">
-        <div class="package-name">{{ package.name }}</div>
-        <div class="coverage-and-addons">
-          <label
-            ng-repeat="coverage in package.coverages"
-            ng-class="{ 'text-muted': !vm.packageSelected(package) }">
-            <input
-              type="radio"
-              name="coverage"
-              ng-change="vm.uncheckAddons()"
-              ng-model="vm.contract.coverage_id"
-              ng-value="coverage.id" />
-            <span>
-                {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.up_to ? ' up to  ' : '' }}{{ coverage.limit_in_miles
-                | number }} miles</span>
-          </label>
-          <br />
-          <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) || !vm.packageAllowed(package) }">
-            <input type="checkbox" ng-name="package_{{ package.id }}_addon_{{ addon.id }}" checklist-model="vm.contract.addons" checklist-value="addon" /> {{ addon.name }} <span ng-if="addon.amount_in_cents">- {{ (addon.amount_in_cents / 100) | currency }}</span>
-          </label>
-        </div>
-        <div class="clearfix"></div>
+        <label>Shop</label>
         <hr />
+        <label>Name</label>
+        <input class="form-control" ng-model="vm.claim.shop_name" />
+
+        <label>Address</label>
+        <input class="form-control" ng-model="vm.claim.shop_address" />
+
+        <label>Representative</label>
+        <input class="form-control" ng-model="vm.claim.shop_rep" />
+
+        <label>Phone</label>
+        <input class="form-control" ng-model="vm.claim.shop_phone" />
+
+        <label>Notes</label>
+        <input class="form-control" ng-model="vm.claim.shop_notes" type='textarea' />
+      </div>
+      <hr />
+      <br >
+      <div class='form-group'>
+        <label>Authorization: </label>
+        <hr />
+        <label>Date</label>
+        <input class="form-control" ng-model="vm.claim.authorized_at" type='date' />
+
+        <label>Amount</label>
+        <input class="form-control" ng-model="vm.claim.cost" ng-currency />
+
+        <label>Repaired Date</label>
+        <input class="form-control" ng-model="vm.claim.repaired_at" type='date' />
+      </div>
       </div>
     </div>
   </div>

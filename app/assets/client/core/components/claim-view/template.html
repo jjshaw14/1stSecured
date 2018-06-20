@@ -1,0 +1,88 @@
+<div class="card">
+  <div class="card-body">
+    <a class="btn btn-primary btn-sm pull-right" ng-if='vm.isAdmin' href="/claims/{{vm.claim.id}}/edit">Edit</a>
+    <h1 class="card-title">
+      <a href="/dealerships/{{ vm.contract.dealership.id }}">{{ vm.contract.dealership.name }}</a> > {{ vm.contract.first_name }} {{ vm.contract.last_name }} ({{ vm.contract.vin }})
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <ul class="list-unstyled">
+              <li><strong>Name:</strong> {{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
+              <li><strong>Address: </strong>{{ vm.contract.address1 }}</li>
+              <li>{{ vm.contract.address2 }}</li>
+              <li>{{ vm.contract.address3 }}</li>
+              <li>{{ vm.contract.city }}, {{ vm.contract.state }} {{ vm.contract.zip }}</li>
+              <li><strong>Email: </strong><span ng-bind-html="vm.contract.email | email"> </span></li>
+              <li ng-show="vm.contract.mobile_number"><strong>Cell: </strong>{{ vm.contract.mobile_number | phone }}</li>
+              <li ng-show="vm.contract.home_number"><strong>Home: </strong>{{ vm.contract.home_number | phone }}</li>
+              <li ng-show="vm.contract.work_number"><strong>Work: </strong>{{ vm.contract.work_number | phone }}</li>
+              <li><strong>Stock Number: </strong>{{ vm.contract.stock_number }}</li>
+              <li><strong>Year/Make/Model: </strong>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
+              <li><strong>Vin: </strong>{{ vm.contract.vin }}</li>
+            </ul>
+          </div>
+        </div>
+        <p>Purchased on {{ vm.contract.purchased_on | date:'MM/dd/yy' }} with {{ vm.contract.odometer | number }} miles.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <p>{{ vm.contract.package.name }} Package</p>
+        <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
+        <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{
+        vm.contract.miles_matured_on | number }} miles.</p>
+        <div class="mt-2" ng-if="vm.contract.addons.length > 0">
+          <label>Addons:</label>
+          <ul>
+            <li ng-repeat="addon in vm.contract.addons">
+              {{ addon.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" ng-show="vm.contract.signed_copy">
+      <div class="card-body">
+        <a target="_blank" href="{{ vm.contract.signed_copy }}"><i class="material-icons">file_download</i> Download Signed Copy</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)" ng-hide="vm.contract.signed_copy">
+      <input type="file" />
+
+      <h4 class="mb-4 font-weight-bold">
+        <i class="material-icons">error_outline</i>
+        Signed Copy Missing
+      </h4>
+
+      <p class="m-0">There is no signed copy of the contract on file. Please <a href>select one</a> or drop it here.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="pull-right">
+          <a href="/contracts/{{vm.contract.id}}/claims/new" class="btn btn-primary">Create Claim</a>
+        </div>
+        <ul class="list-group list-group-borderless list-group-sm">
+          <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
+            <span class="text">
+              <i class="material-icons mr-1">mail_outline</i>
+              <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
+            </span>
+            <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

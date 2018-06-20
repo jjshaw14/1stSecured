@@ -8,11 +8,11 @@ angular.module('firstsecured.admin')
     var vm = this
     pageTitle.set('New Claim')
     vm.claim = {}
-    Contract.find($routeParams.contract_id).then((resp) => {
+    Contract.find(null, $routeParams.contract_id).then((resp) => {
       vm.claim.contract = resp.data
       console.log(vm.claim.contract)
       Me.get().then((me) => {
-        if (me.dealership && me.dealership.id !== vm.claim.contract.dealership_id) {
+        if (me.dealership) {
           $location.path('/')
         }
       })

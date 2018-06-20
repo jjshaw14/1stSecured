@@ -1,28 +1,18 @@
 import angular from 'angular'
-
+require('./style.scss')
 
 angular.module('firstsecured.core')
 .component('claimForm', {
   template: require('./template.html'),
   bindings: {
-    contract: '=?record',
+    claim: '=?record',
     onSave: '=?'
   },
-  controller: ['Template', 'Claim', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Claim, VIN, $http, $window, $location, $routeParams ) {
+  controller: ['Template', 'Claim', 'VIN', '$http', '$window', '$location', function(Template, Claim, VIN, $http, $window, $location) {
     var vm = this
-    vm.$onInit = () => {
-      if (!$routeParams.id) {
-        return
-      }
-
-      Claim.find(vm.dealership, $routeParams.id).then((response) => {
-        vm.claim = response.data
-
-      })
-    }
 
     vm.onSave = function() {
-      $location.path(`/claims/${vm.contract.id}`)
+      $location.path(`/claims/${vm.claim.id}`)
     }
     vm.save = function() {
       Claim.save(vm.dealership, vm.claim).then((response) => {

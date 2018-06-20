@@ -41,7 +41,7 @@
     <div class="card">
       <div class="card-body">
         <p>{{ vm.contract.package.name }} Package</p>
-        <p>Cost: {{ vm.contract.package.coverage.cost | currency }}</p>
+        <p>Cost: {{ vm.contract.cost | currency }}</p>
         <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{
         vm.contract.miles_matured_on | number }} miles.</p>
         <div class="mt-2" ng-if="vm.contract.addons.length > 0">
@@ -76,7 +76,7 @@
     <div class="card">
       <div class="card-body">
         <div class="pull-right">
-          <button class="btn btn-primary">Create Claim</button>
+          <a href="/contracts/{{vm.contract.id}}/claims/new" class="btn btn-primary">Create Claim</a>
         </div>
         <ul class="list-group list-group-borderless list-group-sm">
           <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">

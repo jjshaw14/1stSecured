@@ -15,7 +15,11 @@ Rails.application.routes.draw do
         resource :attachment, only: :show
       end
 
-      resources :claims, only: [:index]
+      resources :claims do
+        member do
+          get :attachment, to: 'attachments#claim'
+        end
+      end
 
       resource :vin, controller: :vin
 
@@ -39,6 +43,8 @@ Rails.application.routes.draw do
     get 'contracts/new'
     get 'contracts/:id/edit'
     get 'contracts/:id'
+    get 'contracts/:contract_id/claims/new'
+    get '/claims/:id/edit'
     get 'templates/new'
     get 'templates/:id/edit'
     get 'dealerships/:id/users/new'
@@ -55,6 +61,9 @@ Rails.application.routes.draw do
     get 'users/new'
     get 'users/:id/edit'
     get 'users'
+
+    get 'claims'
+    get 'claims/:id'
   end
 
   root to: 'portal#boot'

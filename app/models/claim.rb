@@ -13,6 +13,12 @@ class Claim < ApplicationRecord
   validates :odometer, numericality: { greater_than: 0 }
   after_save :update_odometer_on_contract
 
+  mount_base64_uploader :attachment, ClaimAttachmentUploader, file_name: ->(c) { [c.id, c.contract.first_name, c.contract.last_name].join(' ').parameterize }
+  scope :available_to, ->(current_user) {
+    current_user.dealership.present? ?
+      joins(:contract).where(contracts: {dealership_id: current_user.dealership.id}) :
+      all
+  }
   private
   def update_odometer_on_contract
     contract.updated_odometer = odometer if odometer
