@@ -15,6 +15,7 @@ module Api
           redirect_to @claim.attachment.url
         else
           send_file @contract.attachment.file.path, disposition: :inline
+        end
       end
     end
   end
