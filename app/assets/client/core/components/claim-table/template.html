@@ -1,0 +1,37 @@
+<div>
+  <table class="table table-middle table-material rt-md mb-0">
+    <thead class="rt-table-hide">
+      <tr>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Vehicle</th>
+        <th>Cost</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="claim in vm.claims">
+        <td class="rt-header">{{ claim.authorized_at | date:'MM/dd/yyyy' }}</td>
+
+        <td class="rt-full">
+          {{ claim.contract.first_name }} {{ claim.contract.last_name }}
+        </td>
+        <td class="rt-full">
+          {{ claim.contract.vin }} /
+          {{ claim.contract.year }} {{ claim.contract.make }} {{ claim.contract.model }}
+        </td>
+        <td class='rt-full'>
+          {{claim.cost}}
+        </td>
+        <td class="rt-full text-right">
+          <a href="/claims/{{ claim.id }}">View</a> |
+          <a href="/claims/{{ claim.id }}/edit">Edit</a> |
+          <a href="#" ng-click="vm.deleteClaim(claim)">Delete</a>
+        </td>
+      </tr>
+      <tr ng-if="vm.contracts.length === 0">
+        <td colspan="5">No contracts.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

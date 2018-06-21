@@ -112,10 +112,14 @@
 
             </div>
           </div>
-        </div>
-        <div ng-if='vm.view === "claims"'>
-          <div class="card-body px-0 pb-0">
-            <claims-table ng-if="vm.dealership" dealership="vm.dealership"></claims-table>
+
+          <div ng-if='vm.view === "claims"'>
+            <div class="card-body px-0 pb-0">
+
+              <div class="mb-1 px-5">
+                <claim-table ng-if="vm.dealership" dealership="vm.dealership"></claim-table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

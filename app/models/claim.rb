@@ -9,6 +9,8 @@ class Claim < ApplicationRecord
   scope :by_dealership, -> (dealership) {
     joins(:contract => :dealership).where(dealerships: {id: dealership.id})
   }
+  scope :without_deleted, -> {
+    where(deleted_at: nil) }
   validates :cost_in_cents, numericality: { greater_than: 0, allow_nil: true }
   validates :odometer, numericality: { greater_than: 0 }
   after_save :update_odometer_on_contract
@@ -17,8 +19,10 @@ class Claim < ApplicationRecord
   scope :available_to, ->(current_user) {
     current_user.dealership.present? ?
       joins(:contract).where(contracts: {dealership_id: current_user.dealership.id}) :
-      all
-  }
+      all }
+  def cost
+    format('%.2f', (cost_in_cents / 100.0))
+  end
   private
   def update_odometer_on_contract
     contract.updated_odometer = odometer if odometer

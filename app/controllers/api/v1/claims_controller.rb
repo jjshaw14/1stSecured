@@ -2,14 +2,18 @@ module Api
   module V1
     class ClaimsController < BaseController
       def index
-        if current_user.dealership
-            @claims = Claim.by_dealership(current_user.dealership)
-        elsif params[:dealership]
-          @claims = Claim.by_dealership(params[:dealership])
+        @claims = Claim.available_to(current_user).where(deleted_at: nil)
+        @claims = @claims.by_dealership(Dealership.find(params[:dealership])) if params[:dealership]
+        @claims = @claims.where(contract_id: params[:contract]) if params[:contract]
+      end
+      def destroy
+        @claim = Claim.available_to(current_user).find(params[:id])
+        @claim.deleted_at = Time.now
+        if @claim.save
+          render json: @claim, status: 200
         else
-          @claims = Claim.all
+          render json: {errors: @claim.errors}, status: 422
         end
-          @claims = @claims.where(contract_id: params[:contract]) if params[:contract]
       end
       def create
         @claim = Claim.new claim_params

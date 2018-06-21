@@ -58,7 +58,7 @@ class Contract < ApplicationRecord
     cost_in_cents / 100.00 if cost_in_cents.present?
   end
   def price
-    price_in_cents / 100.00 if price_in_cents.present?
+    price_in_cents ? price_in_cents / 100.00 : 0.00
   end
   def cached_template
     @cached_template ||= varchar_template ? OpenStruct.new(JSON.parse(varchar_template)).tap{|template|

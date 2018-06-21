@@ -18,7 +18,7 @@ angular.module('firstsecured.core')
     }
     vm.deleteClaim = (claim) => {
       Claim.destroy(claim).then(ret => {
-        vm.claims = vm.claims.filter(dealership => dealership.id !== ret.data.id)
+        vm.claims = vm.claims.filter(claim => claim.id !== ret.data.id)
         toastr.success('deleted successfully')
       })
     }
