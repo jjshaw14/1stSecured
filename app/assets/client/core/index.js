@@ -4,7 +4,7 @@ import './stylesheets/simplify.scss'
 import angular from 'angular'
 import dropdown from 'angular-ui-bootstrap/src/dropdown'
 
-var app = angular.module('firstsecured.core', [dropdown, 'checklist-model', 'simplemde', 'ngRoute', 'ng-currency'])
+var app = angular.module('firstsecured.core', [dropdown, 'checklist-model', 'simplemde', 'ngRoute', 'ng-currency', '720kb.datepicker'])
 
 var cmpnt = app.component
 app.component = function (name, options) {
