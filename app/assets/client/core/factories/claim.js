@@ -9,7 +9,9 @@ angular.module('firstsecured.core')
       if (options.dealership) {
         options.dealership = options.dealership.id
       }
-
+      if (options.contract) {
+        options.contract = options.contract.id
+      }
       return $q(function(resolve, reject) {
         API.get('claims', options).then(function(results) {
           resolve(results)

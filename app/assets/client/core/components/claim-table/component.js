@@ -4,7 +4,8 @@ angular.module('firstsecured.core')
 .component('claimTable', {
   template: require('./template.html'),
   bindings: {
-    dealership: '=?'
+    dealership: '=?',
+    contract: '=?'
   },
   controller: ['Claim', 'pageTitle', function(Claim, pageTitle) {
     pageTitle.set('Claims')
@@ -23,7 +24,7 @@ angular.module('firstsecured.core')
       })
     }
     vm.search = () => {
-      Claim.all({ q: vm.searchText, dealership: vm.dealership }).then((response) => {
+      Claim.all({ q: vm.searchText, dealership: vm.dealership, contract: vm.contract }).then((response) => {
         vm.claims = response.data
       })
     }

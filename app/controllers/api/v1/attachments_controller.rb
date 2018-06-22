@@ -10,11 +10,11 @@ module Api
         end
       end
       def claim
-        @claim = Claim.available_to(current_user).find(params[:claim_id])
+        @claim = Claim.available_to(current_user).find(params[:id])
         if Rails.env.production?
           redirect_to @claim.attachment.url
         else
-          send_file @contract.attachment.file.path, disposition: :inline
+          send_file @claim.attachment.file.path, disposition: :inline
         end
       end
     end

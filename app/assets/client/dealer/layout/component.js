@@ -11,7 +11,8 @@ angular.module('firstsecured.dealer')
     Me.get().then((me) => {
       vm.me = me
       vm.sidebarCollapsed = false
-      vm.menu = me.user_type === 'owner' ? [{
+      vm.menu = me.user_type === 'owner' ? [
+        {
           'label': 'MENU',
           'isLabel': true
         },
@@ -22,7 +23,7 @@ angular.module('firstsecured.dealer')
         }, {
           'path': '/contracts',
           'label': 'Contracts',
-          'icon': {'class': 'material-icons', 'content':'assignment' }
+          'icon': {'class': 'material-icons', 'content': 'assignment' }
         }
       ] : undefined
     })

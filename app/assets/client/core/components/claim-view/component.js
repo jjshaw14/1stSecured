@@ -2,7 +2,7 @@ require('./style.scss')
 
 import angular from 'angular'
 import _       from 'lodash'
-
+import moment from 'moment'
 angular.module('firstsecured.core')
 .component('claimView', {
   template: require('./template.html'),
@@ -15,8 +15,8 @@ angular.module('firstsecured.core')
       })
       Claim.find($routeParams.dealershipId, $routeParams.id).then((response) => {
         vm.claim = response.data
-        if (vm.claim.authorized_at) vm.claim.authorized_at = new Date(vm.claim.authorized_at)
-        if (vm.claim.repaired_at) vm.claim.repaired_at = new Date(vm.claim.repaired_at)
+        if (vm.claim.authorized_at) vm.claim.authorized_at = moment(vm.claim.authorized_at).format('MM/DD/YY')
+        if (vm.claim.repaired_at) vm.claim.repaired_at = moment(vm.claim.repaired_at).format('MM/DD/YY')
         vm.refreshTimeline()
       })
     }
