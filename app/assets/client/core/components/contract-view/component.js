@@ -8,7 +8,7 @@ angular.module('firstsecured.core')
   template: require('./template.html'),
   controller: ['Contract', '$window', '$location', '$routeParams', function(Contract, $window, $location, $routeParams) {
     var vm = this
-
+    vm.view = 'changes'
     vm.$onInit = () => {
       Contract.find($routeParams.dealershipId, $routeParams.id).then((response) => {
         vm.contract = response.data

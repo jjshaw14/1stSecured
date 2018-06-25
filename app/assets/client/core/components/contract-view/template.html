@@ -35,6 +35,7 @@
           </div>
         </div>
         <p>Purchased on {{ vm.contract.purchased_on | date:'MM/dd/yy' }} with {{ vm.contract.odometer | number }} miles.</p>
+        <p>Total Paid Out to Claims: {{vm.contract.claims_cost}}</p>
       </div>
     </div>
 
@@ -74,19 +75,43 @@
     </div>
 
     <div class="card">
-      <div class="card-body">
-        <div class="pull-right">
-          <a href="/contracts/{{vm.contract.id}}/claims/new" class="btn btn-primary">Create Claim</a>
-        </div>
-        <ul class="list-group list-group-borderless list-group-sm">
-          <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
-            <span class="text">
-              <i class="material-icons mr-1">mail_outline</i>
-              <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
-            </span>
-            <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
+        <ul class="nav nav-tabs nav-material" role="tablist">
+          <li class="nav-item">
+            <a href ng-class="{ active: vm.view === 'changes' }" ng-click="vm.view = 'changes'"
+              class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Changes</a>
+          </li>
+          <li class="nav-item">
+            <a href ng-class="{ active: vm.view === 'claims' }" ng-click="vm.view = 'claims';" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Claims</a>
           </li>
         </ul>
+
+
+
+        <div ng-if='vm.view === "changes"'>
+
+          <div class="card-body">
+            <ul class="list-group list-group-borderless list-group-sm">
+              <li class="list-group-item pl-0 py-2" ng-repeat="event in vm.timeline">
+                <span class="text">
+                  <i class="material-icons mr-1">mail_outline</i>
+                  <span class="time mr-2">{{ event.created_at | date:'MM/dd/yy HH:mm a' }}</span>
+                </span>
+                <span class="" style="">{{ event.type }} by {{ event.created_by.first_name }} {{ event.created_by.last_name }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div ng-if='vm.view === "claims"'>
+          <div class="card-body px-0 pb-0">
+            <div class='mb-1 px-5'>
+              <div class="pull-right">
+                <a href="/contracts/{{vm.contract.id}}/claims/new" class="btn btn-primary">Create Claim</a>
+              </div>
+              <div class='clearfix'></div>
+            </div>
+            <claim-table contract='vm.contract'></claim-table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

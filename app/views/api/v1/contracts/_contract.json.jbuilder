@@ -59,6 +59,6 @@ json.history History.where(contract: contract).order(created_at: :desc) do |vers
   end unless version.created_by.nil?
   json.created_at version.created_at
 end
-
+json.claims_cost contract.claims_cost
 json.created_at contract.created_at
 json.updated_at contract.updated_at

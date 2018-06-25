@@ -26,7 +26,7 @@
         <td class="rt-full text-right">
           <a href="/claims/{{ claim.id }}">View</a> |
           <a href="/claims/{{ claim.id }}/edit">Edit</a> |
-          <a href="#" ng-click="vm.deleteClaim(claim)">Delete</a>
+          <a href="#" ng-confirm-click='do you really want to delete this claim?' confirmed-click="vm.deleteClaim(claim)">Delete</a>
         </td>
       </tr>
       <tr ng-if="vm.contracts.length === 0">

@@ -103,7 +103,9 @@ class Contract < ApplicationRecord
   def miles_matured_on
     up_to ? limit_in_miles : limit_in_miles + odometer
   end
-
+  def claims_cost
+    "$" << format('%.2f', claims.without_deleted.sum(:cost_in_cents)  / 100.0)
+  end
   protected
   def lookup_info_by_vin!
     data = VinLookupService.new.execute(vin)

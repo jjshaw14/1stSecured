@@ -20,7 +20,7 @@
               <li><strong>Issue: </strong>{{ vm.claim.issue }}</li>
               <li><strong>Authorized: </strong>{{vm.claim.authorized_at ? vm.claim.authorized_at :
                 'No' }}</span></li>
-              <li><strong>Paid Out: </strong>{{ vm.claim.cost }}</li>
+              <li><strong>Paid Out: </strong>{{ vm.claim.cost ? '$'.concat(vm.claim.cost) : '' }}</li>
               <li><strong>Repaired On: </strong>{{ vm.claim.repaired_at ? vm.claim.repaired_at :
                 'N/A' }}</li>
             </ul>
@@ -37,8 +37,8 @@
               <li><strong>Name:</strong> {{ vm.claim.shop_name }}</li>
               <li><strong>Address: </strong>{{ vm.claim.shop_address }}</li>
               <li><strong>Rep: </strong>{{ vm.claim.shop_rep }}</li>
-              <li><strong>Number: </strong>{{v.claim.shop_phone }}</span></li>
-              <li><strong>Notes: </strong>{{v.claim.shop_notes }}</span></li>
+              <li><strong>Number: </strong>{{vm.claim.shop_phone }}</span></li>
+              <li><strong>Notes: </strong>{{vm.claim.shop_notes }}</span></li>
 
             </ul>
           </div>
