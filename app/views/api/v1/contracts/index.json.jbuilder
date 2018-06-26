@@ -1,4 +1,4 @@
-json.array! @contracts.order(purchased_on: :desc) do |contract|
+json.array! @contracts.order(purchased_on: :asc) do |contract|
   json.id contract.id
 
   json.dealership do
