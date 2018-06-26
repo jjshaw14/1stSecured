@@ -27,6 +27,7 @@ angular.module('firstsecured.admin')
     .when('/users/new', { template: '<user-new></user-new>' })
     .when('/users/:id/edit', { template: '<user-edit></user-edit>' })
     .when('/users', { template: '<user-list></user-list>' })
+    .when('/profile/edit', {template: '<profile-edit></profile-edit>'})
     .otherwise({ redirectTo: '/contracts' })
 
   $locationProvider.html5Mode(true)

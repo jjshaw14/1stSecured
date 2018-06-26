@@ -10,6 +10,7 @@ angular.module('firstsecured.dealer')
     .when('/users/:id/edit', { template: '<user-edit></user-edit>' })
     .when('/claims/:id', {template: '<claim-view></claim-view>'})
     .when('/users', { template: '<user-list></user-list>' })
+    .when('/profile/edit', {template: '<profile-edit></profile-edit>'})
     .otherwise({ redirectTo: '/contracts' })
 
   $locationProvider.html5Mode(true)

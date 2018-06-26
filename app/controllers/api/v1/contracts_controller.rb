@@ -22,7 +22,7 @@ module Api
             @contracts = @contracts.search_for(q)
           end
         else
-          @contracts = @contracts.order(:created_at)
+          @contracts = @contracts.order(purchased_on: :desc)
         end
       end
       def destroy

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   # we could accomplish the following with a single glob, but this gives
   # us some flexibility in the future and keeps things a bit more 'tight'
   scope controller: 'portal', action: 'boot' do
+    get '/profile/edit'
     get 'contracts/:id'
     get 'contracts'
 

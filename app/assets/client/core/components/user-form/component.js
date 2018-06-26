@@ -17,7 +17,6 @@ angular.module('firstsecured.core')
 
     Me.get().then((me) => {
       vm.me = me
-      console.log(vm.user)
       if (me.dealership) {
         vm.user.dealership = vm.user.dealership ? vm.user.dealership : me.dealership
         if (!vm.user.dealership || me.dealership.id !== vm.user.dealership.id || me.user_type !== 'owner') {
