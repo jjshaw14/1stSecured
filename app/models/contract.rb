@@ -41,13 +41,11 @@ class Contract < ApplicationRecord
   }
   scope :loss_ratio, (lambda do
     term   = '((SUM(length_in_months) / 12.0) * 365)'
-    maturity = '(case
-                SUM(current_date - purchased_on) when 0 then 1
-                else SUM(current_date - purchased_on) end)'
-    claims = 'SUM(COALESCE(claims.cost_in_cents / 100, 0))'
-    costs  = '(SUM(contracts.cost_in_cents / 100))'
+    maturity = 'SUM(current_date - purchased_on)'
+    claims = 'SUM(COALESCE(claims.cost_in_cents, 0))'
+    costs  = '(SUM(contracts.cost_in_cents))'
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
-    .select("ROUND( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}, 2) AS loss_ratio")
+    .select("( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}) * 100 AS loss_ratio")
     .without_deleted
     .to_a.first.loss_ratio || '100.00'
   end)
