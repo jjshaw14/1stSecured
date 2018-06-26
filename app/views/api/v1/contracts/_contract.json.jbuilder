@@ -4,7 +4,7 @@ json.dealership do
   json.id contract.dealership.id
   json.name contract.dealership.name
 end
-
+json.contract_number contract.contract_number
 json.first_name contract.first_name
 json.last_name contract.last_name
 json.price contract.price

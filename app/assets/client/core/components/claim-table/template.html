@@ -2,7 +2,7 @@
   <table class="table table-middle table-material rt-md mb-0">
     <thead class="rt-table-hide">
       <tr>
-        <th>Date</th>
+        <th>Authorized</th>
         <th>Customer</th>
         <th>Vehicle</th>
         <th>Cost</th>
@@ -21,7 +21,7 @@
           {{ claim.contract.year }} {{ claim.contract.make }} {{ claim.contract.model }}
         </td>
         <td class='rt-full'>
-          {{claim.cost}}
+          {{claim.cost ? '$'.concat(claim.cost) : '' }}
         </td>
         <td class="rt-full text-right">
           <a href="/claims/{{ claim.id }}">View</a> |

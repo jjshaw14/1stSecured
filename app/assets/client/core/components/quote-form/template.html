@@ -17,6 +17,14 @@
       </div>
 
       <div class="form-group">
+        <label class="control-label">Contract Number</label>
+        <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.contract_number }"
+        ng-model="vm.contract.contract_number" />
+        <div class="invalid-feedback">
+          Please enter a number.
+        </div>
+      </div>
+      <div class="form-group">
         <label class="control-label">Stock Number</label>
         <input class="form-control" ng-class="{ 'is-invalid': vm.contract.errors.stock_number }" ng-model="vm.contract.stock_number" />
         <div class="invalid-feedback">
