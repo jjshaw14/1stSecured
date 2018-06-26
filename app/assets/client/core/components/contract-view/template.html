@@ -41,7 +41,7 @@
 
     <div class="card">
       <div class="card-body">
-        <p>{{ vm.contract.package.name }} Package</p>
+        <p>{{ vm.contract.package.name }} Package - {{vm.contract.length_in_months_or_years}}</p>
         <p>Cost: {{ vm.contract.cost | currency }}</p>
         <p class="mb-0">Covered until {{ vm.contract.matures_on | date: 'MM/dd/yy' }} or {{
         vm.contract.miles_matured_on | number }} miles.</p>
