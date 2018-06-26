@@ -1,6 +1,20 @@
 class Contract < ApplicationRecord
   has_paper_trail meta: { contract_id: :id, dealership_id: :dealership_id }
-
+  class LprHelper
+    class << self
+    def lpr
+      "round( ( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}) * 100, 5)"
+    end
+    def matured
+        "round(( ( (#{maturity} / #{term} ) * #{costs} / 100 ) - #{claims} / 100), 2)"
+    end
+    private
+    def term; '((sum(length_in_months) / 12.0) * 365)' end
+    def maturity; 'sum(current_date - purchased_on)' end
+    def claims; 'sum(coalesce(claims.cost_in_cents, 0))' end
+    def costs; '(sum(contracts.cost_in_cents))' end
+    end
+  end
   include HasAddress
 
   before_save :lookup_info_by_vin!
@@ -39,17 +53,14 @@ class Contract < ApplicationRecord
   scope :without_deleted, -> {
     where(deleted_at: nil)
   }
-  scope :loss_ratio, (lambda do
-    term   = '((SUM(length_in_months) / 12.0) * 365)'
-    maturity = 'SUM(current_date - purchased_on)'
-    claims = 'SUM(COALESCE(claims.cost_in_cents, 0))'
-    costs  = '(SUM(contracts.cost_in_cents))'
+  def self.loss_ratio
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
-    .select("( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}) * 100 AS loss_ratio")
-    .without_deleted
-    .to_a.first.loss_ratio || '100.00'
-  end)
-
+      .select("#{LprHelper.lpr} AS loss_ratio")[0].loss_ratio || '100.00'
+  end
+  def self.matured
+    joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
+      .select("#{LprHelper.matured} AS matured")[0].matured
+  end
   def matures_on
     created_at + (length_in_months || 0).months
   end
