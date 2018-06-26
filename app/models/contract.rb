@@ -47,8 +47,7 @@ class Contract < ApplicationRecord
     claims = 'SUM(COALESCE(claims.cost_in_cents / 100, 0))'
     costs  = '(SUM(contracts.cost_in_cents / 100))'
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
-    .select("ROUND((
-            (#{term} / #{maturity}) * #{claims}) / #{costs}, 2) AS loss_ratio")
+    .select("ROUND( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}, 2) AS loss_ratio")
     .without_deleted
     .to_a.first.loss_ratio || '100.00'
   end)
@@ -102,7 +101,15 @@ class Contract < ApplicationRecord
     self.fee_in_cents = coverage.fee_in_cents + addons.reload.sum('fee_in_cents')
     self.cost_in_cents = coverage.cost_in_cents + addons.reload.sum('cost_in_cents')
   end
-
+  def length_in_months_or_years
+    if length_in_months
+      length_in_months < 12 ?
+        length_in_months.to_s + ' months' :
+        (length_in_months / 12).to_s  + ' years'
+    else
+      nil
+    end
+  end
   def miles_matured_on
     up_to ? limit_in_miles : limit_in_miles + odometer
   end
