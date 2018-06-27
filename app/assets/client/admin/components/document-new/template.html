@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">
+      <a href="/dealerships/{{ vm.document.dealership.id }}">{{ vm.document.dealership.name  }}</a> >
+      New Document
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="py-3">
+          <document-form record="vm.document"></document-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

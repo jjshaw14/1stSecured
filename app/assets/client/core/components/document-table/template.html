@@ -1,0 +1,22 @@
+<div>
+  <table class="table table-middle table-material rt-md mb-0">
+    <thead class="rt-table-hide">
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="document in vm.documents">
+        <td class="rt-header">{{ document.name }}</td>
+        <td class="rt-full text-right">
+          <a href="/documents/{{ document.id }}">View</a> |
+          <a target="_blank" href="{{ document.attachment }}">Print</a>
+        </td>
+      </tr>
+      <tr ng-if="vm.documents.length === 0">
+        <td colspan="5">No documents.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

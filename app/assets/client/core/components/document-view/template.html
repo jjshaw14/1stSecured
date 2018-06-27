@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <a class="btn btn-primary btn-sm pull-right" ng-if='vm.isAdmin' href="/documents/{{vm.document.id}}/edit">Edit</a>
+    <h1 class="card-title">
+      <a href="/dealerships/{{ vm.document.dealership.id }}">{{ vm.document.dealership.name }}</a> >
+        {{vm.document.name}}
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card" ng-show="vm.document.attachment">
+      <div class="card-body">
+        <a target="_blank" href="{{ vm.document.attachment }}"><i
+            class="material-icons">file_download</i> Download Attachment</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)"
+      ng-hide="vm.document.attachment">
+      <input type="file" />
+
+      <h4 class="mb-4 font-weight-bold">
+        <i class="material-icons">error_outline</i>
+        Attachment Missing
+      </h4>
+
+      <p class="m-0">There is no Attached File. Please <a href>select one</a> or drop it here.</p>
+    </div>
+  </div>
+</div>
