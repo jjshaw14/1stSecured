@@ -45,7 +45,7 @@ module Api
       end
 
       def new
-        @template = Template.default(params[:dealership_id])
+        @template = Template.default(params[:dealership_id], params[:template_id])
         respond_to do |f|
           f.json {render 'api/v1/templates/show' }
         end

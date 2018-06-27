@@ -35,6 +35,19 @@
             <div class="pb-3">
               <h4 class="card-title">
                 Templates
+
+                <div class="btn-group pull-right" ng-if='vm.isAdmin' uib-dropdown dropdown-append-to-body>
+                  <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+
+                    New Template<span class="caret"></span>
+                  </button>
+                  <div class="dropdown-menu" uib-dropdown-menu role="menu">
+										<a href="/dealerships/{{vm.dealership.id}}/templates/new" class='dropdown-item'>Generic Template</a>
+                    <a href="/dealerships/{{vm.dealership.id}}/templates/new?template={{ template.id }}" class="dropdown-item" ng-repeat="template in vm.templates">
+                      {{ template.name }}
+                    </a>
+                  </div>
+                </div>
               </h4>
               <div ng-show="vm.dealership.templates.length === 0">
                 No templates. <a href="/dealerships/{{vm.dealership.id}}/templates/new">Add one.</a>
@@ -45,9 +58,6 @@
                   <a href="/templates/{{ template.id }}/edit">Edit</a> |
                   <a href="#" ng-confirm-click='do you really want to delete this template?' confirmed-click="vm.deleteTemplate(template)">Delete</a> |
                   <a target="_blank" href="/api/v1/templates/{{ template.id }}.pdf">Preview</a>
-                </li>
-                <li>
-                  <a href="/dealerships/{{vm.dealership.id}}/templates/new">New Template</a>
                 </li>
               </ul>
             </div>

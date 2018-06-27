@@ -11,6 +11,9 @@ angular.module('firstsecured.core')
         $window.history.back()
       }
       vm.isAdmin = me.dealership ? false  : true
+      if (vm.isAdmin) {
+      	Template.all().then((resp) => { vm.templates = resp.data })
+      }
     })
     vm.view = 'contracts'
 

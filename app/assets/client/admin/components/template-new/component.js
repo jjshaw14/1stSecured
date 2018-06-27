@@ -8,7 +8,7 @@ angular.module('firstsecured.admin')
     var vm = this
     pageTitle.set('New Template')
     vm.$onInit = () => {
-      Template.new($routeParams.dealership_id).then((resp) => {
+      Template.new($routeParams.dealership_id, $routeParams.template).then((resp) => {
         resp.data.packages.forEach((p) => {
           p.coverages.forEach((coverage) => { coverage.amount = parseFloat(coverage.cost) })
           p.addons.forEach((addon) => { addon.amount = parseFloat(addon.cost) })

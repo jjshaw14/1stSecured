@@ -12,9 +12,9 @@ angular.module('firstsecured.core')
         })
       })
     },
-    new: (dealershipId) => {
+    new: (dealershipId, templateId) => {
       return $q(function(res, rej) {
-        API.get('templates/new?dealership_id='.concat(dealershipId)).then(function(results) {
+        API.get('templates/new?dealership_id='.concat(dealershipId).concat(templateId ? '&template_id=' + templateId : '' )).then(function(results) {
           res(results)
         }, function(results) {
           rej(results)

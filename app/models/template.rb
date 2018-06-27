@@ -6,11 +6,12 @@ class Template < ApplicationRecord
   DEFAULT_ID= Rails.env.production? ? 2 : 3
   belongs_to :dealership
   has_many :packages, autosave: true
-  def self.default dealership_id
-    find(DEFAULT_ID).dup.tap{|template|
+  def self.default dealership_id, template_id = DEFAULT_ID
+		template_id ||= DEFAULT_ID
+    find(template_id).dup.tap{|template|
       template.dealership_id = dealership_id
       template.define_singleton_method(:packages) {
-        Package.where(template_id: DEFAULT_ID).map{|package|
+        Package.where(template_id: template_id).map{|package|
           package_id = package.id
           package.dup.tap{|package|
             package.define_singleton_method(:coverages) {
