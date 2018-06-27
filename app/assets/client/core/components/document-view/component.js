@@ -1,8 +1,7 @@
 require('./style.scss')
 
 import angular from 'angular'
-import _       from 'lodash'
-import moment from 'moment'
+
 angular.module('firstsecured.core')
 .component('documentView', {
   template: require('./template.html'),

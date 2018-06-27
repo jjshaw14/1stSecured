@@ -196,7 +196,7 @@
       </div>
       <div class="column column-66">
         <h3>Service Contract</h3>
-        <p style='font-size:15px;'>Date __________________  Contract #  <%=  contract.contract_number   %></p>
+        <p style='font-size:15px;'>Date: <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %>  Contract #  <%=  contract.contract_number   %></p>
       </div>
     </div>
   </header>
@@ -207,7 +207,7 @@
         AUTHORIZATION! FOR CLAIMS CALL: 1-833-FSA-PLAN. FAX: 801-704-7075
       </li>
       <li class="fields">
-        <h5>Customer Information</h5>
+        <h5 style='text-align:center'>CUSTOMER INFORMATION</h5>
         <div class="row">
           <div class="column column-50"><span>Last Name</span> <%= contract.last_name %></div>
           <div class="column column-50"><span>First Name</span> <%= contract.first_name %></div>
@@ -225,7 +225,7 @@
         </div>
       </li>
       <li class="fields">
-        <h5>DEALERSHIP/PLACE OF PURCHASE</h5>
+        <h5 style='text-align:center'>DEALERSHIP/PLACE OF PURCHASE</h5>
         <div class="row">
           <div class="column column-50"><span>Name</span> <%= contract.dealership.name %></div>
           <div class="column column-50"><span>Representative</span> <%= contract.created_by.name %></div>
@@ -242,7 +242,7 @@
         </div>
       </li>
       <li class="fields">
-        <h5>VEHICLE INFORMATION</h5>
+        <h5 style='text-align:center'>VEHICLE INFORMATION</h5>
         <div class="row">
           <div class="column column-33"><span>Year</span> <%= contract.year %></div>
           <div class="column column-33"><span>Make</span> <%= contract.make %></div>
