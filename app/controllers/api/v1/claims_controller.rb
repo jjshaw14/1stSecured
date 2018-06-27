@@ -6,6 +6,7 @@ module Api
         @claims = @claims.by_dealership(Dealership.find(params[:dealership])) if params[:dealership]
         @claims = @claims.where(contract_id: params[:contract]) if params[:contract]
       end
+
       def destroy
         @claim = Claim.available_to(current_user).find(params[:id])
         @claim.deleted_at = Time.now
@@ -17,14 +18,16 @@ module Api
       end
       def create
         @claim = Claim.new claim_params
-        if @claim.save
+        if @claim.contract.nil? || ( current_user.dealership.present? && current_user.dealership_id != @claim.contract.dealership_id )
+          render json: {errors: {authorization: ['unable to complete at this time']}}, status: 422
+        elsif @claim.save
           render 'show'
         else
           render json: {errors: @claim.errors}, status: 422
         end
       end
       def update
-        @claim = Claim.find(params[:id])
+        @claim = Claim.available_to(current_user).find(params[:id])
         if @claim.update_attributes(claim_params)
           render 'show'
         else
@@ -32,10 +35,10 @@ module Api
         end
       end
       def edit
-        @claim = Claim.find(params[:id])
+        @claim = Claim.available_to(current_user).find(params[:id])
       end
       def show
-        @claim = Claim.find(params[:id])
+        @claim = Claim.available_to(current_user).find(params[:id])
       end
       private
       def claim_params

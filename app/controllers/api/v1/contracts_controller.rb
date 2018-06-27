@@ -21,9 +21,11 @@ module Api
           else
             @contracts = @contracts.search_for(q)
           end
-        else
-          @contracts = @contracts.order(purchased_on: :desc)
         end
+        if params[:unsigned].present? and ActiveModel::Type::Boolean.new.cast(params[:unsigned]) === true
+          @contracts = @contracts.where(signed_copy: nil)
+        end
+        @contracts = @contracts.order(purchased_on: :desc)
       end
       def destroy
         @contract.deleted_at = Time.now

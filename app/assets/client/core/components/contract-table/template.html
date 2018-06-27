@@ -1,7 +1,16 @@
 <div>
   <div class="mb-5 mx-5">
     <form>
-      <input type="text" class="form-control" placeholder="Search by customer name, date, or VIN..." ng-model="vm.searchText" ng-change="vm.search()" autofocus />
+      <input type="text" class="form-control" placeholder="Search by customer name, date, or VIN..."
+                                              ng-model="vm.searchText" ng-change="vm.search()" autofocus />
+      <label
+        style='float:right;'
+        class='checkbox-inline'>
+        <input
+          ng-change='vm.search()'
+          ng-model='vm.unsigned'
+          type='checkbox'>
+        Only Unsigned Contracts</label>
     </form>
   </div>
 

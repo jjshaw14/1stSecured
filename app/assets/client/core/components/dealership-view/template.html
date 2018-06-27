@@ -83,7 +83,11 @@
               <a href ng-class="{ active: vm.view === 'contracts' }" ng-click="vm.view = 'contracts'" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Contracts</a>
             </li>
             <li class="nav-item">
-              <a href ng-class="{ active: vm.view === 'claims' }" ng-click="vm.view = 'claims';vm.updatePreview()" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Claims</a>
+              <a href ng-class="{ active: vm.view === 'claims' }" ng-click="vm.view = 'claims';" class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Claims</a>
+            </li>
+            <li class="nav-item">
+              <a href ng-class="{ active: vm.view === 'documents' }" ng-click="vm.view = 'documents';"
+                class="nav-link" data-toggle="tab" role="tab" aria-selected="true">Documents</a>
             </li>
           </ul>
 
@@ -116,9 +120,25 @@
 
           <div ng-if='vm.view === "claims"'>
             <div class="card-body px-0 pb-0">
-
               <div class="mb-1 px-5">
                 <claim-table ng-if="vm.dealership" dealership="vm.dealership"></claim-table>
+              </div>
+            </div>
+          </div>
+
+
+          <div ng-if='vm.view === "documents"'>
+            <div class="card-body px-0 pb-0">
+
+
+              <div class="mb-1 px-5">
+                <a class="btn btn-sm btn-primary pull-right "
+                  href="/dealerships/{{vm.dealership.id}}/documents/new">
+                  New Document
+                </a>
+              </div>
+              <div class="mb-1 px-5">
+                <document-table ng-if="vm.dealership" dealership="vm.dealership"></document-table>
               </div>
             </div>
           </div>

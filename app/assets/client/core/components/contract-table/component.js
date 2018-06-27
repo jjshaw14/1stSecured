@@ -23,7 +23,7 @@ angular.module('firstsecured.core')
       })
     }
     vm.search = () => {
-      Contract.all({ q: vm.searchText, dealership: vm.dealership }).then((response) => {
+      Contract.all({ q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned }).then((response) => {
         vm.contracts = response.data
       })
     }

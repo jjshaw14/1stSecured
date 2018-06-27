@@ -5,6 +5,7 @@ class Dealership < ApplicationRecord
   scope :without_deleted, -> {
     where(deleted_at: nil)
   }
+  has_many :documents
   has_many :contracts
   has_many :claims, through: :contracts
   has_many :templates

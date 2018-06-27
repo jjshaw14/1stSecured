@@ -17,6 +17,14 @@ module Api
           send_file @claim.attachment.file.path, disposition: :inline
         end
       end
+      def document
+        @document = Document.available_to(current_user).find(params[:id])
+        if Rails.env.production?
+          redirect_to @document.attachment.url
+        else
+          send_file @document.attachment.file.path, disposition: :inline
+        end
+      end
     end
   end
 end

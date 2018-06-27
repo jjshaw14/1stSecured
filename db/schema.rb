@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625200623) do
+ActiveRecord::Schema.define(version: 20180627133806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,13 @@ ActiveRecord::Schema.define(version: 20180625200623) do
     t.datetime "deleted_at"
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.bigint "dealership_id"
+    t.string "name"
+    t.string "attachment"
+    t.index ["dealership_id"], name: "index_documents_on_dealership_id"
+  end
+
   create_table "fees", force: :cascade do |t|
     t.integer "length_in_months"
     t.datetime "created_at", null: false
@@ -220,4 +227,5 @@ ActiveRecord::Schema.define(version: 20180625200623) do
     t.index ["user_id"], name: "index_versions_on_user_id"
   end
 
+  add_foreign_key "documents", "dealerships"
 end

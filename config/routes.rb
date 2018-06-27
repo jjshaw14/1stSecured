@@ -14,7 +14,11 @@ Rails.application.routes.draw do
       resources :contracts do
         resource :attachment, only: :show
       end
-
+      resources :documents do
+        member do
+          get :attachment, to: 'attachments#document'
+        end
+      end
       resources :claims do
         member do
           get :attachment, to: 'attachments#claim'
@@ -45,6 +49,7 @@ Rails.application.routes.draw do
     get 'contracts/:id/edit'
     get 'contracts/:id'
     get 'contracts/:contract_id/claims/new'
+    get 'dealerships/:dealership_id/documents/new'
     get '/claims/:id/edit'
     get 'templates/new'
     get 'templates/:id/edit'
@@ -65,6 +70,9 @@ Rails.application.routes.draw do
 
     get 'claims'
     get 'claims/:id'
+    get 'documents/:id/edit'
+    get 'documents/:id'
+
   end
 
   root to: 'portal#boot'
