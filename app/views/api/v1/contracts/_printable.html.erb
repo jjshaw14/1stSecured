@@ -263,7 +263,14 @@
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
                   <div class="option column <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>">
-                    <%= term_in_months_or_years coverage.length_in_months.months %> or<%= coverage.up_to ? content_tag(:span, " up to", class: 'underlined') : '' %> <%= number_with_delimiter coverage.limit_in_miles %> miles (whichever comes first). <%= coverage.caveat %>
+                    <%= term_in_months_or_years coverage.length_in_months.months %><%=
+                    if coverage.limit_in_miles.blank?
+                    ' / unlimited mileage service'
+                    else
+                      " or#{coverage.up_to ? content_tag(:span, " up to", class: 'underlined') : ''} #{
+                        number_with_delimiter coverage.limit_in_miles
+                      } miles (whichever comes first). #{coverage.caveat}"
+                    end %>
                   </div>
                 <% end %>
               </div>

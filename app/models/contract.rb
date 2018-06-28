@@ -1,5 +1,6 @@
 class Contract < ApplicationRecord
   has_paper_trail meta: { contract_id: :id, dealership_id: :dealership_id }
+  include Contractable
   class LprHelper
     class << self
     def lpr
@@ -110,15 +111,7 @@ class Contract < ApplicationRecord
     self.fee_in_cents = coverage.fee_in_cents + addons.reload.sum('fee_in_cents')
     self.cost_in_cents = coverage.cost_in_cents + addons.reload.sum('cost_in_cents')
   end
-  def length_in_months_or_years
-    if length_in_months
-      length_in_months < 12 ?
-        length_in_months.to_s + ' months' :
-        (length_in_months / 12).to_s  + ' years'
-    else
-      nil
-    end
-  end
+
   def miles_matured_on
     up_to ? limit_in_miles : limit_in_miles + odometer
   end

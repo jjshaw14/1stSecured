@@ -128,9 +128,12 @@
               ng-change="vm.uncheckAddons()"
               ng-model="vm.contract.coverage_id"
               ng-value="coverage.id" />
-            <span>
+            <span ng-if='coverage.limit_in_miles'>
                 {{ coverage.length_in_months | termInMonthsOrYears }} or {{ coverage.up_to ? ' up to  ' : '' }}{{ coverage.limit_in_miles
                 | number }} miles</span>
+            <span ng-if='!coverage.limit_in_miles'>
+              {{ coverage.length_in_months | termInMonthsOrYears }}/unlimited mileage service
+            </span>
           </label>
           <br />
           <label ng-repeat="addon in package.addons" ng-class="{ 'text-secondary': !vm.packageSelected(package) || !vm.packageAllowed(package) }">
