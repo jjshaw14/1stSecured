@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     get '/profile/edit'
     get 'contracts/:id'
     get 'contracts'
-
+    get '/documents'
     get 'contracts/new'
     get 'contracts/:id/edit'
     get 'contracts/:id'

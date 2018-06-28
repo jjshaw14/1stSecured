@@ -2,7 +2,8 @@ module Api
   module V1
     class DocumentsController < BaseController
       def index
-        @documents = Document.available_to(current_user).where(dealership_id: params[:dealership])
+        @documents = Document.available_to(current_user)
+        @documents = @documents.where(dealership_id: params[:dealership]) if current_user.admin?
       end
       def show
         @document = Document.available_to(current_user).find(params[:id])

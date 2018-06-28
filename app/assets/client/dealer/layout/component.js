@@ -11,21 +11,27 @@ angular.module('firstsecured.dealer')
     Me.get().then((me) => {
       vm.me = me
       vm.sidebarCollapsed = false
-      vm.menu = me.user_type === 'owner' ? [
+      vm.menu = [
         {
           'label': 'MENU',
           'isLabel': true
-        },
-        {
-          'path': '/users',
-          'label': 'Users',
-          'icon': { 'class': 'material-icons', 'content': 'people' }
         }, {
           'path': '/contracts',
           'label': 'Contracts',
           'icon': {'class': 'material-icons', 'content': 'assignment' }
+        }, {
+          'path': '/documents',
+          'label': 'Documents',
+          'icon': { 'class': 'material-icons', 'content': 'assignment' }
         }
-      ] : undefined
+      ]
+      if (me.user_type === 'owner') {
+        vm.menu = vm.menu.concat({
+          'path': '/users',
+          'label': 'Users',
+          'icon': { 'class': 'material-icons', 'content': 'people' }
+        })
+      }
     })
   }]
 })
