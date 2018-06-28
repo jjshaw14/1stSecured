@@ -4,12 +4,15 @@ class Contract < ApplicationRecord
   class LprHelper
     class << self
     def lpr
-      "round( ( ( ( (#{maturity} / #{term} ) * #{costs}) - #{claims}) / #{costs}) * 100, 5)"
+      "round( ( (#{term} / #{safe_maturity} ) * #{claims}) / #{costs}, 5)"
     end
     def matured
         "round(( ( (#{maturity} / #{term} ) * #{costs} / 100 ) - #{claims} / 100), 2)"
     end
     private
+    def safe_maturity
+      "( case #{maturity} when 0 then 1 else #{maturity} end)"
+    end
     def term; '((sum(length_in_months) / 12.0) * 365)' end
     def maturity; 'sum(current_date - purchased_on)' end
     def claims; 'sum(coalesce(claims.cost_in_cents, 0))' end
@@ -50,7 +53,7 @@ class Contract < ApplicationRecord
   scope :this_month, -> {
     where('purchased_on > ? ', Date.today.at_beginning_of_month)
   }
-  pg_search_scope :search_for, against: %i[first_name last_name make model year], using: { tsearch: { prefix: true } }
+  pg_search_scope :search_for, against: %i[first_name last_name make model year contract_number], using: { tsearch: { prefix: true } }
   scope :without_deleted, -> {
     where(deleted_at: nil)
   }

@@ -1,4 +1,11 @@
-<form ng-submit="vm.save()" novalidate>
+
+<div class='float-right'>
+  <div ng-click='vm.view !== "documents" ? vm.view = "documents" : vm.view = "contracts"' class='btn btn-primary'>{{ vm.view === 'documents' ? 'Back to Contract' :
+    'Documents'}}</div>
+</div>
+<div ng-if='vm.view === "documents"'>
+</div>
+<form ng-submit="vm.save()" ng-if='vm.view !== "documents"' novalidate>
   <div class="row">
     <div class="col-4">
       <div class="form-group row">

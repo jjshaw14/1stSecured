@@ -64,15 +64,16 @@
     </div>
   </div>
   <div class="col-6">
-    <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)" ng-hide="vm.contract.signed_copy">
+    <div class="signed-copy-drop mb-4 p-8 text-center" file-upload="vm.uploadFile($data)" >
       <input type="file" />
 
       <h4 class="mb-4 font-weight-bold">
         <i class="material-icons">error_outline</i>
-        Signed Copy Missing
+        {{ vm.contract.signed_copy? 'Re-Upload Signed Contract' : 'Signed Copy Missing' }}
       </h4>
 
-      <p class="m-0">There is no signed copy of the contract on file. Please <a href>select one</a> or drop it here.</p>
+      <p class="m-0"><span ng-hide='vm.contract.signed_copy'>There is no signed copy of the contract
+        on file.</span> Please <a href>select one</a> or drop it here.</p>
     </div>
 
     <div class="card">

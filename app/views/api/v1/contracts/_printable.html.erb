@@ -196,7 +196,7 @@
       </div>
       <div class="column column-66">
         <h3>Service Contract</h3>
-        <p style='font-size:15px;'>Date: <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %>  Contract #  <%=  contract.contract_number   %></p>
+        <p style='font-size:15px;'><span style='border:1px solid black;padding:3px;'>Date: <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %></span>  <span style='border:1px solid black;padding:3px'>Contract #  <%=  contract.contract_number   %></span></p>
       </div>
     </div>
   </header>
