@@ -10,7 +10,7 @@ class Claim < ApplicationRecord
     joins(:contract => :dealership).where(dealerships: {id: dealership.id})
   }
 
-  validates :cost_in_cents, numericality: { greater_than: 0, allow_nil: true }
+  # validates :cost_in_cents, numericality: { greater_than: 0, allow_nil: true }
   validates :odometer, numericality: { greater_than: 0 }
   after_save :update_odometer_on_contract
 
@@ -20,7 +20,7 @@ class Claim < ApplicationRecord
       joins(:contract).where(contracts: {dealership_id: current_user.dealership.id}) :
       all }
   def cost
-    format('%.2f', (cost_in_cents / 100.0))
+    cost_in_cents ? format('%.2f', (cost_in_cents / 100.0)) : nil
   end
   private
   def update_odometer_on_contract

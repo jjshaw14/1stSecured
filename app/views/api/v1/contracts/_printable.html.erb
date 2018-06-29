@@ -196,7 +196,7 @@
       </div>
       <div class="column column-66">
         <h3>Service Contract</h3>
-        <p style='font-size:15px;'><span style='border:1px solid black;padding:3px;'>Date: <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %></span>  <span style='border:1px solid black;padding:3px'>Contract #  <%=  contract.contract_number   %></span></p>
+        <p style='font-size:15px;'>Date:<span class='underlined' style='padding:3px;'> <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %></span>  Contract #<span style='padding:3px' class='underlined'>  <%=  contract.contract_number   %></span></p>
       </div>
     </div>
   </header>
@@ -264,13 +264,12 @@
                 <% coverages.compact.each do |coverage| %>
                   <div class="option column <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>">
                     <%= term_in_months_or_years coverage.length_in_months.months %><%=
-                    if coverage.limit_in_miles.blank?
+                    raw(if coverage.limit_in_miles.blank?
                     ' / unlimited mileage service'
                     else
-                      " or#{coverage.up_to ? content_tag(:span, " up to", class: 'underlined') : ''} #{
-                        number_with_delimiter coverage.limit_in_miles
-                      } miles (whichever comes first). #{coverage.caveat}"
-                    end %>
+                      " or" + (coverage.up_to ?  raw(" <span class='underlined'>up to</span>") : '') +
+                        " #{number_with_delimiter coverage.limit_in_miles}  miles (whichever comes first). #{coverage.caveat}"
+                    end) %>
                   </div>
                 <% end %>
               </div>

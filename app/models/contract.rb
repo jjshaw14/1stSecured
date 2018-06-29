@@ -39,7 +39,6 @@ class Contract < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  validates :stock_number, presence: true
   validates :vin, presence: true
   validates :purchased_on, presence: true
   validates :odometer, presence: true, numericality: { greater_than: 0, allow_nil: true }
