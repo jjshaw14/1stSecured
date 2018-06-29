@@ -7,7 +7,8 @@
 
 
     <h1 class="card-title">
-      <a href="/dealerships/{{ vm.contract.dealership.id }}">{{ vm.contract.dealership.name }}</a> > {{ vm.contract.first_name }} {{ vm.contract.last_name }} ({{ vm.contract.vin }})
+      <a href="/dealerships/{{ vm.contract.dealership.id }}">{{ vm.contract.dealership.name }}</a> >
+      {{ vm.contract.first_name }} {{ vm.contract.last_name }} ({{ vm.contract.vin }})
     </h1>
   </div>
 </div>
@@ -19,6 +20,7 @@
         <div class="row">
           <div class="col-12">
             <ul class="list-unstyled">
+              <li><strong>Contract Number:</strong>{{vm.contract.contract_number}}</li>
               <li><strong>Name:</strong> {{ vm.contract.first_name }} {{ vm.contract.last_name }}</li>
               <li><strong>Address: </strong>{{ vm.contract.address1 }}</li>
               <li>{{ vm.contract.address2 }}</li>

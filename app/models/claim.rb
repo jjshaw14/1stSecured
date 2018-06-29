@@ -4,7 +4,7 @@ class Claim < ApplicationRecord
   belongs_to :contract
   belongs_to :provider, optional: true, class_name: 'ServiceProvider'
   scope :this_month, -> {
-    where('claims.created_at > ?', Date.today.at_beginning_of_month)
+    where('claims.authorized_at > ?', Date.today.at_beginning_of_month)
   }
   scope :by_dealership, -> (dealership) {
     joins(:contract => :dealership).where(dealerships: {id: dealership.id})

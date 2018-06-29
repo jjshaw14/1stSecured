@@ -7,11 +7,13 @@ angular.module('firstsecured.core')
     dealership: '=?',
     contract: '=?'
   },
-  controller: ['Document', 'pageTitle', function(Document, pageTitle) {
+  controller: ['Me', 'Document', 'pageTitle', function(Me, Document, pageTitle) {
     pageTitle.set('Documents')
 
     var vm = this
-
+    Me.get().then((me) => {
+      vm.isAdmin = !me.dealership
+    })
     vm.searchText = ''
 
     vm.$onInit = () => {

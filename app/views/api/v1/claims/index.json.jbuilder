@@ -9,7 +9,7 @@ json.array! @claims do |claim|
     json.year claim.contract.year
     json.purchased_on claim.contract.purchased_on
   end if claim.contract.present?
-  json.cost format('%.2f', (claim.cost_in_cents / 100.0))
+  json.cost claim.cost
   json.odometer claim.odometer
   json.shop_name claim.shop_name
   json.shop_phone claim.shop_phone

@@ -11,7 +11,9 @@
         <td class="rt-header">{{ document.name }}</td>
         <td class="rt-full text-right">
           <a href="/documents/{{ document.id }}">View</a> |
-          <a target="_blank" ng-if="document.attachment" href="{{ document.attachment }}">Print</a>
+          <a target="_blank" ng-if="document.attachment" href="{{ document.attachment }}">Print</a> |
+          <a href="#" ng-if='vm.isAdmin' ng-confirm-click='do you really want to delete this document?'
+            confirmed-click="vm.deleteDocument(document)">Delete</a>
         </td>
       </tr>
       <tr ng-if="vm.documents.length === 0">

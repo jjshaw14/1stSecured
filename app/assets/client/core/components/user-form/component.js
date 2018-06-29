@@ -28,6 +28,7 @@ angular.module('firstsecured.core')
       vm.dealerships = response.data
     })
     vm.save = function() {
+      !vm.user.dealership ? vm.user.dealership = {id: null}  : null
       User.save(vm.user).then((response) => {
         vm.user = response.data
         if (vm.user.dealership) {

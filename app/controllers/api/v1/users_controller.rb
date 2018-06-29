@@ -41,7 +41,9 @@ module Api
       end
 
       def update
-        if @user.update_attributes(user_params)
+        if @user.id != current_user.id and !current_user.admin?
+          render json: { errors: {first_name: ['error' ]} }, status: 422
+        elsif @user.update_attributes(user_params)
           render 'show'
         else
           render json: { errors: @user.errors }, status: 422
@@ -56,7 +58,16 @@ module Api
 
       def user_params
         user_params = params.permit(:user_type, :first_name, :last_name, :email, :password, dealership: [:id])
-        user_params[:dealership] = Dealership.find(user_params[:dealership][:id]) if user_params.key?(:dealership)
+        if user_params.key?(:dealership)
+          dealership_id = user_params[:dealership][:id]
+          if dealership_id
+            user_params[:dealership] = Dealership.find(dealership_id)
+          elsif current_user.admin?
+            user_params.delete(:dealership)
+            user_params[:user_type] = nil
+            user_params[:dealership_id] = nil
+          end
+        end
         user_params
       end
     end

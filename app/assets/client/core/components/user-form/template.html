@@ -23,15 +23,15 @@
     <select
       ng-model='vm.user.dealership'
       ng-options='dealership as dealership.name for dealership in vm.dealerships track by
-                                                dealership.id'
-      ></select>
+                                                dealership.id'>
+      <option value="">Admin</option></select>
   </div>
   <div className='form-group' ng-show='!vm.me.dealership || vm.me.user_type === "owner"'>
     <label>User Type:</label>
     <select
       ng-model='vm.user.user_type'
-      ng-options='user_type as user_type for user_type in vm.user_types'
-                                                ></select>
+      ng-options='user_type as user_type for user_type in vm.user_types'>
+    <option value="admin">Admin</option></select>
   </div>
   <div class="form-group">
     <div class="float-right">
