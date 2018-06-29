@@ -13,5 +13,16 @@ if current_user.dealership.present?
     if current_user.dealership.templates.without_deleted.present?
       json.templates current_user.dealership.templates.without_deleted.map{|template| {name: template.name, id: template.id }  }
     end
+    if current_user.dealership.documents.without_deleted.present?
+      json.documents current_user.dealership.documents.without_deleted.map{|document|
+        {
+          name: document.name,
+          id: document.id,
+          attachment: document.attachment.file.present? ?
+            "/api/v1/documents/#{document.id}/attachment" :
+            nil
+        }
+      }
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627133806) do
+ActiveRecord::Schema.define(version: 20180629121714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20180627133806) do
     t.bigint "dealership_id"
     t.string "name"
     t.string "attachment"
+    t.datetime "deleted_at"
     t.index ["dealership_id"], name: "index_documents_on_dealership_id"
   end
 

@@ -12,8 +12,21 @@ angular.module('firstsecured.core')
     contract: '=?',
     onSave: '=?'
   },
-  controller: ['Template', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Template, Contract, VIN, $http, $window, $location, $routeParams ) {
+  controller: ['Me', 'Template', 'Document', 'Contract', 'VIN', '$http', '$window', '$location', '$routeParams', function(Me, Template, Document, Contract, VIN, $http, $window, $location, $routeParams ) {
     var vm = this
+    vm.view = 'contracts'
+    Me.get().then((me) => {
+      if (me.dealership) {
+        vm.documents = me.dealership.documents || []
+      } else {
+        Document.all({dealership: $routeParams.dealership}).then((response) => {
+          vm.documents = response.data
+        })
+      }
+    })
+    vm.documentIframeSrc = (url) => {
+      return 'https://docs.google.com/gview?url=' + 'https://first-secured.herokuapp.com' + url + '&embedded=true'
+    }
     vm.$onInit = () => {
       if (!$routeParams.id) {
         return

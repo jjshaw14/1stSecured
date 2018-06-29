@@ -11,4 +11,5 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   scope :available_to, ->(user) { user.dealership ? where(dealership: user.dealership) : all }
+  scope :without_deleted, -> { where(deleted_at: nil)    }
 end

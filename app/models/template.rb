@@ -1,8 +1,6 @@
 class Template < ApplicationRecord
   has_paper_trail meta: { template_id: :id, dealership_id: :dealership_id }
-  scope :without_deleted, -> {
-    where(deleted_at: nil)
-  }
+
   DEFAULT_ID= Rails.env.production? ? 2 : 3
   belongs_to :dealership
   has_many :packages, autosave: true

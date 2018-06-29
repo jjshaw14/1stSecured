@@ -4,8 +4,11 @@
     'Documents'}}</div>
 </div>
 <div ng-if='vm.view === "documents"'>
+  <div ng-show='vm.documents.length === 0'>No Documents</div>
+  <iframe src="{{vm.documentIframeSrc(document.attachment) | trusted}}"
+          ng-repeat='document in vm.documents'></iframe>
 </div>
-<form ng-submit="vm.save()" ng-if='vm.view !== "documents"' novalidate>
+<form ng-submit="vm.save()" ng-if='vm.view === "contracts"' novalidate>
   <div class="row">
     <div class="col-4">
       <div class="form-group row">

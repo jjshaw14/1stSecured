@@ -54,9 +54,7 @@ class Contract < ApplicationRecord
     where('purchased_on > ? ', Date.today.at_beginning_of_month)
   }
   pg_search_scope :search_for, against: %i[first_name last_name make model year contract_number], using: { tsearch: { prefix: true } }
-  scope :without_deleted, -> {
-    where(deleted_at: nil)
-  }
+
   def self.loss_ratio
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
       .select("#{LprHelper.lpr} AS loss_ratio")[0].loss_ratio || '100.00'

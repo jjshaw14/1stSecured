@@ -9,8 +9,7 @@ class Claim < ApplicationRecord
   scope :by_dealership, -> (dealership) {
     joins(:contract => :dealership).where(dealerships: {id: dealership.id})
   }
-  scope :without_deleted, -> {
-    where(deleted_at: nil) }
+
   validates :cost_in_cents, numericality: { greater_than: 0, allow_nil: true }
   validates :odometer, numericality: { greater_than: 0 }
   after_save :update_odometer_on_contract

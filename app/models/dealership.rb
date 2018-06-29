@@ -2,9 +2,7 @@ class Dealership < ApplicationRecord
   has_paper_trail meta: { dealership_id: :id }
 
   include HasAddress
-  scope :without_deleted, -> {
-    where(deleted_at: nil)
-  }
+
   has_many :documents
   has_many :contracts
   has_many :claims, through: :contracts
