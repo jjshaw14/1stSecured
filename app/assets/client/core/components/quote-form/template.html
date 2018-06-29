@@ -5,7 +5,7 @@
 </div>
 <div ng-if='vm.view === "documents"'>
   <div ng-show='vm.documents.length === 0'>No Documents</div>
-  <iframe src="{{vm.documentIframeSrc(document.attachment) | trusted}}"
+  <iframe src="{{vm.documentIframeSrc(document.url) | trusted}}"
           ng-repeat='document in vm.documents'></iframe>
 </div>
 <form ng-submit="vm.save()" ng-if='vm.view === "contracts"' novalidate>

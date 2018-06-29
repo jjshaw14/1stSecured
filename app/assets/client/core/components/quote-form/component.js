@@ -25,7 +25,7 @@ angular.module('firstsecured.core')
       }
     })
     vm.documentIframeSrc = (url) => {
-      return 'https://docs.google.com/gview?url=' + 'https://first-secured.herokuapp.com' + url + '&embedded=true'
+      return 'http://docs.google.com/gview?embedded=true&url='.concat(url)
     }
     vm.$onInit = () => {
       if (!$routeParams.id) {
