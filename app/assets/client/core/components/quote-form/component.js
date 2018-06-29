@@ -19,7 +19,7 @@ angular.module('firstsecured.core')
       if (me.dealership) {
         vm.documents = me.dealership.documents || []
       } else {
-        Document.all({dealership: $routeParams.dealership}).then((response) => {
+        Document.all({dealership: {id: $routeParams.dealership }}).then((response) => {
           vm.documents = response.data
         })
       }
