@@ -114,7 +114,15 @@ class Contract < ApplicationRecord
   end
 
   def miles_matured_on
-    up_to ? limit_in_miles : limit_in_miles + odometer
+    if up_to
+      limit_in_miles
+    else
+      if limit_in_miles
+        limit_in_miles + odometer
+      else
+        nil
+      end
+    end
   end
   def claims_cost
     "$" << format('%.2f', claims.without_deleted.sum(:cost_in_cents)  / 100.0)
