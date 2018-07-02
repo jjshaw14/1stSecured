@@ -4,7 +4,7 @@ class Contract < ApplicationRecord
   class LprHelper
     class << self
     def lpr
-      "round( ( (#{term} / #{safe_maturity} ) * #{claims}) / #{costs}, 5)"
+      "round( ( (#{term} / #{safe_maturity} ) * #{claims}) / #{safe_costs}, 5)"
     end
     def matured
         "round(( ( (#{maturity} / #{term} ) * #{costs} / 100 ) - #{claims} / 100), 2)"
@@ -12,6 +12,9 @@ class Contract < ApplicationRecord
     private
     def safe_maturity
       "( case #{maturity} when 0 then 1 else #{maturity} end)"
+    end
+    def safe_costs
+      "( case #{costs} when 0 then 1 else #{costs} end)"
     end
     def term; '((sum(length_in_months) / 12.0) * 365)' end
     def maturity; 'sum(current_date - purchased_on)' end
