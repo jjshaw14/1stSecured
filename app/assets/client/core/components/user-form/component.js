@@ -9,6 +9,7 @@ angular.module('firstsecured.core')
   },
   controller: ['User', 'Dealership', '$routeParams', '$window', '$location', 'Me', function(User, Dealership, $routeParams, $window, $location, Me) {
     var vm = this
+    vm.view = 'form'
     vm.dealerships = []
     vm.user_types = [
       'owner',
@@ -17,6 +18,7 @@ angular.module('firstsecured.core')
 
     Me.get().then((me) => {
       vm.me = me
+      vm.isAdmin = !me.dealership
       if (me.dealership) {
         vm.user.dealership = vm.user.dealership ? vm.user.dealership : me.dealership
         if (!vm.user.dealership || me.dealership.id !== vm.user.dealership.id || me.user_type !== 'owner') {
@@ -38,7 +40,18 @@ angular.module('firstsecured.core')
         $location.path('/users')
       })
     }
-
+    vm.savePassword = function() {
+      if (vm.isAdmin) {
+        User.save({id: vm.user.id, password: vm.changed_password }).then((response) => {
+          vm.user = response.data
+          if (vm.user.dealership) {
+            $location.path(`/dealerships/${vm.user.dealership.id}`)
+            return
+          }
+          $location.path('/users')
+        })
+      }
+    }
     vm.cancel = function() {
       $window.history.back()
     }

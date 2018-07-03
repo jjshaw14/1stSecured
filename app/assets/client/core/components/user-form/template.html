@@ -1,3 +1,9 @@
+<div ng-if='vm.isAdmin && vm.edit === true' class='float-right'>
+  <div ng-click='vm.view !== "password" ? vm.view = "password" : vm.view = "form"' class='btn
+    btn-primary'>{{ vm.view === 'form' ? 'Change Password' :
+    'Edit User'}}</div>
+</div>
+<div ng-if='vm.view === "form"'>
 <form ng-submit="vm.save()">
   <div class="form-group row">
     <div class="col">
@@ -40,3 +46,17 @@
     </div>
   </div>
 </form>
+</div>
+<div ng-if='vm.view === "password"'>
+  <form ng-submit="vm.savePassword()">
+    <div class='form-group'>
+      <input class='form-control' type='password' ng-model='vm.changed_password' />
+    </div>
+  <div class="form-group">
+    <div class="float-right">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-link" ng-click="vm.cancel()">Cancel</button>
+    </div>
+  </div>
+  </form>
+</div>
