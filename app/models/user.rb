@@ -14,7 +14,9 @@ class User < ApplicationRecord
   validates :email, presence: true
 
   belongs_to :dealership, optional: true
-
+  default_scope {
+    without_deleted
+  }
   scope :admin, -> { where(dealership_id: nil) }
   scope :customer, -> { where.not(dealership_id: nil) }
   scope :available_to, ->(user) {

@@ -45,6 +45,17 @@ angular.module('firstsecured.core')
       })
     },
 
+    destroy: function(attrs) {
+      if (!attrs.id) throw 'invalid user id.'
+      return $q(function(resolve, reject) {
+        API.delete('users/' + attrs.id).then(function(results) {
+          resolve(results)
+        }, function(results) {
+          reject(results)
+        })
+      })
+    },
+
     save: function(attrs) {
       return (attrs.id ? User.update : User.create)(attrs)
     }

@@ -25,6 +25,9 @@
                 <td>{{ user.dealership ? user.dealership.name : 'Admin'  }}</td>
                 <td>
                   <a href="/users/{{ user.id }}/edit">Edit</a>
+                  <a href="#" ng-confirm-click='do you really want to delete this user?'
+                    confirmed-click="vm.deleteUser(user)">Delete</a>
+
                 </td>
               </tr>
             </tbody>

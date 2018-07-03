@@ -66,7 +66,7 @@ class Contract < ApplicationRecord
       .select("#{LprHelper.matured} AS matured")[0].matured
   end
   def matures_on
-    created_at + (length_in_months || 0).months
+    purchased_on ? (purchased_on + (length_in_months || 0).months ) : Date.today
   end
   def cost
     cost_in_cents / 100.00 if cost_in_cents.present?

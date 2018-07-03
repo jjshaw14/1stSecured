@@ -15,7 +15,14 @@ module Api
                  end
             @users = @users.available_to(current_user).order(:created_at)
       end
-
+      def destroy
+        @user.deleted_at = Time.now
+        if @user.save
+          render json: @user, status: 200
+        else
+          render json: {errors: @user.errors}, status: 422
+        end
+      end
       def create
         @user = User.create(user_params) do |u|
           u.password ||= SecureRandom.hex(20)
@@ -53,7 +60,7 @@ module Api
       private
 
       def set_user
-        @user = User.find(params[:id])
+        @user = User.available_to(current_user).find(params[:id])
       end
 
       def user_params

@@ -1,7 +1,7 @@
 require('./style.scss')
 
 import angular from 'angular'
-
+import toastr from 'toastr'
 angular.module('firstsecured.core')
 .component('userList', {
   template: require('./template.html'),
@@ -9,6 +9,13 @@ angular.module('firstsecured.core')
     var vm = this
 
     pageTitle.set('Users')
+    vm.deleteUser = (user) => {
+      console.log(user)
+      User.destroy(user).then(ret => {
+        vm.users = vm.users.filter(user => user.id !== ret.data.id )
+        toastr.success('deleted successfully')
+      })
+    }
 
     vm.$onInit = () => {
       Me.get().then((me) => {
