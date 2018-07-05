@@ -1,14 +1,26 @@
 
 <div class='float-right'>
-  <div ng-click='vm.view !== "documents" ? vm.view = "documents" : vm.view = "contracts"' class='btn btn-primary'>{{ vm.view === 'documents' ? 'Back to Contract' :
-    'Documents'}}</div>
+  <div class='btn-group pull-right' uib-dropdown
+    dropdown-append-to-body ng-if='vm.view==="contracts"'>
+    <button type='button' class='btn btn-sm btn-primary' uib-dropdown-toggle>
+      Documents<span class='caret'></span>
+    </button>
+    <div class='dropdown-menu' uib-dropdown-menu role='menu'>
+      <span
+        ng-click="vm.setDocument(document)"
+        ng-repeat='document in vm.documents'
+        class='dropdown-item'>{{document.name}}</span>
+    </div>
+  </div>
+  <div ng-if='vm.view === "documents"'ng-click="vm.view = 'contracts'" class='btn btn-sm btn-primary'>
+    Contracts
+  </div>
 </div>
 <div ng-if='vm.view === "documents"'>
   <div ng-show='vm.documents.length === 0'>No Documents</div>
-  <iframe src="{{document.url | trusted}}"
+  <iframe src="{{vm.selectedDocument.url | trusted}}"
           height='500'
-          width='600'
-          ng-repeat='document in vm.documents'></iframe>
+          width='600'></iframe>
 </div>
 <form ng-submit="vm.save()" ng-if='vm.view === "contracts"' novalidate>
   <div class="row">

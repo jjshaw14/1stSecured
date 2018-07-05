@@ -85,7 +85,10 @@ angular.module('firstsecured.core')
         vm.contract.errors = response.data.errors
       })
     }
-
+    vm.setDocument = function(document) {
+      vm.selectedDocument = document
+      vm.view = 'documents'
+    }
     vm.cancel = function() {
       $window.history.back()
     }
