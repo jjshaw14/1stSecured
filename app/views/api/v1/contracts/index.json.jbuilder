@@ -8,7 +8,7 @@ json.array! @contracts do |contract|
 
   json.first_name contract.first_name
   json.last_name contract.last_name
-
+  json.cost contract.cost
   json.vin contract.vin
   json.make contract.make
   json.model contract.model

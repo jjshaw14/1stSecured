@@ -17,4 +17,7 @@ class Dealership < ApplicationRecord
   def default_terms
     DEFAULT_TERMS
   end
+  scope :available_to, -> (user) {
+    user.dealership_id ? where(id: user.dealership_id) : all
+  }
 end

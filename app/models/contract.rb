@@ -2,24 +2,22 @@ class Contract < ApplicationRecord
   has_paper_trail meta: { contract_id: :id, dealership_id: :dealership_id }
   include Contractable
   class LprHelper
+
+    @term = '((sum(length_in_months) / 12.0) * 365)'
+    @maturity = 'sum(current_date - purchased_on)'
+    @claims = 'sum(coalesce(claims.cost_in_cents, 0))'
+    @costs = '(sum(contracts.cost_in_cents))'
     class << self
-    def lpr
-      "round( ( (#{term} / #{safe_maturity} ) * #{claims}) / #{safe_costs}, 5)"
-    end
-    def matured
-        "round(( ( (#{maturity} / #{term} ) * #{costs} / 100 ) - #{claims} / 100), 2)"
-    end
-    private
-    def safe_maturity
-      "( case #{maturity} when 0 then 1 else #{maturity} end)"
-    end
-    def safe_costs
-      "( case #{costs} when 0 then 1 else #{costs} end)"
-    end
-    def term; '((sum(length_in_months) / 12.0) * 365)' end
-    def maturity; 'sum(current_date - purchased_on)' end
-    def claims; 'sum(coalesce(claims.cost_in_cents, 0))' end
-    def costs; '(sum(contracts.cost_in_cents))' end
+      def lpr
+        "round( ( (#{@term} / #{safe(@maturity)} ) * #{@claims}) / #{safe(@costs)}, 4) * 100"
+      end
+      def matured
+          "round(( ( (#{@maturity} / #{@term} ) * #{@costs} / 100 ) - #{@claims} / 100), 2)"
+      end
+      private
+      def safe method
+        "(case #{method} when 0 then 1 else #{method} end)"
+      end
     end
   end
   include HasAddress

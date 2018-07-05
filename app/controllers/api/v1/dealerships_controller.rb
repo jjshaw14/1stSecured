@@ -4,7 +4,7 @@ module Api
       before_action :set_dealership, except: %i[index create]
 
       def index
-        @dealerships = Dealership.where(deleted_at: nil)
+        @dealerships = Dealership.available_to(current_user).where(deleted_at: nil)
       end
 
       def destroy
