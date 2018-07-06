@@ -37,7 +37,7 @@ unless contract.coverage.nil?
     json.id contract.coverage.package.id
     json.name contract.coverage.package.name
     json.coverage contract.coverage, partial: 'api/v1/coverages/coverage', as: :coverage, locals: { top_level: true }
-  end
+  end if contract.coverage.package
 end
 
 json.addons contract.addons, partial: 'api/v1/addons/addon', as: :addon
