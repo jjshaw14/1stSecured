@@ -5,11 +5,20 @@ module Api
 
       def index
         @contracts = Contract.available_to(current_user).where(deleted_at: nil).includes(:dealership)
+        if params.key?(:filter)
 
+          @contracts = @contracts.with_claims_this_month if params[:filter] === 'claimsThisMonth'
+          @contracts = @contracts.this_month if params[:filter] === 'feesThisMonth'
+        end
         if params.key?(:dealership)
           @contracts = @contracts.where(dealership_id: params[:dealership])
         end
-
+        if params[:startDate]
+          @contracts = @contracts.where('purchased_on >= ?', params[:startDate])
+        end
+        if params[:endDate]
+          @contracts = @contracts.where('purchased_on <= ?', params[:endDate])
+        end
         if params[:q].present?
           q = params[:q].gsub(/\s+/, ' ')
           if q.size == 17
@@ -17,7 +26,7 @@ module Api
           elsif q.match?(%r([0-9]{1,2}[\/|-][0-9]{2}[\/|-][0-9]{2,4}))
             month, day, year = q.split(%r{\/|-}).map(&:to_i)
             year += 2000 if year < 2000
-            @contracts = @contracts.where('DATE(created_at) = ? ', Date.new(year, month, day))
+            @contracts = @contracts.where('purchased_on = ? ', Date.new(year, month, day))
           else
             @contracts = @contracts.search_for(q)
           end

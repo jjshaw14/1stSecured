@@ -3,6 +3,8 @@
     <form>
       <input type="text" class="form-control" placeholder="Search by customer name, date, or VIN..."
                                               ng-model="vm.searchText" ng-change="vm.search()" autofocus />
+<input date-range-picker class="form-control date-picker" type="text" ng-model="vm.date"
+options='vm.datepickerOptions' placeholder='select a date range' />
       <label
         style='float:right;'
         class='checkbox-inline'>
@@ -20,6 +22,7 @@
         <th>Date</th>
         <th ng-hide="vm.dealership">Dealership</th>
         <th>Customer</th>
+        <th>Cost</th>
         <th>Vehicle</th>
         <th></th>
       </tr>
@@ -28,6 +31,7 @@
       <tr ng-repeat="contract in vm.contracts">
         <td class="rt-header">{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
         <td class="rt-full" ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
+
         <td class="rt-full">
           {{ contract.first_name }} {{ contract.last_name }} <br >
           <!-- <small>
@@ -37,6 +41,8 @@
             {{ contract.city }}, {{ contract.state }} {{ contract.zip }} <br >
           </small> -->
         </td>
+        <td class="rt-full">{{ contract.cost | currency }}</td>
+
         <td class="rt-full">
           {{ contract.vin }} /
           {{ contract.year }} {{ contract.make }} {{ contract.model }}

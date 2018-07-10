@@ -66,6 +66,14 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-daterangepicker@^0.2.3-alpha1:
+  version "0.2.3-alpha1"
+  resolved "https://registry.yarnpkg.com/angular-daterangepicker/-/angular-daterangepicker-0.2.3-alpha1.tgz#6cd83ec4a555f4aee882e213d7099bd859d6cce8"
+  dependencies:
+    angular "^1.2.17"
+    bootstrap "^3.0.0"
+    bootstrap-daterangepicker "^2.0.0"
+
 angular-route@^1.6.8:
   version "1.6.8"
   resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.6.8.tgz#82ace773e7b232bf77768370760244a8caab5d36"
@@ -77,6 +85,10 @@ angular-ui-bootstrap@^2.5.6:
 angular@>=1.0.8:
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.9.tgz#bc812932e18909038412d594a5990f4bb66c0619"
+
+angular@^1.2.17:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.2.tgz#687b955dbe5c533f8d73460461707af00360251f"
 
 angular@^1.6.8:
   version "1.6.8"
@@ -322,6 +334,24 @@ boom@5.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-5.2.0.tgz#5dd9da6ee3a5f302077436290cb717d3f4a54e02"
   dependencies:
     hoek "4.x.x"
+
+bootstrap-daterangepicker@^2.0.0:
+  version "2.1.30"
+  resolved "https://registry.yarnpkg.com/bootstrap-daterangepicker/-/bootstrap-daterangepicker-2.1.30.tgz#f893dbfff5a4d7dfaab75460e8ea6969bb89689a"
+  dependencies:
+    jquery ">=1.10"
+    moment "^2.9.0"
+
+bootstrap-daterangepicker@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/bootstrap-daterangepicker/-/bootstrap-daterangepicker-3.0.3.tgz#670c638dc124a15a95ddf0440af34d1acee7cffc"
+  dependencies:
+    jquery ">=1.10"
+    moment "^2.9.0"
+
+bootstrap@^3.0.0:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
 bootstrap@^4.0.0:
   version "4.0.0"
@@ -1884,6 +1914,13 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
+imports-loader@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/imports-loader/-/imports-loader-0.8.0.tgz#030ea51b8ca05977c40a3abfd9b4088fe0be9a69"
+  dependencies:
+    loader-utils "^1.0.2"
+    source-map "^0.6.1"
+
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
@@ -2131,7 +2168,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jquery@>=1.12.0:
+jquery@>=1.10, jquery@>=1.12.0, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
@@ -2558,6 +2595,10 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
 moment@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
+
+moment@^2.9.0:
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
 ms@0.7.1:
   version "0.7.1"

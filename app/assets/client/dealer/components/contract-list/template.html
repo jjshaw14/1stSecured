@@ -1,6 +1,6 @@
 <div class="row" ng-show='vm.me.user_type === "owner"'>
   <div class="col-lg-3 col-12">
-    <div class="card">
+    <div class="card hover-box-shadow" ng-click='vm.filter(null)'>
       <div class="d-flex">
         <div class="px-4 bg-light d-flex align-items-center border-right">
           <div class="px-3 text-danger text-size-7">
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="col-lg-3 col-12">
-    <div class="card">
+    <div class="card hover-box-shadow" ng-click='vm.filter(null)'>
       <div class="d-flex">
         <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
           <div class="px-3 text-success text-size-7">
@@ -39,7 +39,7 @@
   </div>
 
   <div class="col-lg-3 col-12">
-    <div class="card">
+    <div class="card hover-box-shadow" ng-class="{active: vm.externalFilter.filter === 'claimsThisMonth'}" ng-click='vm.filter("claimsThisMonth")'>
       <div class="d-flex">
         <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
           <div class="px-3 text-danger text-size-7">
@@ -58,7 +58,8 @@
   </div>
 
   <div class="col-lg-3 col-12">
-    <div class="card">
+    <div class="card hover-box-shadow" ng-class="{active: vm.externalFilter.filter ===
+      'feesThisMonth'}" ng-click='vm.filter("feesThisMonth")'>
       <div class="d-flex">
         <div class="px-4 bg-light d-flex align-items-center" style="border-right: 1px solid #eee">
           <div class="px-3 text-success text-size-7">
@@ -111,7 +112,7 @@
       <div class="card-body px-0 pb-0">
 
 
-        <contract-table dealership="vm.me.dealership"></contract-table>
+        <contract-table filter="vm.externalFilter" dealership="vm.me.dealership"></contract-table>
       </div>
     </div>
   </div>

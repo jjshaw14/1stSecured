@@ -4,6 +4,8 @@ json.dealership do
   json.id contract.dealership.id
   json.name contract.dealership.name
 end
+json.matured contract.matured
+json.lpr contract.lpr
 json.length_in_months_or_years contract.length_in_months_or_years
 json.contract_number contract.contract_number
 json.first_name contract.first_name

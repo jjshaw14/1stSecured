@@ -1,6 +1,19 @@
 class Contract < ApplicationRecord
   has_paper_trail meta: { contract_id: :id, dealership_id: :dealership_id }
+  include ActionView::Helpers::NumberHelper
   include Contractable
+  def maturity
+    purchased_on.present? ? Date.today - purchased_on : 0
+  end
+  def term
+    ( ( length_in_months || 0 )  / 12 ) * 365
+  end
+  def lpr
+    number_to_percentage(( ( term / (maturity === 0 ? 1 : maturity) ) * claims.without_deleted.sum(:cost_in_cents) ) / ( cost_in_cents || 1 ) * 100)
+  end
+  def matured
+    (( ( ( maturity / (term == 0 ? 1 : term) ) * ( cost_in_cents || 0  )) - claims.without_deleted.sum(:cost_in_cents)) / 100).to_f.round(2)
+  end
   class LprHelper
 
     @term = '((sum(length_in_months) / 12.0) * 365)'
@@ -54,14 +67,16 @@ class Contract < ApplicationRecord
     where('purchased_on > ? ', Date.today.at_beginning_of_month)
   }
   pg_search_scope :search_for, against: %i[first_name last_name make model year contract_number], using: { tsearch: { prefix: true } }
-
+  scope :with_claims_this_month, -> {
+    self.where(id: Contract.joins(:claims).where('claims.authorized_at > ?', Date.today.at_beginning_of_month).where(claims: {deleted_at: nil}).map(&:id))
+  }
   def self.loss_ratio
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
       .select("#{LprHelper.lpr} AS loss_ratio")[0].loss_ratio || '100.00'
   end
   def self.matured
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
-      .select("#{LprHelper.matured} AS matured")[0].matured
+      .select("#{LprHelper.matured} AS m")[0].m
   end
   def matures_on
     purchased_on ? (purchased_on + (length_in_months || 0).months ) : Date.today
