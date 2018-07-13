@@ -77,7 +77,7 @@ class Contract < ApplicationRecord
     self.where(id: Contract.joins(:claims).where('claims.authorized_at > ?', Date.today.at_beginning_of_month).where(claims: {deleted_at: nil}).map(&:id))
   }
   def self.performance
-    @performance ||= joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
+    joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
       .without_deleted
       .select("#{LprHelper.lpr} as loss_ratio,
               #{LprHelper.matured} as matured_with_claims,
