@@ -23,7 +23,7 @@ options='vm.datepickerOptions' placeholder='select a date range' />
         <th ng-hide="vm.dealership">Dealership</th>
         <th>Customer</th>
         <th>Cost</th>
-        <th>Earned</th>
+        <th ng-if='vm.user.user_type !== "employee"'>Earned</th>
         <th>Vehicle</th>
         <th></th>
       </tr>
@@ -43,7 +43,7 @@ options='vm.datepickerOptions' placeholder='select a date range' />
           </small> -->
         </td>
         <td class="rt-full">{{ contract.cost | currency }}</td>
-        <td class="rt-full">{{ contract.matured | currency }}</td>
+        <td class="rt-full" ng-if="vm.user.user_type !== 'employee'">{{ contract.matured | currency }}</td>
 
         <td class="rt-full">
           {{ contract.vin }} /

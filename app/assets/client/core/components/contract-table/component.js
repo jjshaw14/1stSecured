@@ -6,7 +6,8 @@ angular.module('firstsecured.core')
   template: require('./template.html'),
   bindings: {
     filter: '=?',
-    dealership: '=?'
+    dealership: '=?',
+    user: '=?'
   },
   controller: ['Contract', 'pageTitle', '$scope', function(Contract, pageTitle, $scope) {
     pageTitle.set('Contracts')
@@ -39,7 +40,6 @@ angular.module('firstsecured.core')
 
     vm.$onInit = () => {
       vm.search()
-
     }
 
     vm.deleteContract = (contract) => {
