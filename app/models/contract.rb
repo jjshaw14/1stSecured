@@ -78,6 +78,7 @@ class Contract < ApplicationRecord
   }
   def self.performance
     @performance ||= joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
+      .without_deleted
       .select("#{LprHelper.lpr} as loss_ratio,
               #{LprHelper.matured} as matured_with_claims,
               #{LprHelper.matured_without_claims} as matured_without_claims")[0]
