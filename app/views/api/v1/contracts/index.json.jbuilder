@@ -15,7 +15,7 @@ json.array! @contracts do |contract|
   json.year contract.year
   json.odometer contract.odometer
   json.purchased_on contract.purchased_on
-
+  json.matured contract.matured
   json.created_at contract.created_at
   json.updated_at contract.updated_at
 end

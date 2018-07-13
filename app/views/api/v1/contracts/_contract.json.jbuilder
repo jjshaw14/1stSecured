@@ -5,6 +5,8 @@ json.dealership do
   json.name contract.dealership.name
 end
 json.matured contract.matured
+json.maturity_without_claims contract.maturity_without_claims.to_f.round(2)
+
 json.lpr contract.lpr
 json.length_in_months_or_years contract.length_in_months_or_years
 json.contract_number contract.contract_number

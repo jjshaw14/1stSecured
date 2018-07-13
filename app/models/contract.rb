@@ -1,35 +1,41 @@
 class Contract < ApplicationRecord
   has_paper_trail meta: { contract_id: :id, dealership_id: :dealership_id }
-  include ActionView::Helpers::NumberHelper
-  include Contractable
-  def maturity
-    purchased_on.present? ? Date.today - purchased_on : 0
-  end
-  def term
-    ( ( length_in_months || 0 )  / 12 ) * 365
-  end
-  def lpr
-    number_to_percentage(( ( term / (maturity === 0 ? 1 : maturity) ) * claims.without_deleted.sum(:cost_in_cents) ) / ( cost_in_cents || 1 ) * 100)
-  end
-  def matured
-    (( ( ( maturity / (term == 0 ? 1 : term) ) * ( cost_in_cents || 0  )) - claims.without_deleted.sum(:cost_in_cents)) / 100).to_f.round(2)
-  end
-  class LprHelper
 
+  include Contractable
+
+  class LprHelper
     @term = '((sum(length_in_months) / 12.0) * 365)'
     @maturity = 'sum(current_date - purchased_on)'
     @claims = 'sum(coalesce(claims.cost_in_cents, 0))'
     @costs = '(sum(contracts.cost_in_cents))'
     class << self
       def lpr
-        "round( ( (#{@term} / #{safe(@maturity)} ) * #{@claims}) / #{safe(@costs)}, 4) * 100"
+        "round( ( #{term_over_maturity_with_cap} * #{@claims}) / #{safe(@costs)}, 4) * 100"
+      end
+      def maturity
+        "( #{maturity_over_term_with_cap} * #{@costs} / 100 )"
+      end
+      def matured_without_claims
+          "round(#{maturity}, 2)"
       end
       def matured
-          "round(( ( (#{@maturity} / #{@term} ) * #{@costs} / 100 ) - #{@claims} / 100), 2)"
+          "round(( #{maturity} - #{@claims} / 100), 2)"
       end
       private
       def safe method
         "(case #{method} when 0 then 1 else #{method} end)"
+      end
+      def maturity_over_term
+        " (#{@maturity} / #{@term}) "
+      end
+      def term_over_maturity
+        " (#{@term} / #{safe(@maturity)}) "
+      end
+      def maturity_over_term_with_cap
+        "(case when #{maturity_over_term} >= 1 then 1 else #{maturity_over_term} end)"
+      end
+      def term_over_maturity_with_cap
+        "(case when #{term_over_maturity} <= 1 then 1 else #{term_over_maturity} end)"
       end
     end
   end
@@ -70,6 +76,12 @@ class Contract < ApplicationRecord
   scope :with_claims_this_month, -> {
     self.where(id: Contract.joins(:claims).where('claims.authorized_at > ?', Date.today.at_beginning_of_month).where(claims: {deleted_at: nil}).map(&:id))
   }
+  def self.performance
+    @performance ||= joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
+      .select("#{LprHelper.lpr} as loss_ratio,
+              #{LprHelper.matured} as matured_with_claims,
+              #{LprHelper.matured_without_claims} as matured_without_claims")[0]
+  end
   def self.loss_ratio
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
       .select("#{LprHelper.lpr} AS loss_ratio")[0].loss_ratio || '100.00'
