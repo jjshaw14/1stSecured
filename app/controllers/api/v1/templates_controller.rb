@@ -94,12 +94,14 @@ module Api
               end
             end
             if package_params.key?(:addons)
-              package_params[:addons] = package_params[:addons].map do |addon_params|
+              package_params[:addons] = package_params[:addons].map.with_index do |addon_params, k|
                 addon_params[:amount] ||= 0
                 addon_params[:fee] ||= 0
                 addon_params[:cost_in_cents] = (addon_params.delete(:amount) * 100).to_i if addon_params.key?(:amount)
                 addon_params[:fee_in_cents] = (addon_params.delete(:fee) * 100).to_i if addon_params.key?(:fee)
-                Addon.find_or_initialize_by_params(addon_params)
+                Addon.find_or_initialize_by_params(addon_params).tap{|a|
+                  a.order = k
+                }
               end
             end
             Package.find_or_initialize_by_params(package_params).tap{|p|
