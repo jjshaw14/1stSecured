@@ -228,7 +228,7 @@
         <h5 style='text-align:center'>DEALERSHIP/PLACE OF PURCHASE</h5>
         <div class="row">
           <div class="column column-50"><span>Name</span> <%= contract.dealership.name %></div>
-          <div class="column column-50"><span>Representative</span> <%= contract.created_by.name %></div>
+          <div class="column column-50"><span>Representative</span> <%= contract.created_by.try(:name) %></div>
         </div>
         <div class="row">
           <div class="column column-50"><span>Address</span> <%= contract.dealership.address_lines %></div>
