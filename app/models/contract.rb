@@ -46,7 +46,7 @@ class Contract < ApplicationRecord
 
   belongs_to :dealership
   belongs_to :template
-  belongs_to :created_by, class_name: 'User'
+  belongs_to :created_by, -> {unscope(where: :deleted_at) }, class_name: 'User'
   belongs_to :submitted_by, class_name: 'User', optional: true
 
   has_many :contract_addons
