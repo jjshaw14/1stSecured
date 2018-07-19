@@ -144,12 +144,10 @@
         <div class="package-name">{{ package.name }}</div>
         <div class="coverage-and-addons">
           <label
-            ng-repeat="coverage in package.coverages"
-            ng-class="{ 'text-muted': !vm.packageSelected(package) }">
+            ng-repeat="coverage in package.coverages">
             <input
               type="radio"
               name="coverage"
-              ng-change="vm.uncheckAddons()"
               ng-model="vm.contract.coverage_id"
               ng-value="coverage.id" />
             <span ng-if='coverage.limit_in_miles'>
