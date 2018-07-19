@@ -34,7 +34,7 @@
                     <select class="form-control mr-1" ng-model="coverage.length_in_months" ng-options="option.value as option.label for option in vm.terms"></select>
                     <br/>
                     Miles
-                    <input class="form-control" ng-model="coverage.limit_in_miles" placeholder='100,000' /> 
+                    <input class="form-control" ng-model="coverage.limit_in_miles" placeholder='100,000' />
                     <br/>
                     Reserve Amount: <input class="form-control" ng-model="coverage.amount" placeholder='$1000 RESERVE AMOUNT'
                     ng-currency />
@@ -57,7 +57,10 @@
                     <input class="form-control mr-1" ng-model="addon.name" placeholder="Roadside Assitance" />
                     <input ng-currency class="form-control" ng-model="addon.amount" placeholder="$100 RESERVE AMOUNT" />
                     <input ng-currency class="form-control" ng-model="addon.fee" placeholder="$100 FEE" />
-                    <button type="button" class="btn btn-link" ng-click="vm.removeAddon(package, addon)"><i class="material-icons text-danger">delete</i></button>
+
+                    <span class='checkbox-inline'> Hide Numbers: <input
+                      class="form-control checkbox" type='checkbox' ng-model="addon.hide_numbers" /></span>
+                    <button type="button" class="btn btn-link" ng-click="vm.removeAddon(package,addon)"><i class="material-icons text-danger">delete</i></button>
                   </div>
                 </div>
                 <button ng-click="vm.addAddon(package)" type="button" class="btn btn-primary">+ Addon</button>

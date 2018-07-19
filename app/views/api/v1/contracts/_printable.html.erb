@@ -276,7 +276,7 @@
             <% end %>
             <% package.addons.sort_by{|a| a.order }.each do |addon| %>
               <div class="option <%= 'selected' if contract.addon_ids.include?(addon.id) %> column column-50">
-                <%= addon.name %> <%= ['=', "$" + format('%.2f', addon.cost_in_cents / 100)].join(' ') if addon.cost_in_cents.present? %>
+                <%= addon.name %> <%= ['=', "$" + format('%.2f', addon.cost_in_cents / 100)].join(' ') if addon.cost_in_cents.present? and !addon.hide_numbers %>
               </div>
             <% end %>
           </div>

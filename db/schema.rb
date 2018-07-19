@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180717174517) do
+ActiveRecord::Schema.define(version: 20180719154359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180717174517) do
     t.datetime "updated_at", null: false
     t.integer "fee_in_cents", default: 0
     t.integer "order"
+    t.boolean "hide_numbers"
     t.index ["package_id"], name: "index_addons_on_package_id"
   end
 
