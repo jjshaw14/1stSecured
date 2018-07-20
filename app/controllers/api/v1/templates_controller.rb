@@ -82,7 +82,6 @@ module Api
 
         if template_params.key?(:packages)
           template_params[:packages] = template_params[:packages].map.with_index do |package_params, i|
-            puts package_params[:hide_package]
             if package_params.key?(:coverages)
               package_params[:coverages] = package_params[:coverages].map.with_index do |coverage_params, k|
                 coverage_params[:amount] ||= 0
