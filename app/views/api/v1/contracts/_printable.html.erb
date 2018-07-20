@@ -256,7 +256,7 @@
       </li>
       <% contract.cached_template.packages.sort_by{|p| p.order}.each do |package| %>
         <li class="package">
-          <h4><%= package.name %> Package</h4>
+          <h4><%= package.name %><%= ' Package' if !package.hide_package %></h4>
 
           <div class="row options">
             <% package.coverages.sort_by{|c| c.order}.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>

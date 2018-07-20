@@ -22,6 +22,8 @@
           <div class="form-group">
             <label>Package {{ $index + 1 }} <a ng-click="vm.removePackage(package)" href class="text-danger">(remove)</a></label>
             <input class="form-control" ng-model="package.name" />
+            <label class='checkbox-inline'><input type='checkbox'
+              ng-model="package.hide_package"/>Hide Package from title</label>
           </div>
 
           <div class="form-group row">
