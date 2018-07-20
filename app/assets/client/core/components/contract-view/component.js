@@ -6,17 +6,21 @@ import _       from 'lodash'
 angular.module('firstsecured.core')
 .component('contractView', {
   template: require('./template.html'),
-  controller: ['Contract', '$window', '$location', '$routeParams', function(Contract, $window, $location, $routeParams) {
+  controller: ['Me', 'Contract', '$window', '$location', '$routeParams', function(Me, Contract, $window, $location, $routeParams) {
     var vm = this
     vm.view = 'changes'
     vm.$onInit = () => {
+      Me.get().then((me) => {
+        if (!me.dealership || me.user_type === 'owner') {
+          vm.canSeeStats = true
+        }
+      })
       Contract.find($routeParams.dealershipId, $routeParams.id).then((response) => {
         vm.contract = response.data
         if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(vm.contract.purchased_on)
         vm.refreshTimeline()
       })
     }
-
     vm.refreshTimeline = () => {
       vm.timeline = _.groupBy(vm.contract.history, 'request_id')
       vm.timeline = _.map(vm.timeline, (events) => {
