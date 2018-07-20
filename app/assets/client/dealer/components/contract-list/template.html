@@ -94,10 +94,10 @@
             class="btn btn-sm btn-primary pull-right "
             href="/contracts/new?template={{ vm.me.dealership.templates[0].id }}"
             ng-if="vm.me.dealership.templates.length === 1">
-            { vm.view === 'contracts' ?
+            {{ vm.view === 'contracts' ?
               'New Contract' :
               'Loss Ratio Breakdown';
-            }
+              }}
           </a>
 
           <div class="btn-group pull-right" uib-dropdown dropdown-append-to-body ng-if="vm.me.dealership.templates.length > 1">
