@@ -211,7 +211,7 @@
         <div class="row">
           <div class="column column-33"><span>Last Name</span> <%= contract.last_name %></div>
           <div class="column column-33"><span>First Name</span> <%= contract.first_name %></div>
-          <div class="column column-33"><span>Lien Holder</span> <%= contract.lien_holder %></div>
+
         </div>
         <div class="row">
           <div class="column column-50"><span>Address</span> <%= contract.address_lines %></div>
@@ -239,7 +239,7 @@
         </div>
         <div class="row">
           <div class="column column-50"><span>Phone</span> <%= number_to_phone contract.dealership.phone, area_code: true %></div>
-          <div class="column column-50"><span>Lien Holder</span> <%= '' %></div>
+          <div class="column column-50"><span>Lien Holder</span> <%= contract.lien_holder %></div>
         </div>
       </li>
       <li class="fields">
