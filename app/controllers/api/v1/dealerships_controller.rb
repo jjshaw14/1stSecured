@@ -36,7 +36,7 @@ module Api
       protected
 
       def dealership_params
-        params.permit(:name, :address1, :address2, :address3, :city, :state, :zip)
+        params.permit(:name, :address1, :address2, :address3, :city, :state, :zip, :phone)
       end
 
       def set_dealership

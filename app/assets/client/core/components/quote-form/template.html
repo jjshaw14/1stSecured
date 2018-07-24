@@ -95,6 +95,10 @@
       </div>
 
       <div class="form-group">
+        <label>Lien Holder</label>
+        <input class="form-control" ng-model="vm.contract.lien_holder" />
+      </div>
+      <div class="form-group">
         <label>Address</label>
         <input class="form-control mb-1" ng-class="{ 'is-invalid': vm.contract.errors.address1 }" ng-model="vm.contract.address1" placeholder="Line 1" />
         <input class="form-control mb-1" ng-class="{ 'is-invalid': vm.contract.errors.address2 }" ng-model="vm.contract.address2" placeholder="Line 2" />

@@ -209,8 +209,9 @@
       <li class="fields">
         <h5 style='text-align:center'>CUSTOMER INFORMATION</h5>
         <div class="row">
-          <div class="column column-50"><span>Last Name</span> <%= contract.last_name %></div>
-          <div class="column column-50"><span>First Name</span> <%= contract.first_name %></div>
+          <div class="column column-33"><span>Last Name</span> <%= contract.last_name %></div>
+          <div class="column column-33"><span>First Name</span> <%= contract.first_name %></div>
+          <div class="column column-33"><span>Lien Holder</span> <%= contract.lien_holder %></div>
         </div>
         <div class="row">
           <div class="column column-50"><span>Address</span> <%= contract.address_lines %></div>
@@ -262,7 +263,7 @@
             <% package.coverages.sort_by{|c| c.order}.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
-                  <div class="option column <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>">
+                  <div class="option <%= coverages.flatten.select(&:present?).count > 1 ? 'column' : '' %> <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>" style="<%= coverages.flatten.select(&:present?).count > 1 ? '' : 'margin-left:33%'%>">
                     <%= term_in_months_or_years coverage.length_in_months.months %><%=
                     raw(if coverage.limit_in_miles.blank?
                     ' / unlimited mileage service'

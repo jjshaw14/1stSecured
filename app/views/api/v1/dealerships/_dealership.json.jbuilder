@@ -7,7 +7,7 @@ json.address3 dealership.address3
 json.city dealership.city
 json.state dealership.state
 json.zip dealership.zip
-
+json.phone dealership.phone
 json.performance { json.partial! 'performance', locals: { dealership: dealership } }
 
 json.templates dealership.templates.where(deleted_at: nil), partial: 'api/v1/templates/template', as: :template

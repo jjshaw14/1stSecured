@@ -15,6 +15,7 @@
                 <tr>
                   <th>Name</th>
                   <th>Address</th>
+                  <th>Phone</th>
                   <th></th>
                 </tr>
               </thead>
@@ -22,6 +23,7 @@
                 <tr ng-repeat="dealership in vm.dealerships">
                   <td>{{ dealership.name }}</td>
                   <td>{{ dealership | address }}</td>
+                  <td>{{ dealership.phone }}</td>
                   <td>
                     <a href="/dealerships/{{ dealership.id }}">View</a>
                     <a href="#" ng-confirm-click='do you really want to delete this dealership?' confirmed-click="vm.deleteDealership(dealership)">Delete</a>
