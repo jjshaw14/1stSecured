@@ -1,4 +1,4 @@
-json.array! @contracts.with_claims_cost do |contract|
+json.array! @contracts do |contract|
   json.id contract.id
 
   json.dealership do

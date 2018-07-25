@@ -17,13 +17,7 @@ module Contractable
   end
 
   def matured
-    begin
-      claims = claims_cost_in_cents
-    rescue
-      claims = claims.without_deleted.sum(:cost_in_cents)
-    end
-
-    ((maturity_without_claims - claims / 100)).to_f.round(2)
+    ((maturity_without_claims - claims.without_deleted.sum(:cost_in_cents) / 100)).to_f.round(2)
   end
   def maturity_without_claims
     (maturity_over_term * ( cost_in_cents || 0  ) / 100)
