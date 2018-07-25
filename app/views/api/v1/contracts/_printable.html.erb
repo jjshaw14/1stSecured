@@ -238,7 +238,7 @@
           <div class="column column-10"><span>Zip</span> <%= contract.dealership.zip %></div>
         </div>
         <div class="row">
-          <div class="column column-50"><span>Phone</span> <%= number_to_phone contract.dealership.phone, area_code: true %></div>
+          <div class="column column-50"><span>Phone</span> <%= number_to_phone(contract.dealership.phone, area_code: true) %></div>
           <div class="column column-50"><span>Lien Holder</span> <%= contract.lien_holder %></div>
         </div>
       </li>

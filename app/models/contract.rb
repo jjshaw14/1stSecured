@@ -76,6 +76,11 @@ class Contract < ApplicationRecord
   scope :with_claims_this_month, -> {
     self.where(id: Contract.joins(:claims).where('claims.authorized_at > ?', Date.today.at_beginning_of_month).where(claims: {deleted_at: nil}).map(&:id))
   }
+  scope :with_claims_cost, -> {
+    joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
+      .select('contracts.*, coalesce(sum(claims.cost_in_cents), 0) as claims_cost_in_cents')
+      .group('contracts.id')
+  }
   def self.performance
     joins('left outer join claims on claims.contract_id = contracts.id and claims.deleted_at is null')
       .without_deleted

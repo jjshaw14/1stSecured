@@ -71,6 +71,8 @@ module Api
 
       def dummy_contract
         @contract ||= Contract.new(template: @template, dealership: Dealership.new, created_by: User.new)
+
+
       end
 
       def set_template

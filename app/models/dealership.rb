@@ -20,4 +20,9 @@ class Dealership < ApplicationRecord
   scope :available_to, -> (user) {
     user.dealership_id ? where(id: user.dealership_id) : all
   }
+  before_save :format_phone_number
+  private
+  def format_phone_number
+    phone = phone &.gsub(/[^\d]/, '')
+  end
 end

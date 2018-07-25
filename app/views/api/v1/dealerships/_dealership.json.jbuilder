@@ -12,6 +12,6 @@ json.performance { json.partial! 'performance', locals: { dealership: dealership
 
 json.templates dealership.templates.where(deleted_at: nil), partial: 'api/v1/templates/template', as: :template
 json.users dealership.users, partial: 'api/v1/users/user', as: :user
-
+json.phone_number number_to_phone(dealership.phone, area_code: true)
 json.created_at dealership.created_at
 json.updated_at dealership.updated_at
