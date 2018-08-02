@@ -13,7 +13,7 @@ module Contractable
     ( ( length_in_months || 0 )  / 12 ) * 365
   end
   def lpr
-    number_to_percentage(( ( term / (maturity === 0 ? 1 : maturity) ) * claims.without_deleted.sum(:cost_in_cents) ) / ( cost_in_cents || 1 ) * 100)
+    number_to_percentage(( ( term / (maturity === 0 ? 1 : maturity) ) * claims.without_deleted.sum(:cost_in_cents) ) / ( cost_in_cents && cost_in_cents != 0 ?  cost_in_cents :  1 ) * 100)
   end
 
   def matured
