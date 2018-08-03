@@ -13,6 +13,7 @@ angular.module('firstsecured.core')
 
       Template.find($routeParams.template).then((response) => {
         vm.contract.template = response.data
+        vm.contract.contract_number = vm.contract.template.dealership.next_contract_number;
         Me.get().then((me) =>  me.dealership  && me.dealership.id !== vm.dealership.id  && $location.path('/'))
       })
     }
