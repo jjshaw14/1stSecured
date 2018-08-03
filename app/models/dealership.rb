@@ -22,11 +22,10 @@ class Dealership < ApplicationRecord
   }
   before_save :format_phone_number
   def next_contract_number
-    contract_number = contract_preface + '-' + ('10' + contracts.count.to_s)
+    contract_number = contract_preface + '-' + (1000 + contracts.count).to_s
   end
   private
   def format_phone_number
     phone = phone &.gsub(/[^\d]/, '')
   end
-
 end

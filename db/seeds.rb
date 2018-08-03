@@ -1,4 +1,7 @@
-User.create!(first_name: 'Kevin', last_name: 'Primm', email: 'kfprimm@gmail.com', password: 'Password123')
+u = User.find_or_initialize_by(first_name: 'Kevin', last_name: 'Primm', email: 'kfprimm@gmail.com')
+u.password = 'Password123'
+u.password_confirmation = 'Password123'
+u.save
 
 PaperTrail.whodunnit = User.first.id
 
@@ -6,55 +9,64 @@ def new_request
   PaperTrail.controller_info = { request_id: SecureRandom.uuid, request_ip: '127.0.0.1' }
 end
 
-new_request!
-Fee.create!(length_in_months: 1, cost_in_cents: 2500)
+new_request
+Fee.find_or_create_by(length_in_months: 1)
 
 new_request
-Fee.create!(length_in_months: 3, cost_in_cents: 2500)
+Fee.find_or_create_by(length_in_months: 3)
 
 new_request
-Fee.create!(length_in_months: 6, cost_in_cents: 5000)
+Fee.find_or_create_by(length_in_months: 6)
 
 (1..3).each do |i|
   new_request
-  Fee.create!(length_in_months: i * 12, cost_in_cents: 12_500)
+  Fee.find_or_create_by(length_in_months: i * 12)
 end
 
 (4..5).each do |i|
   new_request
-  Fee.create!(length_in_months: i * 12, cost_in_cents: 15_000)
+  Fee.find_or_create_by(length_in_months: i * 12)
 end
 
 new_request
-Fee.create!(length_in_months: 6 * 12, cost_in_cents: 15_000)
+Fee.find_or_create_by(length_in_months: 6 * 12)
 
 new_request
-User.create!(first_name: 'Micah', last_name: 'Robinson', email: 'micah@fsadealer.com', password: 'Password123')
+a = User.find_or_create_by(first_name: 'Micah', last_name: 'Robinson', email: 'micah@fsadealer.com')
+a.password = 'Password123'
+a.password_confirmation = 'Password123'
+a.save
 
 new_request
-User.create!(first_name: 'Trevor', last_name: 'Roberts', email: 'trevor@fsadealer.com', password: 'Password123')
+b = User.find_or_create_by(first_name: 'Trevor', last_name: 'Roberts', email: 'trevor@fsadealer.com')
+b.password = 'Password123'
+b.password_confirmation = 'Password123'
+b.save
 
 new_request
-User.create!(first_name: 'JJ', last_name: 'Shaw', email: 'jj@makingnoyze.com', password: 'Password123')
+c = User.find_or_create_by(first_name: 'JJ', last_name: 'Shaw', email: 'jj@makingnoyze.com')
+c.password = 'Password123'
+c.password_confirmation = 'Password123'
+c.save
 
 new_request
-Dealership.create!(name: 'Investment Auto 1', address1: '82 North Main Street', city: 'Centerville', state: 'UT', zip: '84014', phone: '801-797-9157')
+Dealership.find_or_create_by(name: 'Investment Auto 1', address1: '82 North Main Street', city: 'Centerville', state: 'UT', zip: '84014', phone: '801-797-9157')
 
 new_request
-Dealership.create!(name: 'Investment Auto 2', address1: '1100 South Main Street', city: 'Brigham City', state: 'UT', zip: '84302', phone: '435-695-CARS')
+Dealership.find_or_create_by(name: 'Investment Auto 2', address1: '1100 South Main Street', city: 'Brigham City', state: 'UT', zip: '84302', phone: '435-695-CARS')
 
 new_request
-Dealership.create!(name: 'John Doe Subaru', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
+Dealership.find_or_create_by(name: 'John Doe Subaru', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220', phone: '8045558855')
 
 new_request
-ServiceProvider.create!(name: '456 Body Shop', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
+ServiceProvider.find_or_create_by(name: '456 Body Shop', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
 
 new_request
-ServiceProvider.create!(name: 'XYZ Auto Glass', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
+ServiceProvider.find_or_create_by(name: 'XYZ Auto Glass', address1: '123 Broad St.', city: 'Richmond', state: 'VA', zip: '23220')
 
 # rubocop:disable Layout/EmptyLinesAroundArguments
 new_request
-Template.create!(
+Template.create(
   dealership: Dealership.last,
   name: 'Standard',
   packages: [
@@ -128,7 +140,7 @@ new_request
 package  = Template.first.packages.second
 coverage = package.coverages.first
 
-Contract.create!(
+Contract.create(
   dealership: Template.first.dealership,
   template: Template.first,
   created_by: User.first,
@@ -197,6 +209,6 @@ CSV.foreach(
   if row[:claims].present?
     new_request
 
-    contract.claims.create! odometer: contract.odometer + 1000 + Random.new.rand(10_000), cost_in_cents: row[:claims].to_s.gsub(/[$,]/, '').to_f * 100
+    contract.claims.create odometer: contract.odometer + 1000 + Random.new.rand(10_000), cost_in_cents: row[:claims].to_s.gsub(/[$,]/, '').to_f * 100
   end
 end

@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180801194843) do
   create_table "addons", force: :cascade do |t|
     t.bigint "package_id"
     t.string "name"
-    t.integer "cost_in_cents"
+    t.bigint "cost_in_cents"
     t.integer "price_in_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20180801194843) do
     t.bigint "package_id"
     t.integer "length_in_months"
     t.integer "limit_in_miles"
-    t.integer "cost_in_cents"
+    t.bigint "cost_in_cents"
     t.text "caveat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
