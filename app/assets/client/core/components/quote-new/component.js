@@ -10,12 +10,14 @@ angular.module('firstsecured.core')
 
     vm.$onInit = () => {
       vm.contract = {}
-
       Template.find($routeParams.template).then((response) => {
         vm.contract.template = response.data
+        vm.contract.contract_number = vm.contract.template.dealership.contract_number;
+        console.log(vm.contract.template.dealership)
         Me.get().then((me) =>  me.dealership  && me.dealership.id !== vm.dealership.id  && $location.path('/'))
       })
     }
+
 
     vm.onSave = (resp) => {
       console.log(resp)
