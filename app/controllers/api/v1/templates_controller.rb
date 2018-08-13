@@ -80,7 +80,7 @@ module Api
       end
 
       def template_params
-        template_params = params.permit(:terms, :name, :dealership_id, packages: [:id, :hide_package, :name, :terms, coverages: %i[id length_in_months limit_in_miles caveat amount fee up_to ], addons: %i[id name amount fee, hide_numbers]])
+        template_params = params.permit(:terms, :name, :dealership_id, packages: [:id, :hide_package, :name, :terms, coverages: %i[id length_in_months limit_in_miles caveat amount fee up_to ], addons: %i[id name amount fee hide_numbers]])
 
         if template_params.key?(:packages)
           template_params[:packages] = template_params[:packages].map.with_index do |package_params, i|
