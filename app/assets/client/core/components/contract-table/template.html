@@ -30,8 +30,8 @@ options='vm.datepickerOptions' placeholder='select a date range' />
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="contract in vm.contracts">
-        <td class="rt-header">{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
+      <tr ng-repeat="contract in vm.contracts" ng-click="vm.selectRows(contract, $index, $event)" ng-class="{'table-yellow':vm.selectedRows[$index] == contract}">
+        <td class="rt-header">{{i}}{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
         <td class="rt-full" ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
 
         <td class="rt-full">

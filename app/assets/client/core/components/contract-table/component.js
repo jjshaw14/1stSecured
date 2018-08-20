@@ -1,6 +1,8 @@
 import angular from 'angular'
 import toastr from 'toastr'
 import moment from 'moment'
+import range from 'lodash'
+
 angular.module('firstsecured.core')
 .component('contractTable', {
   template: require('./template.html'),
@@ -9,7 +11,7 @@ angular.module('firstsecured.core')
     dealership: '=?',
     user: '=?'
   },
-  controller: ['Contract', 'pageTitle', '$scope', function(Contract, pageTitle, $scope) {
+  controller: ['Contract', 'pageTitle', '$scope', 'Me', function(Contract, pageTitle, $scope, Me) {
     pageTitle.set('Contracts')
     var vm = this
     $scope.$on('filterChanged', (filter) => {
@@ -37,11 +39,55 @@ angular.module('firstsecured.core')
       endDate: null
     }
     vm.searchText = ''
-
     vm.$onInit = () => {
       vm.search()
     }
+    Me.get().then((me) => vm.admin = me.dealership ? false   : true)
+    vm.selectedRows = {}
+    vm.lastAdded = ''
+    vm.selectRows = (contract, $index, $event) => {
+      if (vm.admin) {
 
+        if ($event.shiftKey === true) {
+          if (vm.selectedRows === {}) {
+            vm.selectedRows[$index] = contract
+            vm.lastAdded = $index
+            console.log('****')
+            console.log(vm.lastAdded)
+          } else {
+            // let max = Math.max(...Object.keys(vm.selectedRows));
+            console.log('&&&&&&&')
+            console.log(vm.lastAdded)
+            // (vm.lastAdded < $index ? vm.lastAdded : $index ), (vm.lastAdded < $index ? $index + 1 : vm.lastAdded + 1)
+            Object.assign(vm.selectedRows, _.range(vm.lastAdded, $index).map(ind => ({ [ind]: vm.contracts[ind] })))
+            console.log(_.range(vm.lastAdded, $index))
+          }
+          console.log('shift click')
+          console.log(vm.selectedRows)
+        }
+        else if ($event.ctrlKey === true) {
+          console.log('control click')
+          if (vm.selectedRows[$index] === contract) {
+            delete vm.selectedRows[$index]
+          } else {
+            vm.selectedRows[$index] = contract
+            vm.lastAdded = $index
+            console.log('****')
+            console.log(vm.lastAdded)
+          }
+          console.log(vm.selectedRows)
+        }
+        else {
+          console.log('regular click')
+          vm.selectedRows = {}
+          vm.selectedRows[$index] = contract
+          vm.lastAdded = $index
+          console.log('****')
+          console.log(vm.lastAdded)
+          console.log(vm.selectedRows)
+        }
+      }
+    }
     vm.deleteContract = (contract) => {
       Contract.destroy(contract).then(ret => {
         vm.contracts = vm.contracts.filter(dealership => dealership.id !== ret.data.id)
