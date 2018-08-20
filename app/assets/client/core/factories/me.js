@@ -1,5 +1,5 @@
 import angular from 'angular'
-
+import Promise from 'promise-polyfill'
 let memo
 
 angular.module('firstsecured.core')
