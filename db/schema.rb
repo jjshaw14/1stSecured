@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180801194843) do
+ActiveRecord::Schema.define(version: 20180820230036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20180801194843) do
     t.string "location"
     t.text "issue"
     t.string "attachment"
+    t.string "authorization_number"
     t.index ["contract_id"], name: "index_claims_on_contract_id"
     t.index ["provider_id"], name: "index_claims_on_provider_id"
   end
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 20180801194843) do
     t.integer "updated_odometer"
     t.string "contract_number"
     t.string "lien_holder"
+    t.boolean "paid", default: false
     t.index ["coverage_id"], name: "index_contracts_on_coverage_id"
     t.index ["created_by_id"], name: "index_contracts_on_created_by_id"
     t.index ["dealership_id"], name: "index_contracts_on_dealership_id"

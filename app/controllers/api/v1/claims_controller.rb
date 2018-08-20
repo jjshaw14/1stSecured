@@ -42,7 +42,7 @@ module Api
       end
       private
       def claim_params
-        claim_params = params.permit(:attachment, :odometer, :cost, :shop_name, :shop_phone, :shop_address, :shop_rep, :shop_notes, :authorized_at, :repaired_at, :notes, :can_it_be_safely_moved, :location, :issue, contract: [:id ]).tap{|claims_params|
+        claim_params = params.permit(:authorization_number, :attachment, :odometer, :cost, :shop_name, :shop_phone, :shop_address, :shop_rep, :shop_notes, :authorized_at, :repaired_at, :notes, :can_it_be_safely_moved, :location, :issue, contract: [:id ]).tap{|claims_params|
           claims_params[:cost] ||= 0 if claims_params[:cost]
           claims_params[:cost_in_cents] = (claims_params.delete(:cost) * 100).to_i if claims_params[:cost]
           claims_params[:contract] = Contract.find(claims_params[:contract][:id]) if claims_params[:contract]
