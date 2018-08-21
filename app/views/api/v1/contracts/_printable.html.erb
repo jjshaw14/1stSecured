@@ -261,10 +261,10 @@
 
           <div class="row options">
             <% package.coverages.sort_by{|c| c.order}.in_groups_of(package.coverage_caveats? ? 1 : 2).each do |coverages| %>
+              <% center_align = package.coverages.count == 1 && package.addons.count == 0 %>
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
-                  <% puts coverages.flatten.select(&:present?) %>
-                  <div class="option <%= package.coverages.count > 1 ? 'column' : '' %> <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>" style="<%= package.coverages.count > 1 ? '' : 'margin-left:33%'%>">
+                  <div class="option <%= center_align ? '' : 'column' %> <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>" style="<%=  center_align ? 'margin-left:33%;' : '' %>">
                     <%= term_in_months_or_years coverage.length_in_months.months %><%=
                     raw(if coverage.limit_in_miles.blank?
                     ' / unlimited mileage service'
