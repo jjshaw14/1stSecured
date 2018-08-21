@@ -13,6 +13,16 @@ options='vm.datepickerOptions' placeholder='select a date range' />
           ng-model='vm.unsigned'
           type='checkbox'>
         Only Unsigned Contracts</label>
+              <label
+        style='float:right;'
+        class='checkbox-inline'
+        ng-if='vm.admin'>
+        <input
+          ng-if='vm.admin'
+          ng-change='vm.search()'
+          ng-model='vm.unpaid'
+          type='checkbox'>
+        Only Unpaid Contracts</label>
     </form>
     <span><strong>Contract count:</strong> {{vm.contracts.length}}</span>
   </div>
@@ -27,6 +37,8 @@ options='vm.datepickerOptions' placeholder='select a date range' />
         <th ng-if='vm.user.user_type !== "employee"'>Earned</th>
         <th>Vehicle</th>
         <th></th>
+        <button style='float:right;' ng-if='vm.admin' ng-click="vm.savePaid()">Mark Paid</button>
+        <button style='float:right;' ng-if='vm.admin' ng-click="vm.clearSelected()">Clear Selected</button>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +46,7 @@ options='vm.datepickerOptions' placeholder='select a date range' />
         ng-repeat="contract in vm.contracts"
         ng-click="vm.selectRows($event, {contract: contract, ind: $index})"
         ng-class="{'table-yellow': vm.contractSelected(contract) }">
-        <td class="rt-header">{{i}}{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
+        <td class="rt-header">{{ contract.purchased_on | date:'MM/dd/yyyy' }}</td>
         <td class="rt-full" ng-hide="vm.dealership">{{ contract.dealership.name }}</td>
 
         <td class="rt-full">

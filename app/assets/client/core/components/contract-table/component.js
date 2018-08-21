@@ -70,6 +70,10 @@ angular.module('firstsecured.core')
         vm.lastSelected = clicked
       }
     }
+
+    vm.clearSelected = () => {
+      vm.selected = []
+    }
     vm.deleteContract = (contract) => {
       Contract.destroy(contract).then(ret => {
         vm.contracts = vm.contracts.filter(dealership => dealership.id !== ret.data.id)
@@ -77,7 +81,7 @@ angular.module('firstsecured.core')
       })
     }
     vm.search = () => {
-      Contract.all({ startDate: vm.date.startDate, endDate: vm.date.endDate, q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned, filter: (vm.filter ? vm.filter.filter : null )}).then((response) => {
+      Contract.all({ startDate: vm.date.startDate, endDate: vm.date.endDate, q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned, paid: vm.unpaid, filter: (vm.filter ? vm.filter.filter : null )}).then((response) => {
         vm.contracts = response.data
       })
     }
@@ -86,7 +90,10 @@ angular.module('firstsecured.core')
     }
 
     vm.savePaid = () => {
-    // Contract.updateSaved(vm.selected.map(selected => selected.contract.id))
+      Contract.updatePaid(vm.selected.map(selected => selected.contract.id)).then(ret => {
+        toastr.success('successfully marked as paid')
+        vm.search()
+      })
     }
   }]
 })

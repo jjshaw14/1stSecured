@@ -33,6 +33,7 @@ json.address3 contract.address3
 json.city contract.city
 json.state contract.state
 json.zip contract.zip
+json.paid contract.paid
 
 json.signed_copy "/api/v1/contracts/#{contract.id}/attachment.pdf" if contract.signed_copy.file.present?
 json.coverage_id contract.coverage_id
