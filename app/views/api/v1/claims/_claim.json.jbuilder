@@ -8,6 +8,7 @@ json.contract do
   json.year claim.contract.year
   json.purchased_on claim.contract.purchased_on
 end
+json.authorization_number claim.authorization_number
 json.cost claim.cost
 json.odometer claim.odometer
 json.shop_name claim.shop_name

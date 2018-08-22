@@ -37,8 +37,15 @@ options='vm.datepickerOptions' placeholder='select a date range' />
         <th ng-if='vm.user.user_type !== "employee"'>Earned</th>
         <th>Vehicle</th>
         <th></th>
-        <button style='float:right;' ng-if='vm.admin' ng-click="vm.savePaid()">Mark Paid</button>
-        <button style='float:right;' ng-if='vm.admin' ng-click="vm.clearSelected()">Clear Selected</button>
+        <div class="btn-group pull-right" ng-if='vm.admin && vm.selected.length' uib-dropdown dropdown-append-to-body>
+          <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+            Mark Paid<span class="caret"></span>
+          </button>
+            <div class="dropdown-menu" uib-dropdown-menu role="menu">
+              <p class='dropdown-item' ng-click="vm.savePaid()">Mark Paid</button>
+              <p class='dropdown-item' ng-click="vm.clearSelected()">Clear Selected</button>
+            </div>
+        </div>
       </tr>
     </thead>
     <tbody>
