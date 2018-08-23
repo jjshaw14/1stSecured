@@ -33,7 +33,7 @@
               <li><strong>Stock Number: </strong>{{ vm.contract.stock_number }}</li>
               <li><strong>Year/Make/Model: </strong>{{ vm.contract.year }} {{ vm.contract.make }} {{ vm.contract.model }}</li>
               <li><strong>Vin: </strong>{{ vm.contract.vin }}</li>
-              <li><strong>{{vm.contract.paid  ? 'Paid' : 'Unpaid' }}</strong></li>
+              <li ng-if='vm.canSeeStats'><strong>{{vm.contract.paid  ? 'Admin Fee Paid' : 'Admin Fee Unpaid' }}</strong></li>
             </ul>
           </div>
         </div>

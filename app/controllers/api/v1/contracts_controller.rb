@@ -81,11 +81,9 @@ module Api
 
       def mark_paid
         if current_user.admin?
-          params[:_json].each do |contract|
-            Contract.find(contract).update(paid: true)
-          end
+          Contract.where(id: params[:ids]).update_all(paid: ActiveModel::Type::Boolean.new.cast(params[:paid]))
         else
-          render params[:_json], status: 422
+          render params[:ids], status: 422
         end
       end
 

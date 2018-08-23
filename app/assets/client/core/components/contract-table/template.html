@@ -42,7 +42,8 @@ options='vm.datepickerOptions' placeholder='select a date range' />
             Mark Paid<span class="caret"></span>
           </button>
             <div class="dropdown-menu" uib-dropdown-menu role="menu">
-              <p class='dropdown-item' ng-click="vm.savePaid()">Mark Paid</button>
+              <p class='dropdown-item' ng-click="vm.savePaid(true)">Mark Paid</button>
+              <p class='dropdown-item' ng-click="vm.savePaid(false)">Mark Unpaid</button>
               <p class='dropdown-item' ng-click="vm.clearSelected()">Clear Selected</button>
             </div>
         </div>

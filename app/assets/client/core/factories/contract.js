@@ -67,8 +67,8 @@ angular.module('firstsecured.core')
       return (attrs.id ? Contract.update : Contract.create)(dealership, attrs)
     },
 
-    updatePaid: function(data) {
-      return API.post('contracts/mark_paid', data)
+    updatePaid: function(ids, paid) {
+      return API.post('contracts/mark_paid', Object.assign({}, { ids, paid }))
     }
   }
 
