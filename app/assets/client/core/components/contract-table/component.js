@@ -90,7 +90,7 @@ angular.module('firstsecured.core')
     }
 
     vm.savePaid = () => {
-      Contract.updatePaid(vm.selected.map(selected => selected.contract.id)).then(ret => {
+      Contract.updatePaid(vm.selected.map(selected => selected.contract.id)).then(() => {
         toastr.success('successfully marked as paid')
         vm.search()
       })

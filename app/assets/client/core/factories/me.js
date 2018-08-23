@@ -6,11 +6,11 @@ angular.module('firstsecured.core')
   var Me = {
     get: function() {
       return $q((resolve, reject) => {
-      memo ? resolve(memo) : API.get('me').then((response) => {
-        memo = response.data
-        resolve(response.data)
-      }, function(response) {
-           reject(response)
+        memo ? resolve(memo) : API.get('me').then((response) => {
+          memo = response.data
+          resolve(response.data)
+        }, function(response) {
+          reject(response)
         })
       })
     },
