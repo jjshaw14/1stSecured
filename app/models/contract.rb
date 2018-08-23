@@ -139,11 +139,21 @@ class Contract < ApplicationRecord
       json_template['addons'] = template.packages.flat_map(&:addons)
     }.to_json
 
-    self.limit_in_miles = coverage.limit_in_miles
-    self.length_in_months = coverage.length_in_months
-    self.up_to = coverage.up_to
-    self.fee_in_cents = coverage.fee_in_cents + addons.reload.sum('fee_in_cents')
-    self.cost_in_cents = coverage.cost_in_cents + addons.reload.sum('cost_in_cents')
+    if coverage.present?
+      self.limit_in_miles = coverage.limit_in_miles
+      self.length_in_months = coverage.length_in_months
+      self.up_to = coverage.up_to
+      fee = coverage.fee_in_cents
+      cost = coverage.cost_in_cents
+    else
+      self.limit_in_miles = 0
+      self.length_in_months = 0
+      self.up_to = false
+      fee = 0.00
+      cost = 0.00
+    end
+    self.fee_in_cents = fee + addons.reload.sum('fee_in_cents')
+    self.cost_in_cents = cost + addons.reload.sum('cost_in_cents')
   end
 
   def miles_matured_on
