@@ -1,6 +1,8 @@
 import angular from 'angular'
 import toastr from 'toastr'
 import moment from 'moment'
+import range from 'lodash/range'
+
 angular.module('firstsecured.core')
 .component('contractTable', {
   template: require('./template.html'),
@@ -9,7 +11,7 @@ angular.module('firstsecured.core')
     dealership: '=?',
     user: '=?'
   },
-  controller: ['Contract', 'pageTitle', '$scope', function(Contract, pageTitle, $scope) {
+  controller: ['Contract', 'pageTitle', '$scope', 'Me', function(Contract, pageTitle, $scope, Me) {
     pageTitle.set('Contracts')
     var vm = this
     $scope.$on('filterChanged', (filter) => {
@@ -37,11 +39,41 @@ angular.module('firstsecured.core')
       endDate: null
     }
     vm.searchText = ''
-
     vm.$onInit = () => {
       vm.search()
     }
+    Me.get().then((me) =>  { vm.admin = me.dealership ? false   : true })
+    vm.selected = []
+    vm.lastSelected
+    vm.selectRows = ($event, clicked) => {
+      if (vm.admin) {
+        if ($event.shiftKey) {
+          if (!vm.lastSelected) {
+            vm.selected = [clicked]
+          } else {
+            range(vm.lastSelected.ind, vm.lastSelected.ind < clicked.ind ? clicked.ind + 1 : clicked.ind - 1)
+              .filter(ind => !vm.selected.some(selected => selected.ind === ind))
+              .forEach(ind =>
+                vm.selected.push({
+                  contract: vm.contracts[ind],
+                  ind
+                }))
+          }
+        }
+        else {
+          if (vm.selected.some(selected => selected.contract.id === clicked.contract.id)) {
+            vm.selected = vm.selected.filter((selected) => selected.contract.id !== clicked.contract.id)
+          } else {
+            vm.selected.push(clicked)
+          }
+        }
+        vm.lastSelected = clicked
+      }
+    }
 
+    vm.clearSelected = () => {
+      vm.selected = []
+    }
     vm.deleteContract = (contract) => {
       Contract.destroy(contract).then(ret => {
         vm.contracts = vm.contracts.filter(dealership => dealership.id !== ret.data.id)
@@ -49,8 +81,18 @@ angular.module('firstsecured.core')
       })
     }
     vm.search = () => {
-      Contract.all({ startDate: vm.date.startDate, endDate: vm.date.endDate, q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned, filter: (vm.filter ? vm.filter.filter : null )}).then((response) => {
+      Contract.all({ startDate: vm.date.startDate, endDate: vm.date.endDate, q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned, paid: vm.unpaid, filter: (vm.filter ? vm.filter.filter : null )}).then((response) => {
         vm.contracts = response.data
+      })
+    }
+    vm.contractSelected = (contract) => {
+      return vm.selected.some(selected => selected.contract.id === contract.id)
+    }
+
+    vm.savePaid = () => {
+      Contract.updatePaid(vm.selected.map(selected => selected.contract.id)).then(ret => {
+        toastr.success('successfully marked as paid')
+        vm.search()
       })
     }
   }]

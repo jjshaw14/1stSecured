@@ -1,7 +1,7 @@
 module Api
   module V1
     class ContractsController < BaseController
-      before_action :set_contract, except: %i[index create]
+      before_action :set_contract, except: %i[index create mark_paid]
 
       def index
         @contracts = Contract.available_to(current_user).where(deleted_at: nil).includes(:dealership)
@@ -33,6 +33,9 @@ module Api
         end
         if params[:unsigned].present? and ActiveModel::Type::Boolean.new.cast(params[:unsigned]) === true
           @contracts = @contracts.where(signed_copy: nil)
+        end
+        if params[:paid].present? and ActiveModel::Type::Boolean.new.cast(params[:paid]) === true
+          @contracts = @contracts.where(paid: false)
         end
         @contracts = @contracts.order(purchased_on: :desc)
       end
@@ -73,6 +76,16 @@ module Api
           render 'show'
         else
           render json: { errors: @contract.errors }, status: 422
+        end
+      end
+
+      def mark_paid
+        if current_user.admin?
+          params[:_json].each do |contract|
+            Contract.find(contract).update(paid: true)
+          end
+        else
+          render params[:_json], status: 422
         end
       end
 

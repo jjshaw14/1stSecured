@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
 
       resources :contracts do
+        post :mark_paid, on: :collection
         resource :attachment, only: :show
       end
       resources :documents do
