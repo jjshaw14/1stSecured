@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180820230036) do
+ActiveRecord::Schema.define(version: 20180824182914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180820230036) do
   create_table "addons", force: :cascade do |t|
     t.bigint "package_id"
     t.string "name"
-    t.bigint "cost_in_cents"
+    t.integer "cost_in_cents"
     t.integer "price_in_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20180820230036) do
     t.bigint "package_id"
     t.integer "length_in_months"
     t.integer "limit_in_miles"
-    t.bigint "cost_in_cents"
+    t.integer "cost_in_cents"
     t.text "caveat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 20180820230036) do
     t.integer "fee_in_cents", default: 0
     t.boolean "up_to", default: false
     t.index ["package_id"], name: "index_coverages_on_package_id"
+  end
+
+  create_table "dealership_timelapsed_data_points", force: :cascade do |t|
+    t.integer "data_type"
+    t.integer "value"
+    t.integer "month"
+    t.integer "year"
+    t.integer "week"
+    t.bigint "dealership_id"
+    t.datetime "run_at"
+    t.index ["dealership_id"], name: "index_dealership_timelapsed_data_points_on_dealership_id"
   end
 
   create_table "dealerships", force: :cascade do |t|
@@ -236,5 +247,6 @@ ActiveRecord::Schema.define(version: 20180820230036) do
     t.index ["user_id"], name: "index_versions_on_user_id"
   end
 
+  add_foreign_key "dealership_timelapsed_data_points", "dealerships"
   add_foreign_key "documents", "dealerships"
 end
