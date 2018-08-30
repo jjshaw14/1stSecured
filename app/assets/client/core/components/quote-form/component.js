@@ -16,7 +16,7 @@ angular.module('firstsecured.core')
     var vm = this
     vm.view = 'contracts'
     Me.get().then((me) => {
-      Document.all({dealership: {id: $routeParams.dealership }}).then((response) => {
+      Document.all({dealership: {id: me.dealership ? me.dealership.id : $routeParams.dealership }}).then((response) => {
         vm.documents = response.data
       })
     })
