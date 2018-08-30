@@ -16,13 +16,9 @@ angular.module('firstsecured.core')
     var vm = this
     vm.view = 'contracts'
     Me.get().then((me) => {
-      if (me.dealership) {
-        vm.documents = me.dealership.documents || []
-      } else {
-        Document.all({dealership: {id: $routeParams.dealership }}).then((response) => {
-          vm.documents = response.data
-        })
-      }
+      Document.all({dealership: {id: $routeParams.dealership }}).then((response) => {
+        vm.documents = response.data
+      })
     })
     vm.documentIframeSrc = (url) => {
       return 'http://docs.google.com/gview?embedded=true&url='.concat(url)
