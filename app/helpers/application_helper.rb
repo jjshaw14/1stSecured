@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def term_in_months_or_years(term)
-    distance_of_time_in_words(term).gsub(/(almost|about)\s+/, '')
+    term > 18 ? "#{term / 12} years" : "#{term} months"
   end
 
   def cents_to_dollars(cents)

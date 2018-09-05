@@ -44,7 +44,7 @@
 
     <div class="card">
       <div class="card-body">
-        <p>{{ vm.contract.package.name }} Package - {{vm.contract.length_in_months_or_years}}</p>
+        <p>{{ vm.contract.package.name }} Package - {{ vm.contract.length_in_months | termInMonthsOrYears }}</p>
         <p>Cost: {{ vm.contract.cost | currency }}</p>
         <p ng-if="vm.canSeeStats">Matured: {{ vm.contract.maturity_without_claims | currency }}</p>
         <p ng-if="vm.canSeeStats">Net Profit: {{ vm.contract.matured | currency   }}</p>

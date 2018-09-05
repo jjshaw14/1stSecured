@@ -82,7 +82,10 @@ angular.module('firstsecured.core')
     }
     vm.search = () => {
       Contract.all({ startDate: vm.date.startDate, endDate: vm.date.endDate, q: vm.searchText, dealership: vm.dealership, unsigned: vm.unsigned, paid: vm.unpaid, filter: (vm.filter ? vm.filter.filter : null )}).then((response) => {
-        vm.contracts = response.data
+        vm.contracts = response.data.map((contract) => {
+          if (contract.purchased_on) contract.purchased_on = new Date(contract.purchased_on)
+          return contract
+        })
       })
     }
     vm.contractSelected = (contract) => {

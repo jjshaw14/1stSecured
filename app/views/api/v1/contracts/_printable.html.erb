@@ -196,7 +196,7 @@
       </div>
       <div class="column column-66">
         <h3>Service Contract</h3>
-        <p style='font-size:15px;'>Date:<span class='underlined' style='padding:3px;'> <%= contract.purchased_on ? contract.purchased_on.strftime('%m/%d/%Y') : '' %></span>  Contract #<span style='padding:3px' class='underlined'>  <%=  contract.contract_number   %></span></p>
+        <p style='font-size:15px;'>Date:<span class='underlined' style='padding:3px;'> <%= contract.purchased_on ? (contract.purchased_on - 1.day).strftime('%m/%d/%Y') : '' %></span>  Contract #<span style='padding:3px' class='underlined'>  <%=  contract.contract_number   %></span></p>
       </div>
     </div>
   </header>
@@ -265,7 +265,7 @@
               <div class="row">
                 <% coverages.compact.each do |coverage| %>
                   <div class="option <%= center_align ? '' : 'column' %> <%= 'selected' if coverage.id == contract.coverage_id %> <%= 'column-50' unless package.coverage_caveats? %>" style="<%=  center_align ? 'margin-left:33%;' : '' %>">
-                    <%= term_in_months_or_years coverage.length_in_months.months %><%=
+                    <%= term_in_months_or_years coverage.length_in_months %><%=
                     raw(if coverage.limit_in_miles.blank?
                     ' / unlimited mileage service'
                     else
