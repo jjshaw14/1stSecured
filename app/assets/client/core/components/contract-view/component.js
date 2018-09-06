@@ -29,7 +29,6 @@ angular.module('firstsecured.core')
         topLevelEvent.events = events
         return topLevelEvent
       })
-      console.log(vm.timeline)
     }
 
     vm.uploadFile = (data) => {

@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def term_in_months_or_years(term)
-    term > 18 ? "#{term / 12} years" : "#{term} months"
+    (term >= 12 && term != 18) ? "#{term / 12} years" : "#{term} months"
   end
 
   def cents_to_dollars(cents)
