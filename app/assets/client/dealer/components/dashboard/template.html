@@ -1,0 +1,88 @@
+<div class="row">
+
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header">
+        <div style='display:inline-block;float:right'>
+        <h4>Total In Reserve</h4>
+        <h2><strong> {{ (vm.me.dealership.performance.costs - vm.me.dealership.performance.claims -
+            vm.me.dealership.performance.fees) / 100 | currency }}</strong></h2>
+        </div>
+      </div>
+      <div class="card-body px-0 pb-0">
+        <canvas id="amount-in-reserve" class="chart chart-line" > </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body px-0 pb-0">
+          <canvas id="profit-pie" class="chart chart-pie" > </canvas>
+          <div class='row' style='margin:5px'>
+            <div style='width:50%;height:100%' >
+              <div style='text-align:center;padding-bottom:5px;margin-right:5px;border-bottom:1px solid rgba(0, 0, 0, 0.125)'><b>Total Maturity</b>
+              <br />
+              {{ vm.me.dealership.performance.matured_without_claims | currency }}</div>
+            </div>
+            <div style='width:50%;height:100%'>
+              <div style='margin-left:5px;padding-bottom:5px;height:100%;text-align:center;border-bottom:1px solid rgba(0, 0, 0, 0.125)'><b>Total Claims</b>
+              <br />
+              {{ vm.me.dealership.performance.claims / 100 | currency }}</div>
+            </div>
+          </div>
+          <div class='row' style='margin:5px;'>
+            <div style='width:50%'>
+
+              <div style='text-align:center'><b>Loss Ratio</b>
+              <br />
+              {{ vm.me.dealership.performance.loss_ratio + '%' }}</div>
+            </div>
+            <div style='width:50%'>
+              <div style='text-align:center'><b>Loss Ratio</b>
+              <br />
+              {{ vm.me.dealership.performance.matured | currency }}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='row'>
+
+  <div class="col-4">
+    <div class="card text-white" style='background-color:#BC202E'>
+      <div class="card-header">
+        <h5 style='float:left'>New Contracts This Month</h5>
+        <br />
+        <h1> {{ vm.dashboard.contracts_this_month }} </h1>
+      </div>
+      <div class="card-body px-0 pb-0">
+          <canvas id="contract-bar" class="chart chart-bar" > </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card text-white" style='background-color:#BC202E'>
+      <div class="card-header">
+        <h5 style='float:left'>New Claims This Month</h5>
+        <br />
+        <h1> {{ vm.me.dealership.performance.claims_this_month / 100 | currency }} </h1>
+      </div>
+      <div class="card-body px-0 pb-0">
+
+          <canvas id="claim-bar" class="chart claim-bar" > </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card text-white" style='background-color:#BC202E'>
+      <div class="card-header">
+        <h5 style='float:left'>New Fees This Month</h5>
+        <br />
+        <h1> {{ vm.me.dealership.performance.fees_this_month / 100 | currency }} </h1>
+      </div>
+    </div>
+  </div>
+
+</div>

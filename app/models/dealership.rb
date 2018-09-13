@@ -8,6 +8,7 @@ class Dealership < ApplicationRecord
   has_many :claims, through: :contracts
   has_many :templates
   has_many :users
+  has_many :timelapsed_data_points
 
   validates :name, presence: true
   validates :address1, presence: true

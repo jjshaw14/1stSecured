@@ -27,6 +27,10 @@ angular.module('firstsecured.dealer')
       ]
       if (me.user_type === 'owner') {
         vm.menu = vm.menu.concat([{
+          'path': '/dashboard',
+          'label': 'Dashboard',
+          'icon': {'class': 'material-icons', 'content': 'people'}
+        }, {
           'path': '/users',
           'label': 'Users',
           'icon': { 'class': 'material-icons', 'content': 'people' }

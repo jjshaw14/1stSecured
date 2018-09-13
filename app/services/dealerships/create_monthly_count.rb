@@ -4,7 +4,7 @@ class Dealerships::CreateMonthlyCount
     @month = month
     @year = year
     @data_type = data_type
-    @mc = DealershipTimelapsedDataPoint.find_or_initialize_by(
+    @mc = TimelapsedDataPoint.find_or_initialize_by(
       dealership: dealership,
       data_type: data_type,
       month: month,

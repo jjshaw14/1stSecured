@@ -1,4 +1,4 @@
-class DealershipTimelapsedDataPoint < ApplicationRecord
+class TimelapsedDataPoint < ApplicationRecord
 
   belongs_to :dealership
   enum data_type: {

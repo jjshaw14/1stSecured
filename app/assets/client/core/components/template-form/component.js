@@ -15,7 +15,7 @@ angular.module('firstsecured.core')
       Fee.all().then((response) => {
         vm.terms = _.map(response.data, (fee) => {
           let months = fee.length_in_months
-          if (months >= 12 && months != 18) {
+          if (months >= 12 && months !== 18) {
             return { label: `${Math.floor(months / 12)} years`, value: months }
           }
           return { label: `${months} months`, value: months }

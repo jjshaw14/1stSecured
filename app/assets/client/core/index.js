@@ -1,10 +1,11 @@
 import './vendor'
 import './stylesheets/simplify.scss'
-
+import 'chart.js'
+import 'angular-chart.js'
 import angular from 'angular'
 import dropdown from 'angular-ui-bootstrap/src/dropdown'
 
-var app = angular.module('firstsecured.core', [dropdown, 'checklist-model', 'simplemde', 'ngRoute', 'ng-currency', '720kb.datepicker', 'daterangepicker'])
+var app = angular.module('firstsecured.core', [dropdown, 'chart.js', 'checklist-model', 'simplemde', 'ngRoute', 'ng-currency', '720kb.datepicker', 'daterangepicker'])
 
 var cmpnt = app.component
 app.component = function (name, options) {

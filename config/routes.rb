@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :dealerships
+      resources :dealerships do
+        member do
+          get :dashboard, to: 'dashboards#index'
+        end
+      end
 
       resources :templates do
         post :preview, action: :preview, on: :collection
@@ -51,6 +55,7 @@ Rails.application.routes.draw do
     get 'contracts/:id'
     get 'contracts/:contract_id/claims/new'
     get 'dealerships/:dealership_id/documents/new'
+    get '/dashboard'
     get '/claims/:id/edit'
     get 'templates/new'
     get 'templates/:id/edit'

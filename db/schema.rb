@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824182914) do
+ActiveRecord::Schema.define(version: 20180912201826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,17 +125,6 @@ ActiveRecord::Schema.define(version: 20180824182914) do
     t.index ["package_id"], name: "index_coverages_on_package_id"
   end
 
-  create_table "dealership_timelapsed_data_points", force: :cascade do |t|
-    t.integer "data_type"
-    t.integer "value"
-    t.integer "month"
-    t.integer "year"
-    t.integer "week"
-    t.bigint "dealership_id"
-    t.datetime "run_at"
-    t.index ["dealership_id"], name: "index_dealership_timelapsed_data_points_on_dealership_id"
-  end
-
   create_table "dealerships", force: :cascade do |t|
     t.string "name"
     t.string "address1"
@@ -199,6 +188,17 @@ ActiveRecord::Schema.define(version: 20180824182914) do
     t.index ["dealership_id"], name: "index_templates_on_dealership_id"
   end
 
+  create_table "timelapsed_data_points", force: :cascade do |t|
+    t.integer "data_type"
+    t.integer "value"
+    t.integer "month"
+    t.integer "year"
+    t.integer "week"
+    t.bigint "dealership_id"
+    t.datetime "run_at"
+    t.index ["dealership_id"], name: "index_timelapsed_data_points_on_dealership_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "dealership_id"
     t.string "first_name"
@@ -247,6 +247,6 @@ ActiveRecord::Schema.define(version: 20180824182914) do
     t.index ["user_id"], name: "index_versions_on_user_id"
   end
 
-  add_foreign_key "dealership_timelapsed_data_points", "dealerships"
   add_foreign_key "documents", "dealerships"
+  add_foreign_key "timelapsed_data_points", "dealerships"
 end
