@@ -2,7 +2,7 @@
   "name": "FirstSecured",
   "private": true,
   "scripts": {
-    "webpack": "./node_modules/webpack/bin/webpack --config ./webpack.config.js --watch",
+    "webpack": "./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --watch",
     "postinstall": "webpack"
   },
   "dependencies": {

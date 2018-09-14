@@ -11,7 +11,7 @@ angular.module('firstsecured.dealer')
         new ChartJs.Chart(document.getElementById(id).getContext('2d'), { // eslint-disable-line
         type: 'bar',
         data: {
-          labels: labels,
+          labels,
           datasets: [{
             data: data,
             backgroundColor: 'white'
@@ -41,6 +41,7 @@ angular.module('firstsecured.dealer')
             datasets: [{
               data: vm.dashboard.reserves.map(reserve => reserve.value / 100),
               backgroundColor: '#bc202e',
+              pointRadius: 0,
               fill: true
             }]
 
@@ -53,10 +54,11 @@ angular.module('firstsecured.dealer')
         new ChartJs.Chart(document.getElementById('profit-pie').getContext('2d'), { // eslint-disable-line
           type: 'doughnut',
           data: {
+            labels: ['Claims', 'Net Profit'],
             datasets: [{
               data: [
                 vm.me.dealership.performance.claims / 100,
-                parseFloat(vm.me.dealership.performance.matured_without_claims)
+                parseFloat(vm.me.dealership.performance.matured)
               ],
               backgroundColor: ['#DE9196', '#CA4E56' ]
             }]
