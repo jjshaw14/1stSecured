@@ -34,7 +34,14 @@ angular.module('firstsecured.dealer')
           type: 'line',
           options: {
             scales: {
-              yAxes: [{ gridLines: { color: 'rgba(0,0,0,0)'  }}] }
+              yAxes: [{
+                ticks: {
+                  callback: (value) =>
+                    value.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
+                },
+                gridLines: { color: 'rgba(0,0,0,0)'  }
+              }]
+            }
           },
           data: {
             labels: vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM YY')),
@@ -53,6 +60,14 @@ angular.module('firstsecured.dealer')
 
         new ChartJs.Chart(document.getElementById('profit-pie').getContext('2d'), { // eslint-disable-line
           type: 'doughnut',
+          options: {
+            tooltips: {
+              callbacks: {
+                label: (tooltip, data) =>
+                  data.labels[tooltip.index] + ': ' + data.datasets[tooltip.datasetIndex].data[tooltip.index].toLocaleString('en-US', {style: 'currency', currency: 'USD'})
+              }
+            }
+          },
           data: {
             labels: ['Claims', 'Net Profit'],
             datasets: [{
@@ -64,10 +79,6 @@ angular.module('firstsecured.dealer')
             }]
           }
         })
-
-
-        console.log(vm.me)
-        console.log(results.data)
       })
     })
   }]
