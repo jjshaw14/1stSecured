@@ -37,7 +37,7 @@ angular.module('firstsecured.dealer')
               yAxes: [{ gridLines: { color: 'rgba(0,0,0,0)'  }}] }
           },
           data: {
-            labels: vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM Do YY')),
+            labels: vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM YY')),
             datasets: [{
               data: vm.dashboard.reserves.map(reserve => reserve.value / 100),
               backgroundColor: '#bc202e',

@@ -30,7 +30,7 @@ angular.module('firstsecured.core')
 
       Contract.find(vm.dealership, $routeParams.id).then((response) => {
         vm.contract = response.data
-        if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(moment.utc(vm.contract.purchased_on))
+        if (vm.contract.purchased_on) vm.contract.purchased_on = moment(vm.contract.purchased_on).toDate()
       })
     }
 

@@ -2,7 +2,7 @@ require('./style.scss')
 
 import angular from 'angular'
 import _       from 'lodash'
-
+import moment from 'moment'
 angular.module('firstsecured.core')
 .component('contractView', {
   template: require('./template.html'),
@@ -17,7 +17,7 @@ angular.module('firstsecured.core')
       })
       Contract.find($routeParams.dealershipId, $routeParams.id).then((response) => {
         vm.contract = response.data
-        if (vm.contract.purchased_on) vm.contract.purchased_on = new Date(vm.contract.purchased_on)
+        if (vm.contract.purchased_on) vm.contract.purchased_on = moment(vm.contract.purchased_on).toDate()
         vm.refreshTimeline()
       })
     }
