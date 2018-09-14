@@ -12,9 +12,9 @@ class Dealerships::CreateRecordForAmountInReserve
     save
   end
   def calculate_amount_in_reserve
-    claims = @dealership.claims.where('authorized_at < ?', @date).sum(:cost_in_cents)
-    fees = @dealership.contracts.where('purchased_on < ?', @date).sum(:fee_in_cents)
-    cost = @dealership.contracts.where('purchased_on < ?', @date).sum(:cost_in_cents)
+    claims = @dealership.claims.without_deleted.where('authorized_at < ?', @date).sum(:cost_in_cents)
+    fees = @dealership.contracts.without_deleted.where('purchased_on < ?', @date).sum(:fee_in_cents)
+    cost = @dealership.contracts.without_deleted.where('purchased_on < ?', @date).sum(:cost_in_cents)
     @data_point.data_type = :reserves
     @data_point.value = cost - fees - claims
   end

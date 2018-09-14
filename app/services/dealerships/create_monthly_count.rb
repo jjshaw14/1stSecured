@@ -19,7 +19,9 @@ class Dealerships::CreateMonthlyCount
   def set_values
     @mc.value = @dealership
       .send(@data_type)
+      .without_deleted
       .where("extract(month from #{@column}) = ? and extract(year from #{@column}) = ?", @month, @year).count
+
     @mc.run_at = Date.today
   end
   def save
