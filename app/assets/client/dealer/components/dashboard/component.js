@@ -29,7 +29,11 @@ angular.module('firstsecured.dealer')
     Me.get().then((me) => {
       vm.me = me
       Dashboard.find(me.dealership.id).then(results => {
+
         vm.dashboard = results.data
+
+        var unfilteredLabels = vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM YYYY'))
+        console.log(unfilteredLabels)
         new ChartJs.Chart(document.getElementById('amount-in-reserve').getContext('2d'), { // eslint-disable-line
           type: 'line',
           options: {
@@ -44,7 +48,8 @@ angular.module('firstsecured.dealer')
             }
           },
           data: {
-            labels: vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM YY')),
+            labels: unfilteredLabels.reduce((acc, v) =>
+              acc.push(acc.includes(v) ? '' : v) && acc, []),
             datasets: [{
               data: vm.dashboard.reserves.map(reserve => reserve.value / 100),
               backgroundColor: '#bc202e',
