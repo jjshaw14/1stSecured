@@ -14,6 +14,18 @@
           </div>
         </div>
       </div>
+      <div class="mb-1 px-5" style="height: 30px float: none;">
+        <a class="btn btn-sm btn-primary" href="/contracts/new?template={{
+          vm.dealership.templates[0].id }}&dealership={{vm.dealership.id}}" ng-if="vm.dealership.templates.length === 1" style="margin: 15px auto 0 auto;">New Contract</a>
+          <div class="btn-group" uib-dropdown dropdown-append-to-body ng-if="vm.dealership.templates.length > 1" style="margin: 15px auto 0 auto;">
+            <button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>New Contract<span class="caret"></span></button>
+            <div class="dropdown-menu" uib-dropdown-menu role="menu">
+              <a href="/contracts/new?template={{ template.id }}&dealership={{vm.dealership.id}}" class="dropdown-item" ng-repeat="template ivm.dealership.templates">
+                    {{ template.name }}
+              </a>
+            </div>
+          </div>
+      </div>
       <div class="sidebar-nav-container">
         <ul class="list-nav sidebar-nav list-nav-dark list-nav-dark-info">
           <li ng-repeat="item in vm.menu" ng-class="{ 'list-nav-group-title': item.isLabel, 'list-nav-item': !item.isLabel }">

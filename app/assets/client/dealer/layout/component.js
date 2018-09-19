@@ -10,6 +10,7 @@ angular.module('firstsecured.dealer')
 
     Me.get().then((me) => {
       vm.me = me
+      vm.dealership = me.dealership
       vm.sidebarCollapsed = false
       vm.menu = [
         {

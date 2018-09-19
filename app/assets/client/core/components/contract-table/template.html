@@ -74,10 +74,10 @@ options='vm.datepickerOptions' placeholder='select a date range' />
           {{ contract.year }} {{ contract.make }} {{ contract.model }}
         </td>
         <td class="rt-full text-right">
-          <a href="/contracts/{{ contract.id }}">View</a> |
-          <a href="/contracts/{{ contract.id }}/edit?dealership={{vm.dealership.id}}">Edit</a> |
-          <a href="#" ng-confirm-click='do you really want to delete this contract?' confirmed-click="vm.deleteContract(contract)">Delete</a> |
-          <a target="_blank" href="/api/v1/contracts/{{ contract.id }}.pdf">Print</a>
+          <a href="/contracts/{{ contract.id }}"><i class="fa fa-search-plus" aria-hidden="true" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View"></i></a> |
+          <a href="/contracts/{{ contract.id }}/edit?dealership={{vm.dealership.id}}"><i class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></a> |
+          <a href="#" ng-confirm-click='do you really want to delete this contract?' confirmed-click="vm.deleteContract(contract)"><i class="fa fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a> |
+          <a target="_blank" href="/api/v1/contracts/{{ contract.id }}.pdf"><i class="fa fa-print" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Print"></i></a>
 
         </td>
       </tr>

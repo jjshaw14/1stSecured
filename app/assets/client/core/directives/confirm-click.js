@@ -7,7 +7,9 @@ angular.module('firstsecured.core')
         var msg = attr.ngConfirmClick || 'Are you sure?'
         var clickAction = attr.confirmedClick
         element.bind('click', function () {
+          /*eslint-disable */
           if ( window.confirm(msg) ) {
+          /*eslint-enable */
             scope.$eval(clickAction)
           }
         })
