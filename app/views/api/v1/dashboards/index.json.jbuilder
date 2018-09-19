@@ -14,4 +14,4 @@ json.reserves @dealership
   .reserves
   .select(:run_at, :value).order(:run_at)
 
-json.contracts_this_month @dealership.contracts.this_month.count
+json.contracts_this_month @dealership.contracts.without_deleted.this_month.count
