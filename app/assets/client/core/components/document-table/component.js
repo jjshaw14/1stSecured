@@ -13,6 +13,10 @@ angular.module('firstsecured.core')
     var vm = this
     Me.get().then((me) => {
       vm.isAdmin = !me.dealership
+      if (me.dealership) {
+        vm.dealership = me.dealership
+        vm.search()
+      }
     })
     vm.searchText = ''
 
