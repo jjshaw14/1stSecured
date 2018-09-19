@@ -33,23 +33,28 @@ angular.module('firstsecured.dealer')
         vm.dashboard = results.data
 
         var unfilteredLabels = vm.dashboard.reserves.map(reserve => moment(reserve.run_at).format('MMM YYYY'))
-        console.log(unfilteredLabels)
+        var labels = unfilteredLabels.reduce((acc, v) => acc.push(acc.includes(v) ? '' : v) && acc, [])
+        console.log(labels)
         new ChartJs.Chart(document.getElementById('amount-in-reserve').getContext('2d'), { // eslint-disable-line
           type: 'line',
           options: {
             scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false
+                },
+                gridLines: { color: 'rgba(0,0,0,0)'  }
+              }],
               yAxes: [{
                 ticks: {
                   callback: (value) =>
                     value.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
-                },
-                gridLines: { color: 'rgba(0,0,0,0)'  }
+                }
               }]
             }
           },
           data: {
-            labels: unfilteredLabels.reduce((acc, v) =>
-              acc.push(acc.includes(v) ? '' : v) && acc, []),
+            labels,
             datasets: [{
               data: vm.dashboard.reserves.map(reserve => reserve.value / 100),
               backgroundColor: '#bc202e',
